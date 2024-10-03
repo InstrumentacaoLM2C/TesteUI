@@ -51,15 +51,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnLigarHorizontal = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.button7 = new System.Windows.Forms.Button();
             this.btnSensorVertical = new System.Windows.Forms.Button();
             this.btnDirecaoVerticalBaixo = new System.Windows.Forms.RadioButton();
             this.btnDireicaoVerticalCima = new System.Windows.Forms.RadioButton();
-            this.btnLigarVertical = new System.Windows.Forms.Button();
             this.TextBox = new System.Windows.Forms.RichTextBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.btnEnergizarHorizontal = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.btnLigarVertical = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.panelSideMenu.SuspendLayout();
             this.panelPortsSubmenu.SuspendLayout();
@@ -291,7 +291,7 @@
             this.btnEnergizarVertical.Name = "btnEnergizarVertical";
             this.btnEnergizarVertical.Size = new System.Drawing.Size(165, 60);
             this.btnEnergizarVertical.TabIndex = 9;
-            this.btnEnergizarVertical.Text = "Desenergizado";
+            this.btnEnergizarVertical.Text = "Desenergizado ooo";
             this.btnEnergizarVertical.UseVisualStyleBackColor = false;
             this.btnEnergizarVertical.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -374,21 +374,6 @@
             this.panel2.TabIndex = 2;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
-            // button7
-            // 
-            this.button7.BackColor = System.Drawing.Color.Red;
-            this.button7.Cursor = System.Windows.Forms.Cursors.Default;
-            this.button7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(0, 456);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(616, 95);
-            this.button7.TabIndex = 24;
-            this.button7.Text = "Parar";
-            this.button7.UseVisualStyleBackColor = false;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
-            // 
             // btnSensorVertical
             // 
             this.btnSensorVertical.BackColor = System.Drawing.Color.DarkGray;
@@ -425,19 +410,6 @@
             this.btnDireicaoVerticalCima.Text = "Cima";
             this.btnDireicaoVerticalCima.UseVisualStyleBackColor = true;
             this.btnDireicaoVerticalCima.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
-            // 
-            // btnLigarVertical
-            // 
-            this.btnLigarVertical.BackColor = System.Drawing.Color.DarkGray;
-            this.btnLigarVertical.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLigarVertical.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLigarVertical.Location = new System.Drawing.Point(73, 360);
-            this.btnLigarVertical.Name = "btnLigarVertical";
-            this.btnLigarVertical.Size = new System.Drawing.Size(240, 60);
-            this.btnLigarVertical.TabIndex = 19;
-            this.btnLigarVertical.Text = "Ligar";
-            this.btnLigarVertical.UseVisualStyleBackColor = false;
-            this.btnLigarVertical.Click += new System.EventHandler(this.btnLigarVertical_Click);
             // 
             // TextBox
             // 
@@ -477,6 +449,34 @@
             this.btnEnergizarHorizontal.Text = "Desenergizado";
             this.btnEnergizarHorizontal.UseVisualStyleBackColor = false;
             this.btnEnergizarHorizontal.Click += new System.EventHandler(this.btnMotorHorizontal_Click);
+            // 
+            // button7
+            // 
+            this.button7.BackColor = System.Drawing.Color.Red;
+            this.button7.Cursor = System.Windows.Forms.Cursors.Default;
+            this.button7.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button7.Location = new System.Drawing.Point(0, 456);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(616, 95);
+            this.button7.TabIndex = 24;
+            this.button7.Text = "Parar";
+            this.button7.UseVisualStyleBackColor = false;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // btnLigarVertical
+            // 
+            this.btnLigarVertical.BackColor = System.Drawing.Color.DarkGray;
+            this.btnLigarVertical.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLigarVertical.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLigarVertical.Location = new System.Drawing.Point(73, 360);
+            this.btnLigarVertical.Name = "btnLigarVertical";
+            this.btnLigarVertical.Size = new System.Drawing.Size(240, 60);
+            this.btnLigarVertical.TabIndex = 19;
+            this.btnLigarVertical.Text = "Ligar";
+            this.btnLigarVertical.UseVisualStyleBackColor = false;
+            this.btnLigarVertical.Click += new System.EventHandler(this.btnLigarVertical_Click);
             // 
             // serialPort1
             // 
