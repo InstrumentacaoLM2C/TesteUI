@@ -26,12 +26,20 @@ namespace TesteUI
         bool motorVertical = true;
         bool ligarMotor_vertical = false;
         bool ligarMotor_horizontal = false;
+        float distancia_mm1;
+        float distancia_mm2;
+        float velocidade_mm1;
+        float velocidade_mm2;
+        double distancia_pulsos1;
+        double distancia_pulsos2;
+        double velocidade_pulsos1;
+        double velocidade_pulsos2;
         string distancia = "0";  // posição
         string velocidade = "0";  // velocidade
         string direcao = "0";  // direção
         int motor = 1; // Armazena qual motor está sendo utilizado
-        double constanteCalibracao2 = 0.0002222;
-        double constanteCalibracao1 = 0.0002222;  //A constante de calibração default dos motores que representa a velocidade de aceleração de 2500pulsos/s
+        double constanteCalibracao2 = 1;
+        double constanteCalibracao1 = 1;  //A constante de calibração default dos motores que representa a velocidade de aceleração de 2500pulsos/s
 
         public Form1()
         {
@@ -218,10 +226,17 @@ namespace TesteUI
                 btnEnergizarVertical.SendToBack();
                 btnLigarVertical.SendToBack();
                 btnSensorVertical.SendToBack();
+
                 btnDireicaoVerticalCima.Visible = false;
                 btnDirecaoVerticalBaixo.Visible = false;
                 btnDirecaoHorizontalBaixo.Visible = true;
                 btnDirecaoHorizontalCima.Visible = true;
+
+                label6.Visible = false;
+                label8.Visible = false;
+                label7.Visible = true;
+                label9.Visible = true;
+                
                 btnMotor.Text = "Motor Horizontal";
                 motorVertical = false;
                 btnDireicaoVerticalCima.Text = " ";
@@ -231,7 +246,8 @@ namespace TesteUI
             }
             else
             {
-               serialPort1.Write("R#");
+                
+                serialPort1.Write("R#");
                 btnEnergizarHorizontal.SendToBack();
                 btnLigarHorizontal.SendToBack();
                 btnSensorHorizontal.SendToBack();
@@ -239,6 +255,12 @@ namespace TesteUI
                 btnDirecaoVerticalBaixo.Visible = true;
                 btnDirecaoHorizontalBaixo.Visible = false;
                 btnDirecaoHorizontalCima.Visible = false;
+
+                label7.Visible = false;
+                label9.Visible = false;
+                label6.Visible = true;
+                label8.Visible = true;
+
                 btnMotor.Text = "Motor Vertical";
                 motorVertical = true;
                 btnDireicaoVerticalCima.Text = "Cima";
@@ -363,7 +385,7 @@ namespace TesteUI
                 {
                     distancia = richTextBox1.Text;
                     velocidade = richTextBox2.Text;
-                    serialPort1.Write("T" + distancia + ";" + velocidade + ";" + direcao + ";H#");
+                    serialPort1.Write("T" + distancia_pulsos2 + ";" + velocidade_pulsos2 + ";" + direcao + ";H#");
                     if (ligarMotor_horizontal)
                     {
                         serialPort1.Write("n#");
@@ -532,7 +554,7 @@ namespace TesteUI
                 {
                     distancia = richTextBox1.Text;
                     velocidade = richTextBox2.Text;
-                    serialPort1.Write("T" + distancia + ";" + velocidade + ";" + direcao + ";H#");
+                    serialPort1.Write("T" + distancia_pulsos1 + ";" + velocidade_pulsos1 + ";" + direcao + ";H#");
                     if (ligarMotor_vertical) { 
 
                         serialPort1.Write("n#");
@@ -572,14 +594,38 @@ namespace TesteUI
                 // Send calibration constant to arduino
                 if (motorVertical)
                 {
+                   
+                    distancia_mm1 = float.Parse(richTextBox1.Text);
+                    velocidade_mm1 = float.Parse(richTextBox2.Text);
                     constanteCalibracao1 = double.Parse(richTextBox4.Text, CultureInfo.InvariantCulture);
+                 
+
+                    distancia_pulsos1 = Math.Truncate(distancia_mm1 / constanteCalibracao1);
+                    velocidade_pulsos1 = Math.Truncate(velocidade_mm1 / constanteCalibracao1);
+
                     button1.Text = "Constante de Calibração: " + constanteCalibracao1;
+                    label7.Text = "Qtd. Pulsos: " + distancia_pulsos1.ToString();
+                    label9.Text = "Pulsos/s: " + velocidade_pulsos1.ToString();
+
+                  
                 }
-                else
+                else if (!motorVertical)
                 {
+                    
+                    
+                    distancia_mm2 = float.Parse(richTextBox1.Text);
+                    velocidade_mm2 = float.Parse(richTextBox2.Text);
                     constanteCalibracao2 = double.Parse(richTextBox4.Text, CultureInfo.InvariantCulture);
+
+                    distancia_pulsos2 = Math.Truncate(distancia_mm2 / constanteCalibracao2);
+                    velocidade_pulsos2 = Math.Truncate(velocidade_mm1 / constanteCalibracao2);
+
                     button1.Text = "Constante de Calibração: " + constanteCalibracao2;
+                    label6.Text = "Qtd. Pulsos: " + distancia_pulsos2.ToString();
+                    label8.Text = "Pulsos/s: " + velocidade_pulsos2.ToString();
+
                 }
+
                 serialPort1.Write("U" + richTextBox4.Text + "#");
             }
             catch
@@ -646,6 +692,16 @@ namespace TesteUI
         }
 
         private void button5_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
         {
 
         }
