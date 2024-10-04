@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO.Ports;
 using System.Linq;
@@ -128,18 +129,23 @@ namespace TesteUI
                     break;
 
                 case 'Y'://motor2
-                    btnLigarHorizontal.Text = "Ligar";
-                    btnLigarHorizontal.BackColor = Color.DarkGray;
+
                     ligarMotor_horizontal = false;
                     on_energizar_horizontal = false;
-
+                    btnLigarHorizontal.Text = "Ligar";
+                    btnLigarHorizontal.BackColor = Color.DarkGray;
+                    MessageBox.Show("O motor horizontal parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                   
+            
                     break;
 
                 case 'y'://motor1
-                    btnLigarVertical.Text = "Ligar";
-                    btnLigarVertical.BackColor = Color.DarkGray;
+
                     ligarMotor_vertical = false;
                     on_energizar_vertical = false;
+                    btnLigarVertical.Text = "Ligar";
+                    btnLigarVertical.BackColor = Color.DarkGray;
+                    MessageBox.Show("O motor vertical parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     break;
                     
@@ -360,6 +366,7 @@ namespace TesteUI
                     serialPort1.Write("T" + distancia + ";" + velocidade + ";" + direcao + ";H#");
                     if (ligarMotor_horizontal)
                     {
+                        serialPort1.Write("n#");
                         btnLigarHorizontal.Text = "Ligar";
                         btnLigarHorizontal.BackColor = Color.DarkGray;
                         ligarMotor_horizontal = false;
@@ -526,8 +533,9 @@ namespace TesteUI
                     distancia = richTextBox1.Text;
                     velocidade = richTextBox2.Text;
                     serialPort1.Write("T" + distancia + ";" + velocidade + ";" + direcao + ";H#");
-                    if (ligarMotor_vertical)
-                    {
+                    if (ligarMotor_vertical) { 
+
+                        serialPort1.Write("n#");
                         btnLigarVertical.Text = "Ligar";
                         btnLigarVertical.BackColor = Color.DarkGray;
                         ligarMotor_vertical = false;
@@ -565,16 +573,19 @@ namespace TesteUI
                 if (motorVertical)
                 {
                     constanteCalibracao1 = double.Parse(richTextBox4.Text, CultureInfo.InvariantCulture);
+                    button1.Text = "Constante de Calibração: " + constanteCalibracao1;
                 }
                 else
                 {
                     constanteCalibracao2 = double.Parse(richTextBox4.Text, CultureInfo.InvariantCulture);
+                    button1.Text = "Constante de Calibração: " + constanteCalibracao2;
                 }
                 serialPort1.Write("U" + richTextBox4.Text + "#");
             }
             catch
             {
-                TextBox.AppendText("O tipo de texto que você colocou na caixa de constante não é válido. Tente Novamente!\r\n");
+                MessageBox.Show("Conecte-se a porta serial e escreva apenas números!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //TextBox.AppendText("O tipo de texto que você colocou na caixa de constante não é válido. Tente Novamente!\r\n");
 
             }
         }
@@ -609,7 +620,34 @@ namespace TesteUI
 
         private void button7_Click(object sender, EventArgs e)
         {
-            serialPort1.Write("n#");
+            if(ligarMotor_horizontal || ligarMotor_vertical)
+            {
+                serialPort1.Write("n#");
+               
+            }
+            
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (serialPort1.IsOpen)
+            {
+                serialPort1.Close();
+                MessageBox.Show("A porta serial foi fechada.", "Aviso!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            // Libere recursos, se necessário
+            serialPort1.Dispose();
+            base.OnFormClosed(e);
+        }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
