@@ -220,10 +220,17 @@ namespace TesteUI
         private void button1_Click_1(object sender, EventArgs e)
         {
             try { 
-                if (motorVertical)// Se o motor vertical estiver acionado, trocar para o horizontal e vice versa
+                if (motorVertical == true)// Se o motor vertical estiver acionado, trocar para o horizontal e vice versa
             {
+
                 serialPort1.Write("M#");
-                btnEnergizarVertical.SendToBack();
+                    System.Threading.Thread.Sleep(100);
+                    motorVertical = false;
+                    label6.Visible = true;
+                    label8.Visible = true;
+                    label7.Visible = false;
+                    label9.Visible = false;
+                    btnEnergizarVertical.SendToBack();
                 btnLigarVertical.SendToBack();
                 btnSensorVertical.SendToBack();
 
@@ -231,24 +238,26 @@ namespace TesteUI
                 btnDirecaoVerticalBaixo.Visible = false;
                 btnDirecaoHorizontalBaixo.Visible = true;
                 btnDirecaoHorizontalCima.Visible = true;
-
-                label6.Visible = false;
-                label8.Visible = false;
-                label7.Visible = true;
-                label9.Visible = true;
                 
                 btnMotor.Text = "Motor Horizontal";
-                motorVertical = false;
                 btnDireicaoVerticalCima.Text = " ";
                 btnDirecaoVerticalBaixo.Text = " ";
                 btnDirecaoHorizontalCima.Text = "Direita";
                 btnDirecaoHorizontalBaixo.Text = "Esquerda";
             }
-            else
+            else if(motorVertical == false) 
             {
+
                 
                 serialPort1.Write("R#");
-                btnEnergizarHorizontal.SendToBack();
+                    System.Threading.Thread.Sleep(100);
+                    motorVertical = true;
+                    
+                    label7.Visible = true;
+                    label9.Visible = true;
+                    label6.Visible = false;
+                    label8.Visible = false;
+                    btnEnergizarHorizontal.SendToBack();
                 btnLigarHorizontal.SendToBack();
                 btnSensorHorizontal.SendToBack();
                 btnDireicaoVerticalCima.Visible = true;
@@ -256,13 +265,7 @@ namespace TesteUI
                 btnDirecaoHorizontalBaixo.Visible = false;
                 btnDirecaoHorizontalCima.Visible = false;
 
-                label7.Visible = false;
-                label9.Visible = false;
-                label6.Visible = true;
-                label8.Visible = true;
-
                 btnMotor.Text = "Motor Vertical";
-                motorVertical = true;
                 btnDireicaoVerticalCima.Text = "Cima";
                 btnDirecaoVerticalBaixo.Text = "Baixo";
                 btnDirecaoHorizontalCima.Text = " ";
@@ -303,7 +306,16 @@ namespace TesteUI
                 if (on_energizar_vertical)
                 {
                     // Send command to the arduino to turn on the enable function of the driver energizing the motor
-                    serialPort1.Write("A#");
+                    try
+                    {
+                        // Enviar comando para parar o motor
+                        serialPort1.Write("A#");
+                        System.Threading.Thread.Sleep(100);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     btnEnergizarVertical.Text = "Energizado";
                     btnEnergizarVertical.BackColor = Color.Green;
                     on_energizar_vertical = false;
@@ -315,7 +327,16 @@ namespace TesteUI
                         MessageBox.Show("Desligue o motor vertical para desenergizá-lo", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     } else if (ligarMotor_vertical == false)
                     {
-                        serialPort1.Write("a#");
+                        try
+                        {
+                            // Enviar comando para parar o motor
+                            serialPort1.Write("a#");
+                            System.Threading.Thread.Sleep(100);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                         btnEnergizarVertical.Text = "Desenergizado";
                         btnEnergizarVertical.BackColor = Color.DarkGray;
                         on_energizar_vertical = true;
@@ -386,9 +407,19 @@ namespace TesteUI
                     distancia = richTextBox1.Text;
                     velocidade = richTextBox2.Text;
                     serialPort1.Write("T" + distancia_pulsos2 + ";" + velocidade_pulsos2 + ";" + direcao + ";H#");
+                    System.Threading.Thread.Sleep(100);
                     if (ligarMotor_horizontal)
                     {
-                        serialPort1.Write("n#");
+                        try
+                        {
+                            // Enviar comando para parar o motor
+                            serialPort1.Write("n#");
+                            System.Threading.Thread.Sleep(100);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                         btnLigarHorizontal.Text = "Ligar";
                         btnLigarHorizontal.BackColor = Color.DarkGray;
                         ligarMotor_horizontal = false;
@@ -401,6 +432,7 @@ namespace TesteUI
                         btnLigarHorizontal.BackColor = Color.Green;
                         ligarMotor_horizontal = true;
                         on_energizar_horizontal = true;
+                       
                         
                     }
                 }
@@ -555,21 +587,32 @@ namespace TesteUI
                     distancia = richTextBox1.Text;
                     velocidade = richTextBox2.Text;
                     serialPort1.Write("T" + distancia_pulsos1 + ";" + velocidade_pulsos1 + ";" + direcao + ";H#");
+                    System.Threading.Thread.Sleep(100);
                     if (ligarMotor_vertical) { 
 
-                        serialPort1.Write("n#");
                         btnLigarVertical.Text = "Ligar";
                         btnLigarVertical.BackColor = Color.DarkGray;
                         ligarMotor_vertical = false;
                         on_energizar_vertical = false;
-                        
-                    }
+                        try
+                        {
+                            // Enviar comando para parar o motor
+                            serialPort1.Write("n#");
+                            System.Threading.Thread.Sleep(100);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+
+                }
                     else if (!ligarMotor_vertical)
                     {
                         btnLigarVertical.Text = "Ligado";
                         btnLigarVertical.BackColor = Color.Green;
                         ligarMotor_vertical = true;
                         on_energizar_vertical = true;
+                        
                     
                     }
                 }
@@ -591,10 +634,12 @@ namespace TesteUI
         {
             try
             {
+                serialPort1.Write("U" + richTextBox4.Text + "#");]
+                System.Threading.Thread.Sleep(100);
                 // Send calibration constant to arduino
-                if (motorVertical)
+                if (motorVertical == true)
                 {
-                   
+                  
                     distancia_mm1 = float.Parse(richTextBox1.Text);
                     velocidade_mm1 = float.Parse(richTextBox2.Text);
                     constanteCalibracao1 = double.Parse(richTextBox4.Text, CultureInfo.InvariantCulture);
@@ -606,27 +651,30 @@ namespace TesteUI
                     button1.Text = "Constante de Calibração: " + constanteCalibracao1;
                     label7.Text = "Qtd. Pulsos: " + distancia_pulsos1.ToString();
                     label9.Text = "Pulsos/s: " + velocidade_pulsos1.ToString();
+                    label6.Text = "Qtd. Pulsos: " + distancia_pulsos2.ToString();
+                    label8.Text = "Pulsos/s: " + velocidade_pulsos2.ToString();
 
-                  
+
                 }
-                else if (!motorVertical)
+                else if (motorVertical == false)
                 {
-                    
-                    
+
                     distancia_mm2 = float.Parse(richTextBox1.Text);
                     velocidade_mm2 = float.Parse(richTextBox2.Text);
                     constanteCalibracao2 = double.Parse(richTextBox4.Text, CultureInfo.InvariantCulture);
 
                     distancia_pulsos2 = Math.Truncate(distancia_mm2 / constanteCalibracao2);
-                    velocidade_pulsos2 = Math.Truncate(velocidade_mm1 / constanteCalibracao2);
+                    velocidade_pulsos2 = Math.Truncate(velocidade_mm2 / constanteCalibracao2);
 
                     button1.Text = "Constante de Calibração: " + constanteCalibracao2;
+                    label7.Text = "Qtd. Pulsos: " + distancia_pulsos1.ToString();
+                    label9.Text = "Pulsos/s: " + velocidade_pulsos1.ToString();
                     label6.Text = "Qtd. Pulsos: " + distancia_pulsos2.ToString();
                     label8.Text = "Pulsos/s: " + velocidade_pulsos2.ToString();
 
                 }
 
-                serialPort1.Write("U" + richTextBox4.Text + "#");
+                
             }
             catch
             {
@@ -646,7 +694,16 @@ namespace TesteUI
             if (on_sensor_vertical)
             {
                 //Ativa o sensor indutivo
-                serialPort1.Write("S#");
+                try
+                {
+                    // Enviar comando para parar o motor
+                    serialPort1.Write("S#");
+                    System.Threading.Thread.Sleep(100);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 btnSensorVertical.Text = "Ligado";
                 btnSensorVertical.BackColor = Color.Green;
                 on_sensor_vertical = false;
@@ -668,8 +725,18 @@ namespace TesteUI
         {
             if(ligarMotor_horizontal || ligarMotor_vertical)
             {
-                serialPort1.Write("n#");
-               
+                try
+                {
+                    // Enviar comando para parar o motor
+                    serialPort1.Write("n#");
+                    System.Threading.Thread.Sleep(100);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                btnLigarVertical.Enabled = true;
+                btnLigarHorizontal.Enabled = true;
             }
             
         }
@@ -702,6 +769,11 @@ namespace TesteUI
         }
 
         private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
         {
 
         }
