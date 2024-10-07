@@ -65,6 +65,7 @@ namespace TesteUI
 
         }
 
+        private void commit() { }
         private bool VerificarTextoValido(RichTextBox richTextBox)
         {
             // Verifica se a RichTextBox está vazia ou contém apenas espaços em branco
@@ -142,9 +143,6 @@ namespace TesteUI
                     on_energizar_horizontal = false;
                     btnLigarHorizontal.Text = "Ligar";
                     btnLigarHorizontal.BackColor = Color.DarkGray;
-                    btnSensorHorizontal.Text = "Desligado";
-                    btnSensorHorizontal.BackColor = Color.DarkGray;
-                    on_sensor_horizontal = false;
                     MessageBox.Show("O motor horizontal parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     
             
@@ -156,9 +154,6 @@ namespace TesteUI
                     on_energizar_vertical = false;
                     btnLigarVertical.Text = "Ligar";
                     btnLigarVertical.BackColor = Color.DarkGray;
-                    btnSensorVertical.Text = "Desligado";
-                    btnSensorVertical.BackColor = Color.DarkGray;
-                    on_sensor_vertical = false;
                     MessageBox.Show("O motor vertical parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     break;
@@ -598,7 +593,7 @@ namespace TesteUI
                     velocidade = richTextBox2.Text;
                     serialPort1.Write("T" + distancia_pulsos1 + ";" + velocidade_pulsos1 + ";" + direcao + ";H#");
                     System.Threading.Thread.Sleep(100);
-                    if (ligarMotor_vertical) { 
+                    if (ligarMotor_vertical == true) { 
 
                         btnLigarVertical.Text = "Ligar";
                         btnLigarVertical.BackColor = Color.DarkGray;
@@ -616,7 +611,7 @@ namespace TesteUI
                         }
 
                 }
-                    else if (!ligarMotor_vertical)
+                    else if (ligarMotor_vertical == false)
                     {
                         btnLigarVertical.Text = "Ligado";
                         btnLigarVertical.BackColor = Color.Green;
@@ -729,7 +724,7 @@ namespace TesteUI
 
         private void button7_Click(object sender, EventArgs e)
         {
-            if(ligarMotor_horizontal || ligarMotor_vertical)
+            if(ligarMotor_horizontal == true || ligarMotor_vertical == true)
             {
                 try
                 {
@@ -740,8 +735,7 @@ namespace TesteUI
                 {
                     MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                btnLigarVertical.Enabled = true;
-                btnLigarHorizontal.Enabled = true;
+                
             }
             
         }
