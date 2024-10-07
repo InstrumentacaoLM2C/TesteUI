@@ -142,8 +142,11 @@ namespace TesteUI
                     on_energizar_horizontal = false;
                     btnLigarHorizontal.Text = "Ligar";
                     btnLigarHorizontal.BackColor = Color.DarkGray;
+                    btnSensorHorizontal.Text = "Desligado";
+                    btnSensorHorizontal.BackColor = Color.DarkGray;
+                    on_sensor_horizontal = false;
                     MessageBox.Show("O motor horizontal parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                   
+                    
             
                     break;
 
@@ -153,6 +156,9 @@ namespace TesteUI
                     on_energizar_vertical = false;
                     btnLigarVertical.Text = "Ligar";
                     btnLigarVertical.BackColor = Color.DarkGray;
+                    btnSensorVertical.Text = "Desligado";
+                    btnSensorVertical.BackColor = Color.DarkGray;
+                    on_sensor_vertical = false;
                     MessageBox.Show("O motor vertical parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     break;
@@ -310,7 +316,6 @@ namespace TesteUI
                     {
                         // Enviar comando para parar o motor
                         serialPort1.Write("A#");
-                        System.Threading.Thread.Sleep(100);
                     }
                     catch (Exception ex)
                     {
@@ -331,7 +336,6 @@ namespace TesteUI
                         {
                             // Enviar comando para parar o motor
                             serialPort1.Write("a#");
-                            System.Threading.Thread.Sleep(100);
                         }
                         catch (Exception ex)
                         {
@@ -355,19 +359,25 @@ namespace TesteUI
 
         private void button4_Click_1(object sender, EventArgs e)
         {
-            if (on_sensor_horizontal)
+            if (on_sensor_horizontal == false)
             {
                 //Ativa o sensor indutivo
-                serialPort1.Write("S#");
+                try
+                {
+                    // Enviar comando para parar o motor
+                    serialPort1.Write("S#");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 btnSensorHorizontal.Text = "Ligado";
                 btnSensorHorizontal.BackColor = Color.Green;
-                on_sensor_horizontal = false;
+                on_sensor_horizontal = true;
             }
             else
             {
-                btnSensorHorizontal.Text = "Desligado";
-                btnSensorHorizontal.BackColor = Color.DarkGray;
-                on_sensor_horizontal = true;
+                return;
             }
         }
 
@@ -634,8 +644,7 @@ namespace TesteUI
         {
             try
             {
-                serialPort1.Write("U" + richTextBox4.Text + "#");]
-                System.Threading.Thread.Sleep(100);
+                serialPort1.Write("U" + richTextBox4.Text + "#");
                 // Send calibration constant to arduino
                 if (motorVertical == true)
                 {
@@ -691,14 +700,13 @@ namespace TesteUI
 
         private void btnSensorVertical_Click(object sender, EventArgs e)
         {
-            if (on_sensor_vertical)
+            if (on_sensor_vertical == false)
             {
                 //Ativa o sensor indutivo
                 try
                 {
                     // Enviar comando para parar o motor
                     serialPort1.Write("S#");
-                    System.Threading.Thread.Sleep(100);
                 }
                 catch (Exception ex)
                 {
@@ -706,13 +714,11 @@ namespace TesteUI
                 }
                 btnSensorVertical.Text = "Ligado";
                 btnSensorVertical.BackColor = Color.Green;
-                on_sensor_vertical = false;
+                on_sensor_vertical = true;
             }
             else
             {
-                btnSensorVertical.Text = "Desligado";
-                btnSensorVertical.BackColor = Color.DarkGray;
-                on_sensor_vertical = true;
+                return; 
             }
         }
 
@@ -729,7 +735,6 @@ namespace TesteUI
                 {
                     // Enviar comando para parar o motor
                     serialPort1.Write("n#");
-                    System.Threading.Thread.Sleep(100);
                 }
                 catch (Exception ex)
                 {
