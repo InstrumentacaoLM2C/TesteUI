@@ -26,7 +26,7 @@ namespace TesteUI
         bool motorVertical = true;
         bool ligarMotor_vertical = false;
         bool ligarMotor_horizontal = false;
-        float distancia_mm1;
+        double distancia_mm1;
         float distancia_mm2;
         float velocidade_mm1;
         float velocidade_mm2;
@@ -394,11 +394,11 @@ namespace TesteUI
         {
             if (btnDirecaoHorizontalBaixo.Checked)
             {
-                direcao = "C";
+                direcao = "B";
             }
             else if (btnDirecaoHorizontalCima.Checked)
             {
-                direcao = "B";
+                direcao = "C";
             }
             else
             {
@@ -573,11 +573,11 @@ namespace TesteUI
         {
             if (btnDirecaoVerticalBaixo.Checked)
             {
-                direcao = "C";
+                direcao = "B";
             }
             else if (btnDireicaoVerticalCima.Checked)
             {
-                direcao = "B";
+                direcao = "C";
             }
             else
             {
@@ -643,14 +643,15 @@ namespace TesteUI
                 // Send calibration constant to arduino
                 if (motorVertical == true)
                 {
-                  
-                    distancia_mm1 = float.Parse(richTextBox1.Text);
-                    velocidade_mm1 = float.Parse(richTextBox2.Text);
-                    constanteCalibracao1 = float.Parse(richTextBox4.Text, CultureInfo.InvariantCulture);
-                 
 
-                    distancia_pulsos1 = Math.Round(distancia_mm1 / constanteCalibracao1);
-                    velocidade_pulsos1 = Math.Round(velocidade_mm1 / constanteCalibracao1);
+                    distancia_mm1 = float.Parse(richTextBox1.Text, new CultureInfo("pt-BR"));
+                    velocidade_mm1 = float.Parse(richTextBox2.Text, new CultureInfo("pt-BR"));
+                    constanteCalibracao1 = double.Parse(richTextBox4.Text, new CultureInfo("pt-BR"));
+
+
+
+                    distancia_pulsos1 = Math.Round(distancia_mm1 / constanteCalibracao1, 4);
+                    velocidade_pulsos1 = Math.Round(velocidade_mm1 / constanteCalibracao1, 4);
 
                     button1.Text = "Constante de Calibração: " + constanteCalibracao1;
                     label7.Text = "Qtd. Pulsos: " + distancia_pulsos1.ToString();
@@ -663,12 +664,12 @@ namespace TesteUI
                 else if (motorVertical == false)
                 {
 
-                    distancia_mm2 = float.Parse(richTextBox1.Text);
-                    velocidade_mm2 = float.Parse(richTextBox2.Text);
-                    constanteCalibracao2 = float.Parse(richTextBox4.Text, CultureInfo.InvariantCulture);
+                    distancia_mm2 = float.Parse(richTextBox1.Text, new CultureInfo("pt-BR"));
+                    velocidade_mm2 = float.Parse(richTextBox2.Text, new CultureInfo("pt-BR"));
+                    constanteCalibracao2 = float.Parse(richTextBox4.Text, new CultureInfo("pt-BR"));
 
-                    distancia_pulsos2 = Math.Round(distancia_mm2 / constanteCalibracao2);
-                    velocidade_pulsos2 = Math.Round(velocidade_mm2 / constanteCalibracao2);
+                    distancia_pulsos2 = (float)Math.Round(distancia_mm2 / constanteCalibracao2, 2);
+                    velocidade_pulsos2 = (float)Math.Round(velocidade_mm2 / constanteCalibracao2, 2);
 
                     button1.Text = "Constante de Calibração: " + constanteCalibracao2;
                     label7.Text = "Qtd. Pulsos: " + distancia_pulsos1.ToString();
