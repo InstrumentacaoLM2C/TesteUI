@@ -409,8 +409,18 @@ namespace TesteUI
             {
                 try
                 {
-                    distancia = richTextBox1.Text;
-                    velocidade = richTextBox2.Text;
+                    string inputDistancia2 = richTextBox1.Text.Replace('.', ',');
+                    string inputVelocidade2 = richTextBox2.Text.Replace('.', ',');
+
+                    distancia_mm2 = float.Parse(inputDistancia2, new CultureInfo("pt-BR"));
+                    velocidade_mm2 = float.Parse(inputVelocidade2, new CultureInfo("pt-BR"));
+
+                    distancia_pulsos2 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
+                    velocidade_pulsos2 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
+
+                    label6.Text = "Qtd. Pulsos: " + distancia_pulsos2.ToString();
+                    label8.Text = "Pulsos/s: " + velocidade_pulsos2.ToString();
+
                     serialPort1.Write("T" + distancia_pulsos2 + ";" + velocidade_pulsos2 + ";" + direcao + ";H#");
                     System.Threading.Thread.Sleep(100);
                     if (ligarMotor_horizontal)
@@ -589,8 +599,18 @@ namespace TesteUI
             {
                 try
                 {
-                    distancia = richTextBox1.Text;
-                    velocidade = richTextBox2.Text;
+                    string inputDistancia1 = richTextBox1.Text.Replace('.', ',');
+                    string inputVelocidade1 = richTextBox2.Text.Replace('.', ',');
+
+                    distancia_mm1 = float.Parse(inputDistancia1, new CultureInfo("pt-BR"));
+                    velocidade_mm1 = float.Parse(inputVelocidade1, new CultureInfo("pt-BR"));
+
+                    distancia_pulsos1 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
+                    velocidade_pulsos1 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
+
+                    label7.Text = "Qtd. Pulsos: " + distancia_pulsos1.ToString();
+                    label9.Text = "Pulsos/s: " + velocidade_pulsos1.ToString();
+                    
                     serialPort1.Write("T" + distancia_pulsos1 + ";" + velocidade_pulsos1 + ";" + direcao + ";H#");
                     System.Threading.Thread.Sleep(100);
                     if (ligarMotor_vertical == true) { 
@@ -644,9 +664,13 @@ namespace TesteUI
                 if (motorVertical == true)
                 {
 
-                    distancia_mm1 = float.Parse(richTextBox1.Text, new CultureInfo("pt-BR"));
-                    velocidade_mm1 = float.Parse(richTextBox2.Text, new CultureInfo("pt-BR"));
-                    constanteCalibracao1 = double.Parse(richTextBox4.Text, new CultureInfo("pt-BR"));
+                    string inputDistancia1 = richTextBox1.Text.Replace('.', ',');
+                    string inputVelocidade1 = richTextBox2.Text.Replace('.', ',');
+                    string inputConstanteCalibracao = richTextBox4.Text.Replace('.', ',');
+
+                    distancia_mm1 = float.Parse(inputDistancia1, new CultureInfo("pt-BR"));
+                    velocidade_mm1 = float.Parse(inputVelocidade1, new CultureInfo("pt-BR"));
+                    constanteCalibracao1 = double.Parse(inputConstanteCalibracao, new CultureInfo("pt-BR"));
 
 
 
@@ -664,9 +688,13 @@ namespace TesteUI
                 else if (motorVertical == false)
                 {
 
-                    distancia_mm2 = float.Parse(richTextBox1.Text, new CultureInfo("pt-BR"));
-                    velocidade_mm2 = float.Parse(richTextBox2.Text, new CultureInfo("pt-BR"));
-                    constanteCalibracao2 = float.Parse(richTextBox4.Text, new CultureInfo("pt-BR"));
+                    string inputDistancia2 = richTextBox1.Text.Replace('.', ',');
+                    string inputVelocidade2 = richTextBox2.Text.Replace('.', ',');
+                    string inputConstanteCalibracao = richTextBox4.Text.Replace('.', ',');
+
+                    distancia_mm2 = float.Parse(inputDistancia2, new CultureInfo("pt-BR"));
+                    velocidade_mm2 = float.Parse(inputVelocidade2, new CultureInfo("pt-BR"));
+                    constanteCalibracao2 = float.Parse(inputConstanteCalibracao, new CultureInfo("pt-BR"));
 
                     distancia_pulsos2 = (float)Math.Round(distancia_mm2 / constanteCalibracao2);
                     velocidade_pulsos2 = (float)Math.Round(velocidade_mm2 / constanteCalibracao2);

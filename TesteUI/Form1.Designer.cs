@@ -236,7 +236,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(68, 213);
+            this.label1.Location = new System.Drawing.Point(13, 213);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(179, 29);
             this.label1.TabIndex = 3;
@@ -247,7 +247,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(360, 213);
+            this.label2.Location = new System.Drawing.Point(314, 215);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(222, 29);
             this.label2.TabIndex = 4;
@@ -340,7 +340,7 @@
             this.btnLigarHorizontal.BackColor = System.Drawing.Color.DarkGray;
             this.btnLigarHorizontal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLigarHorizontal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLigarHorizontal.Location = new System.Drawing.Point(73, 360);
+            this.btnLigarHorizontal.Location = new System.Drawing.Point(18, 360);
             this.btnLigarHorizontal.Name = "btnLigarHorizontal";
             this.btnLigarHorizontal.Size = new System.Drawing.Size(240, 60);
             this.btnLigarHorizontal.TabIndex = 13;
@@ -387,7 +387,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(360, 298);
+            this.label9.Location = new System.Drawing.Point(314, 298);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(111, 29);
             this.label9.TabIndex = 28;
@@ -397,7 +397,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(360, 298);
+            this.label8.Location = new System.Drawing.Point(314, 298);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(111, 29);
             this.label8.TabIndex = 27;
@@ -408,7 +408,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(68, 298);
+            this.label7.Location = new System.Drawing.Point(13, 298);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(143, 29);
             this.label7.TabIndex = 26;
@@ -418,7 +418,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(68, 298);
+            this.label6.Location = new System.Drawing.Point(13, 298);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(143, 29);
             this.label6.TabIndex = 25;
@@ -465,16 +465,16 @@
             // TextBox
             // 
             this.TextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TextBox.Location = new System.Drawing.Point(361, 360);
+            this.TextBox.Location = new System.Drawing.Point(319, 343);
             this.TextBox.Name = "TextBox";
             this.TextBox.ReadOnly = true;
-            this.TextBox.Size = new System.Drawing.Size(240, 60);
+            this.TextBox.Size = new System.Drawing.Size(286, 107);
             this.TextBox.TabIndex = 17;
             this.TextBox.Text = "";
             // 
             // richTextBox2
             // 
-            this.richTextBox2.Location = new System.Drawing.Point(365, 247);
+            this.richTextBox2.Location = new System.Drawing.Point(319, 247);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.Size = new System.Drawing.Size(240, 38);
             this.richTextBox2.TabIndex = 16;
@@ -482,7 +482,7 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(73, 247);
+            this.richTextBox1.Location = new System.Drawing.Point(18, 247);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(240, 38);
             this.richTextBox1.TabIndex = 15;
@@ -521,7 +521,7 @@
             this.btnLigarVertical.BackColor = System.Drawing.Color.DarkGray;
             this.btnLigarVertical.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLigarVertical.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLigarVertical.Location = new System.Drawing.Point(73, 360);
+            this.btnLigarVertical.Location = new System.Drawing.Point(18, 360);
             this.btnLigarVertical.Name = "btnLigarVertical";
             this.btnLigarVertical.Size = new System.Drawing.Size(240, 60);
             this.btnLigarVertical.TabIndex = 19;
