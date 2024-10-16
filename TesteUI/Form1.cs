@@ -96,45 +96,45 @@ namespace TesteUI
 
                 //Algumas mensagens com caracteres especiais
                 case 'j':
-                    TextBox.AppendText("Calibração iniciada!\r\n");
+                    richTextBox_Arduino.AppendText("Calibração iniciada!\r\n\r\n");
                     break;
                 case 'c':
-                    TextBox.AppendText("Direcão motor 1: Para cima\r\n");
+                    richTextBox_Arduino.AppendText("Direcão motor 1: Para cima\r\n\r\n");
                     break;
                 case 'C':
-                    TextBox.AppendText("Direcão motor 2: Para cima\r\n");
+                    richTextBox_Arduino.AppendText("Direcão motor 2: Para cima\r\n\r\n");
                     break;
 
                 case 'b':
-                    TextBox.AppendText("Direcão motor 1: Para baixo\r\n");
+                    richTextBox_Arduino.AppendText("Direcão motor 1: Para baixo\r\n\r\n");
                     break;
                 case 'B':
-                    TextBox.AppendText("Direcão motor 2: Para baixo\r\n");
+                    richTextBox_Arduino.AppendText("Direcão motor 2: Para baixo\r\n\r\n");
                     break;
 
                 case 'a':
-                    TextBox.AppendText("O motor 1 está se movendo com aceleração!\r\n");
+                    richTextBox_Arduino.AppendText("O motor 1 está se movendo com aceleração!\r\n\r\n");
                     break;
                 case 'A':
-                    TextBox.AppendText("O motor 2 está se movendo com aceleração!" + "\r\n");
+                    richTextBox_Arduino.AppendText("O motor 2 está se movendo com aceleração!" + "\r\n\r\n");
                     break;
 
                 case 'Q':
-                    TextBox.AppendText("Valor de velocidade inválido! Insira um valor entre 200 e 8000 pulsos/segundo" + "\r\n");
+                    richTextBox_Arduino.AppendText("Valor de velocidade inválido! Insira um valor entre 200 e 8000 pulsos/segundo" + "\r\n\r\n");
                     break;
 
                 case 'T':
                     btnSensorHorizontal.Text = "Desligado";
                     btnSensorHorizontal.BackColor = Color.DarkGray;
                     on_sensor = true;
-                    TextBox.AppendText("Mude a direção do deslocamento para movimenta-lo." + "\r\n" + "Aperte o botão para ativar o sensor indutivo novamente!" + "\r\n");
+                    richTextBox_Arduino.AppendText("Mude a direção do deslocamento para movimenta-lo." + "\r\n\r\n" + "Aperte o botão para ativar o sensor indutivo novamente!" + "\r\n\r\n");
                     break;
 
                 case 'U':
-                    TextBox.AppendText("Primeiro motor sendo operado!" + "\r\n");
+                    richTextBox_Arduino.AppendText("Primeiro motor sendo operado!" + "\r\n\r\n");
                     break;
                 case 'u':
-                    TextBox.AppendText("Segundo motor sendo operado!" + "\r\n");
+                    richTextBox_Arduino.AppendText("Segundo motor sendo operado!" + "\r\n\r\n");
                     break;
 
                 case 'Y'://motor2
@@ -160,23 +160,23 @@ namespace TesteUI
                     
 
                 case '/':
-                    TextBox.AppendText(texto + "\r\n");
+                    richTextBox_Arduino.AppendText(texto + "\r\n\r\n");
                     break;
 
                 case 'w':
-                    if (motor == 1)
+                    if (motorVertical == true)
                     {
-                        TextBox.AppendText("A constante de calibração do motor 1 é:" + texto + "\r\n");
+                        richTextBox_Arduino.AppendText("A constante de calibração do motor 1 é:" + texto + "\r\n\r\n");
                     }
                     else
                     {
-                        TextBox.AppendText("A constante de calibração do motor 2 é:" + texto + "\r\n");
+                        richTextBox_Arduino.AppendText("A constante de calibração do motor 2 é:" + texto + "\r\n\r\n");
                     }
 
                     break;
 
                 default:
-                    TextBox.AppendText(texto + "\r\n");
+                    richTextBox_Arduino.AppendText(texto + "\r\n\r\n");
                     break;
 
 
@@ -343,7 +343,7 @@ namespace TesteUI
                     
                 }
             }
-            catch { TextBox.AppendText("Algum valor está faltando. Tente novamente!" + "\r\n"); }
+            catch { richTextBox_Arduino.AppendText("Algum valor está faltando. Tente novamente!" + "\r\n\r\n"); }
 
         }
 
@@ -480,7 +480,7 @@ namespace TesteUI
             }
             catch (Exception err)
             {
-                //TextBox.AppendText("Erro! Tente novamente!" + "\r\n");
+                //richTextBox_Arduino.AppendText("Erro! Tente novamente!" + "\r\n\r\n");
                 string[] ports = SerialPort.GetPortNames();
                 comboBox1.Items.Clear();
                 comboBox1.Items.AddRange(ports);
@@ -532,7 +532,7 @@ namespace TesteUI
             }
             catch
             {
-                TextBox.AppendText("Erro! Tente novamente!" + "\r\n");
+                richTextBox_Arduino.AppendText("Erro! Tente novamente!" + "\r\n\r\n");
                 string[] ports = SerialPort.GetPortNames();
                 comboBox1.Items.Clear();
                 comboBox1.Items.AddRange(ports);
@@ -567,7 +567,7 @@ namespace TesteUI
                     }
                 }
             }
-            catch { TextBox.AppendText("Algum valor está faltando. Tente novamente!" + "\r\n"); }
+            catch { richTextBox_Arduino.AppendText("Algum valor está faltando. Tente novamente!" + "\r\n\r\n"); }
 
         }
 
@@ -712,7 +712,7 @@ namespace TesteUI
             catch
             {
                 MessageBox.Show("Conecte-se a porta serial e escreva apenas números!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //TextBox.AppendText("O tipo de texto que você colocou na caixa de constante não é válido. Tente Novamente!\r\n");
+                //richTextBox_Arduino.AppendText("O tipo de texto que você colocou na caixa de constante não é válido. Tente Novamente!\r\n\r\n");
 
             }
         }
@@ -802,6 +802,11 @@ namespace TesteUI
         }
 
         private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void TextBox_TextChanged(object sender, EventArgs e)
         {
 
         }

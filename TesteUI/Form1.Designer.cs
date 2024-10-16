@@ -58,13 +58,13 @@
             this.btnSensorVertical = new System.Windows.Forms.Button();
             this.btnDirecaoVerticalBaixo = new System.Windows.Forms.RadioButton();
             this.btnDireicaoVerticalCima = new System.Windows.Forms.RadioButton();
-            this.TextBox = new System.Windows.Forms.RichTextBox();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.btnEnergizarHorizontal = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.btnLigarVertical = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.richTextBox_Arduino = new System.Windows.Forms.RichTextBox();
             this.panelSideMenu.SuspendLayout();
             this.panelPortsSubmenu.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -93,8 +93,9 @@
             this.button6.Dock = System.Windows.Forms.DockStyle.Top;
             this.button6.FlatAppearance.BorderSize = 0;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button6.ForeColor = System.Drawing.Color.Black;
-            this.button6.Location = new System.Drawing.Point(0, 405);
+            this.button6.Location = new System.Drawing.Point(0, 421);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(314, 47);
             this.button6.TabIndex = 22;
@@ -108,9 +109,10 @@
             this.richTextBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.richTextBox4.Cursor = System.Windows.Forms.Cursors.Default;
             this.richTextBox4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.richTextBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox4.Location = new System.Drawing.Point(0, 372);
             this.richTextBox4.Name = "richTextBox4";
-            this.richTextBox4.Size = new System.Drawing.Size(314, 33);
+            this.richTextBox4.Size = new System.Drawing.Size(314, 49);
             this.richTextBox4.TabIndex = 21;
             this.richTextBox4.Text = "";
             // 
@@ -150,6 +152,7 @@
             this.button4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.ForeColor = System.Drawing.Color.Black;
             this.button4.Location = new System.Drawing.Point(0, 97);
             this.button4.Name = "button4";
@@ -192,6 +195,7 @@
             this.button2.Dock = System.Windows.Forms.DockStyle.Top;
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.Color.LightGray;
             this.button2.Location = new System.Drawing.Point(0, 0);
             this.button2.Name = "button2";
@@ -352,6 +356,7 @@
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.richTextBox_Arduino);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.label8);
             this.panel2.Controls.Add(this.label7);
@@ -359,7 +364,6 @@
             this.panel2.Controls.Add(this.btnSensorVertical);
             this.panel2.Controls.Add(this.btnDirecaoVerticalBaixo);
             this.panel2.Controls.Add(this.btnDireicaoVerticalCima);
-            this.panel2.Controls.Add(this.TextBox);
             this.panel2.Controls.Add(this.richTextBox2);
             this.panel2.Controls.Add(this.richTextBox1);
             this.panel2.Controls.Add(this.label5);
@@ -462,18 +466,9 @@
             this.btnDireicaoVerticalCima.UseVisualStyleBackColor = true;
             this.btnDireicaoVerticalCima.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
-            // TextBox
-            // 
-            this.TextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.TextBox.Location = new System.Drawing.Point(319, 343);
-            this.TextBox.Name = "TextBox";
-            this.TextBox.ReadOnly = true;
-            this.TextBox.Size = new System.Drawing.Size(286, 107);
-            this.TextBox.TabIndex = 17;
-            this.TextBox.Text = "";
-            // 
             // richTextBox2
             // 
+            this.richTextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox2.Location = new System.Drawing.Point(319, 247);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.Size = new System.Drawing.Size(240, 38);
@@ -482,6 +477,7 @@
             // 
             // richTextBox1
             // 
+            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox1.Location = new System.Drawing.Point(18, 247);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(240, 38);
@@ -507,7 +503,7 @@
             this.button7.Cursor = System.Windows.Forms.Cursors.Default;
             this.button7.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button7.Location = new System.Drawing.Point(0, 456);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(616, 95);
@@ -533,6 +529,14 @@
             // 
             this.serialPort1.PortName = "COM14";
             this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
+            // 
+            // richTextBox_Arduino
+            // 
+            this.richTextBox_Arduino.Location = new System.Drawing.Point(319, 343);
+            this.richTextBox_Arduino.Name = "richTextBox_Arduino";
+            this.richTextBox_Arduino.Size = new System.Drawing.Size(240, 107);
+            this.richTextBox_Arduino.TabIndex = 29;
+            this.richTextBox_Arduino.Text = "";
             // 
             // Form1
             // 
@@ -577,7 +581,6 @@
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.RichTextBox TextBox;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.ComboBox comboBox1;
@@ -593,6 +596,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.RichTextBox richTextBox_Arduino;
     }
 }
 
