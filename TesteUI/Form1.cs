@@ -415,8 +415,8 @@ namespace TesteUI
                     distancia_mm2 = float.Parse(inputDistancia2, new CultureInfo("pt-BR"));
                     velocidade_mm2 = float.Parse(inputVelocidade2, new CultureInfo("pt-BR"));
 
-                    distancia_pulsos2 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
-                    velocidade_pulsos2 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
+                    distancia_pulsos2 = (float)Math.Round(distancia_mm2 / constanteCalibracao1);
+                    velocidade_pulsos2 = (float)Math.Round(velocidade_mm2 / constanteCalibracao1);
 
                     label6.Text = "Qtd. Pulsos: " + distancia_pulsos2.ToString();
                     label8.Text = "Pulsos/s: " + velocidade_pulsos2.ToString();
@@ -514,19 +514,19 @@ namespace TesteUI
         {
             try
             {
-                if(button4.Text == " Conectar")
+                if(button4.Text == "Conectar")
                 {
                     serialPort1.PortName = comboBox1.Text;
                     serialPort1.PortName = comboBox1.Items[comboBox1.SelectedIndex].ToString();
-                    serialPort1.Open();
                     button4.Text = "Desconectar";
+                    serialPort1.Open();
                 }
                 else
                 {
                     serialPort1.Close();
                     string[] ports = SerialPort.GetPortNames();
                     comboBox1.Items.Clear();
-                    button4.Text = " Conectar";
+                    button4.Text = "Conectar";
                     comboBox1.Items.AddRange(ports);
                 }
             }

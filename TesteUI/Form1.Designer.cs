@@ -73,7 +73,7 @@
             // panelSideMenu
             // 
             this.panelSideMenu.AutoScroll = true;
-            this.panelSideMenu.BackColor = System.Drawing.Color.DimGray;
+            this.panelSideMenu.BackColor = System.Drawing.Color.DarkGray;
             this.panelSideMenu.Controls.Add(this.button6);
             this.panelSideMenu.Controls.Add(this.richTextBox4);
             this.panelSideMenu.Controls.Add(this.button1);
@@ -89,10 +89,10 @@
             // 
             // button6
             // 
-            this.button6.BackColor = System.Drawing.Color.DarkGray;
+            this.button6.BackColor = System.Drawing.Color.Gainsboro;
             this.button6.Dock = System.Windows.Forms.DockStyle.Top;
             this.button6.FlatAppearance.BorderSize = 0;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button6.ForeColor = System.Drawing.Color.Black;
             this.button6.Location = new System.Drawing.Point(0, 421);
@@ -118,15 +118,16 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.DimGray;
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.Cursor = System.Windows.Forms.Cursors.PanWest;
             this.button1.Dock = System.Windows.Forms.DockStyle.Top;
             this.button1.Enabled = false;
             this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.LightGray;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Location = new System.Drawing.Point(0, 299);
             this.button1.Name = "button1";
-            this.button1.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.button1.Size = new System.Drawing.Size(314, 73);
             this.button1.TabIndex = 19;
             this.button1.Text = "Constante de Calibração: ";
@@ -148,17 +149,17 @@
             // 
             // button4
             // 
-            this.button4.BackColor = System.Drawing.Color.DarkGray;
+            this.button4.BackColor = System.Drawing.Color.Gainsboro;
             this.button4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button4.ForeColor = System.Drawing.Color.Black;
             this.button4.Location = new System.Drawing.Point(0, 97);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(314, 39);
             this.button4.TabIndex = 4;
-            this.button4.Text = " Conectar";
+            this.button4.Text = "Conectar";
             this.button4.UseVisualStyleBackColor = false;
             this.button4.Click += new System.EventHandler(this.button4_Click_3);
             // 
@@ -191,25 +192,25 @@
             // 
             // button2
             // 
-            this.button2.BackColor = System.Drawing.Color.DimGray;
+            this.button2.BackColor = System.Drawing.Color.Gainsboro;
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.button2.Dock = System.Windows.Forms.DockStyle.Top;
             this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.Color.LightGray;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.ForeColor = System.Drawing.Color.Black;
             this.button2.Location = new System.Drawing.Point(0, 0);
             this.button2.Name = "button2";
-            this.button2.Padding = new System.Windows.Forms.Padding(35, 0, 0, 0);
             this.button2.Size = new System.Drawing.Size(314, 60);
             this.button2.TabIndex = 1;
-            this.button2.Text = "             Escanear Portas";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.button2.Text = "Escanear Portas";
+            this.button2.UseMnemonic = false;
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // panelLogo
             // 
-            this.panelLogo.BackColor = System.Drawing.Color.DimGray;
+            this.panelLogo.BackColor = System.Drawing.Color.Silver;
             this.panelLogo.BackgroundImage = global::TesteUI.Properties.Resources.LM2C_Retina___Copia;
             this.panelLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.panelLogo.Dock = System.Windows.Forms.DockStyle.Top;
@@ -222,15 +223,15 @@
             // 
             // btnMotor
             // 
-            this.btnMotor.BackColor = System.Drawing.Color.DimGray;
+            this.btnMotor.BackColor = System.Drawing.Color.Gainsboro;
             this.btnMotor.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnMotor.FlatAppearance.BorderSize = 0;
-            this.btnMotor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMotor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnMotor.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMotor.Location = new System.Drawing.Point(0, 0);
             this.btnMotor.Margin = new System.Windows.Forms.Padding(0);
             this.btnMotor.Name = "btnMotor";
-            this.btnMotor.Size = new System.Drawing.Size(616, 99);
+            this.btnMotor.Size = new System.Drawing.Size(616, 78);
             this.btnMotor.TabIndex = 0;
             this.btnMotor.Text = "Motor Vertical";
             this.btnMotor.UseVisualStyleBackColor = false;
@@ -293,8 +294,8 @@
             // 
             // btnEnergizarVertical
             // 
-            this.btnEnergizarVertical.BackColor = System.Drawing.Color.DarkGray;
-            this.btnEnergizarVertical.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEnergizarVertical.BackColor = System.Drawing.Color.Gainsboro;
+            this.btnEnergizarVertical.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnEnergizarVertical.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEnergizarVertical.Location = new System.Drawing.Point(18, 132);
             this.btnEnergizarVertical.Name = "btnEnergizarVertical";
@@ -318,7 +319,7 @@
             // btnSensorHorizontal
             // 
             this.btnSensorHorizontal.BackColor = System.Drawing.Color.DarkGray;
-            this.btnSensorHorizontal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSensorHorizontal.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSensorHorizontal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSensorHorizontal.Location = new System.Drawing.Point(192, 132);
             this.btnSensorHorizontal.Name = "btnSensorHorizontal";
@@ -342,7 +343,7 @@
             // btnLigarHorizontal
             // 
             this.btnLigarHorizontal.BackColor = System.Drawing.Color.DarkGray;
-            this.btnLigarHorizontal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLigarHorizontal.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnLigarHorizontal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLigarHorizontal.Location = new System.Drawing.Point(18, 360);
             this.btnLigarHorizontal.Name = "btnLigarHorizontal";
@@ -354,7 +355,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.panel2.BackColor = System.Drawing.Color.DarkGray;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.richTextBox_Arduino);
             this.panel2.Controls.Add(this.label9);
@@ -431,8 +432,8 @@
             // 
             // btnSensorVertical
             // 
-            this.btnSensorVertical.BackColor = System.Drawing.Color.DarkGray;
-            this.btnSensorVertical.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSensorVertical.BackColor = System.Drawing.Color.Gainsboro;
+            this.btnSensorVertical.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnSensorVertical.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSensorVertical.Location = new System.Drawing.Point(192, 132);
             this.btnSensorVertical.Name = "btnSensorVertical";
@@ -446,7 +447,7 @@
             // 
             this.btnDirecaoVerticalBaixo.AutoSize = true;
             this.btnDirecaoVerticalBaixo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDirecaoVerticalBaixo.Location = new System.Drawing.Point(508, 148);
+            this.btnDirecaoVerticalBaixo.Location = new System.Drawing.Point(508, 153);
             this.btnDirecaoVerticalBaixo.Name = "btnDirecaoVerticalBaixo";
             this.btnDirecaoVerticalBaixo.Size = new System.Drawing.Size(82, 29);
             this.btnDirecaoVerticalBaixo.TabIndex = 21;
@@ -458,7 +459,7 @@
             // 
             this.btnDireicaoVerticalCima.AutoSize = true;
             this.btnDireicaoVerticalCima.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDireicaoVerticalCima.Location = new System.Drawing.Point(382, 148);
+            this.btnDireicaoVerticalCima.Location = new System.Drawing.Point(382, 154);
             this.btnDireicaoVerticalCima.Name = "btnDireicaoVerticalCima";
             this.btnDireicaoVerticalCima.Size = new System.Drawing.Size(79, 29);
             this.btnDireicaoVerticalCima.TabIndex = 20;
@@ -487,7 +488,7 @@
             // btnEnergizarHorizontal
             // 
             this.btnEnergizarHorizontal.BackColor = System.Drawing.Color.DarkGray;
-            this.btnEnergizarHorizontal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEnergizarHorizontal.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnEnergizarHorizontal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEnergizarHorizontal.Location = new System.Drawing.Point(18, 132);
             this.btnEnergizarHorizontal.Name = "btnEnergizarHorizontal";
@@ -502,7 +503,7 @@
             this.button7.BackColor = System.Drawing.Color.Red;
             this.button7.Cursor = System.Windows.Forms.Cursors.Default;
             this.button7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button7.Location = new System.Drawing.Point(0, 456);
             this.button7.Name = "button7";
@@ -514,8 +515,8 @@
             // 
             // btnLigarVertical
             // 
-            this.btnLigarVertical.BackColor = System.Drawing.Color.DarkGray;
-            this.btnLigarVertical.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLigarVertical.BackColor = System.Drawing.Color.Gainsboro;
+            this.btnLigarVertical.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.btnLigarVertical.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLigarVertical.Location = new System.Drawing.Point(18, 360);
             this.btnLigarVertical.Name = "btnLigarVertical";
