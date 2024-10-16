@@ -650,8 +650,8 @@ namespace TesteUI
 
 
 
-                    distancia_pulsos1 = Math.Round(distancia_mm1 / constanteCalibracao1, 4);
-                    velocidade_pulsos1 = Math.Round(velocidade_mm1 / constanteCalibracao1, 4);
+                    distancia_pulsos1 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
+                    velocidade_pulsos1 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
 
                     button1.Text = "Constante de Calibração: " + constanteCalibracao1;
                     label7.Text = "Qtd. Pulsos: " + distancia_pulsos1.ToString();
@@ -668,8 +668,8 @@ namespace TesteUI
                     velocidade_mm2 = float.Parse(richTextBox2.Text, new CultureInfo("pt-BR"));
                     constanteCalibracao2 = float.Parse(richTextBox4.Text, new CultureInfo("pt-BR"));
 
-                    distancia_pulsos2 = (float)Math.Round(distancia_mm2 / constanteCalibracao2, 2);
-                    velocidade_pulsos2 = (float)Math.Round(velocidade_mm2 / constanteCalibracao2, 2);
+                    distancia_pulsos2 = (float)Math.Round(distancia_mm2 / constanteCalibracao2);
+                    velocidade_pulsos2 = (float)Math.Round(velocidade_mm2 / constanteCalibracao2);
 
                     button1.Text = "Constante de Calibração: " + constanteCalibracao2;
                     label7.Text = "Qtd. Pulsos: " + distancia_pulsos1.ToString();
