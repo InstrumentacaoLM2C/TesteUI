@@ -499,6 +499,7 @@
             this.richTextBox1.Size = new System.Drawing.Size(240, 38);
             this.richTextBox1.TabIndex = 15;
             this.richTextBox1.Text = "";
+            this.richTextBox1.TextChanged += new System.EventHandler(this.richTextBox1_TextChanged);
             // 
             // btnEnergizarHorizontal
             // 

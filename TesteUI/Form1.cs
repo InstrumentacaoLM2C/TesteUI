@@ -45,10 +45,10 @@ namespace TesteUI
         {
             InitializeComponent();
         }
- 
+
         private void Form1_Load(object sender, EventArgs e)
         {
-           
+
 
             btnMotor.Text = "Motor Vertical";
 
@@ -144,8 +144,8 @@ namespace TesteUI
                     btnLigarHorizontal.Text = "Ligar";
                     btnLigarHorizontal.BackColor = Color.DarkGray;
                     MessageBox.Show("O motor horizontal parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    
-            
+
+
                     break;
 
                 case 'y'://motor1
@@ -157,7 +157,7 @@ namespace TesteUI
                     MessageBox.Show("O motor vertical parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     break;
-                    
+
 
                 case '/':
                     richTextBox_Arduino.AppendText(texto + "\r\n\r\n");
@@ -197,7 +197,7 @@ namespace TesteUI
 
         private void button3_Click(object sender, EventArgs e)
         {
-        } 
+        }
         private void button19_Click(object sender, EventArgs e)
         {
 
@@ -220,11 +220,12 @@ namespace TesteUI
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            try { 
-                if (motorVertical == true)// Se o motor vertical estiver acionado, trocar para o horizontal e vice versa
+            try
             {
+                if (motorVertical == true)// Se o motor vertical estiver acionado, trocar para o horizontal e vice versa
+                {
 
-                serialPort1.Write("M#");
+                    serialPort1.Write("M#");
                     System.Threading.Thread.Sleep(100);
                     motorVertical = false;
                     label6.Visible = true;
@@ -232,48 +233,49 @@ namespace TesteUI
                     label7.Visible = false;
                     label9.Visible = false;
                     btnEnergizarVertical.SendToBack();
-                btnLigarVertical.SendToBack();
-                btnSensorVertical.SendToBack();
+                    btnLigarVertical.SendToBack();
+                    btnSensorVertical.SendToBack();
 
-                btnDireicaoVerticalCima.Visible = false;
-                btnDirecaoVerticalBaixo.Visible = false;
-                btnDirecaoHorizontalBaixo.Visible = true;
-                btnDirecaoHorizontalCima.Visible = true;
-                
-                btnMotor.Text = "Motor Horizontal";
-                btnDireicaoVerticalCima.Text = " ";
-                btnDirecaoVerticalBaixo.Text = " ";
-                btnDirecaoHorizontalCima.Text = "Direita";
-                btnDirecaoHorizontalBaixo.Text = "Esquerda";
-            }
-            else if(motorVertical == false) 
-            {
+                    btnDireicaoVerticalCima.Visible = false;
+                    btnDirecaoVerticalBaixo.Visible = false;
+                    btnDirecaoHorizontalBaixo.Visible = true;
+                    btnDirecaoHorizontalCima.Visible = true;
 
-                
-                serialPort1.Write("R#");
+                    btnMotor.Text = "Motor Horizontal";
+                    btnDireicaoVerticalCima.Text = " ";
+                    btnDirecaoVerticalBaixo.Text = " ";
+                    btnDirecaoHorizontalCima.Text = "Direita";
+                    btnDirecaoHorizontalBaixo.Text = "Esquerda";
+                }
+                else if (motorVertical == false)
+                {
+
+
+                    serialPort1.Write("R#");
                     System.Threading.Thread.Sleep(100);
                     motorVertical = true;
-                    
+
                     label7.Visible = true;
                     label9.Visible = true;
                     label6.Visible = false;
                     label8.Visible = false;
                     btnEnergizarHorizontal.SendToBack();
-                btnLigarHorizontal.SendToBack();
-                btnSensorHorizontal.SendToBack();
-                btnDireicaoVerticalCima.Visible = true;
-                btnDirecaoVerticalBaixo.Visible = true;
-                btnDirecaoHorizontalBaixo.Visible = false;
-                btnDirecaoHorizontalCima.Visible = false;
+                    btnLigarHorizontal.SendToBack();
+                    btnSensorHorizontal.SendToBack();
+                    btnDireicaoVerticalCima.Visible = true;
+                    btnDirecaoVerticalBaixo.Visible = true;
+                    btnDirecaoHorizontalBaixo.Visible = false;
+                    btnDirecaoHorizontalCima.Visible = false;
 
-                btnMotor.Text = "Motor Vertical";
-                btnDireicaoVerticalCima.Text = "Cima";
-                btnDirecaoVerticalBaixo.Text = "Baixo";
-                btnDirecaoHorizontalCima.Text = " ";
-                btnDirecaoHorizontalBaixo.Text = " ";
-                
+                    btnMotor.Text = "Motor Vertical";
+                    btnDireicaoVerticalCima.Text = "Cima";
+                    btnDirecaoVerticalBaixo.Text = "Baixo";
+                    btnDirecaoHorizontalCima.Text = " ";
+                    btnDirecaoHorizontalBaixo.Text = " ";
+
+                }
             }
-        }catch (Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("Conecte a porta serial!", "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
@@ -301,7 +303,7 @@ namespace TesteUI
         }
 
         private void button4_Click(object sender, EventArgs e)
-        { 
+        {
             try
             {
                 if (on_energizar_vertical)
@@ -319,14 +321,15 @@ namespace TesteUI
                     btnEnergizarVertical.Text = "Energizado";
                     btnEnergizarVertical.BackColor = Color.Green;
                     on_energizar_vertical = false;
-                   
+
                 }
                 else if (on_energizar_vertical == false)
                 {
-                    if(ligarMotor_vertical == true)
+                    if (ligarMotor_vertical == true)
                     {
                         MessageBox.Show("Desligue o motor vertical para desenergizá-lo", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    } else if (ligarMotor_vertical == false)
+                    }
+                    else if (ligarMotor_vertical == false)
                     {
                         try
                         {
@@ -340,9 +343,9 @@ namespace TesteUI
                         btnEnergizarVertical.Text = "Desenergizado";
                         btnEnergizarVertical.BackColor = Color.Gainsboro;
                         on_energizar_vertical = true;
-                       
+
                     }
-                    
+
                 }
             }
             catch { richTextBox_Arduino.AppendText("Algum valor está faltando. Tente novamente!" + "\r\n\r\n"); }
@@ -441,7 +444,7 @@ namespace TesteUI
                         btnLigarHorizontal.BackColor = Color.Gainsboro;
                         ligarMotor_horizontal = false;
                         on_energizar_horizontal = false;
-                       
+
                     }
                     else if (!ligarMotor_horizontal)
                     {
@@ -449,8 +452,8 @@ namespace TesteUI
                         btnLigarHorizontal.BackColor = Color.Green;
                         ligarMotor_horizontal = true;
                         on_energizar_horizontal = true;
-                       
-                        
+
+
                     }
                 }
                 catch (Exception ex)
@@ -516,7 +519,7 @@ namespace TesteUI
         {
             try
             {
-                if(button4.Text == "Conectar")
+                if (button4.Text == "Conectar")
                 {
                     serialPort1.PortName = comboBox1.Text;
                     serialPort1.PortName = comboBox1.Items[comboBox1.SelectedIndex].ToString();
@@ -556,7 +559,7 @@ namespace TesteUI
                 }
                 else
                 {
-                    if (ligarMotor_horizontal== true)
+                    if (ligarMotor_horizontal == true)
                     {
                         MessageBox.Show("Desligue o motor horizontal para desenergizá-lo", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
@@ -601,21 +604,12 @@ namespace TesteUI
             {
                 try
                 {
-                    string inputDistancia1 = richTextBox1.Text.Replace('.', ',');
-                    string inputVelocidade1 = richTextBox2.Text.Replace('.', ',');
 
-                    distancia_mm1 = float.Parse(inputDistancia1, new CultureInfo("pt-BR"));
-                    velocidade_mm1 = float.Parse(inputVelocidade1, new CultureInfo("pt-BR"));
 
-                    distancia_pulsos1 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
-                    velocidade_pulsos1 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
-
-                    label7.Text = "Qtd. Pulsos: " + distancia_pulsos1.ToString();
-                    label9.Text = "Pulsos/s: " + velocidade_pulsos1.ToString();
-                    
                     serialPort1.Write("T" + distancia_pulsos1 + ";" + velocidade_pulsos1 + ";" + direcao + ";H#");
                     System.Threading.Thread.Sleep(100);
-                    if (ligarMotor_vertical == true) { 
+                    if (ligarMotor_vertical == true)
+                    {
 
                         btnLigarVertical.Text = "Ligar";
                         btnLigarVertical.BackColor = Color.Gainsboro;
@@ -632,22 +626,23 @@ namespace TesteUI
                             MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
-                }
+                    }
                     else if (ligarMotor_vertical == false)
                     {
                         btnLigarVertical.Text = "Ligado";
                         btnLigarVertical.BackColor = Color.Green;
                         ligarMotor_vertical = true;
                         on_energizar_vertical = true;
-                        
-                    
+
+
                     }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show($"Ocorreu um erro: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            } else
+            }
+            else
             {
                 MessageBox.Show("Por favor, selecione valores válidos para distância e velocidade.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
@@ -709,7 +704,7 @@ namespace TesteUI
 
                 }
 
-                
+
             }
             catch
             {
@@ -744,7 +739,7 @@ namespace TesteUI
             }
             else
             {
-                return; 
+                return;
             }
         }
 
@@ -755,7 +750,7 @@ namespace TesteUI
 
         private void button7_Click(object sender, EventArgs e)
         {
-            if(ligarMotor_horizontal == true || ligarMotor_vertical == true)
+            if (ligarMotor_horizontal == true || ligarMotor_vertical == true)
             {
                 try
                 {
@@ -766,9 +761,9 @@ namespace TesteUI
                 {
                     MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                
+
             }
-            
+
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -812,5 +807,35 @@ namespace TesteUI
         {
 
         }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (richTextBox4 != null)
+            {
+                // Substitui pontos por vírgulas
+                string inputDistancia1 = richTextBox1.Text.Replace('.', ',');
+                string inputVelocidade1 = richTextBox2.Text.Replace('.', ',');
+
+                // Verifica se as entradas podem ser convertidas para float
+                if (float.TryParse(inputDistancia1, NumberStyles.Float, new CultureInfo("pt-BR"), out float distancia_mm1) &&
+                    float.TryParse(inputVelocidade1, NumberStyles.Float, new CultureInfo("pt-BR"), out float velocidade_mm1))
+                {
+                    // Calcula os pulsos com base nos valores convertidos
+                    distancia_pulsos1 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
+                    velocidade_pulsos1 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
+
+                    // Atualiza os labels
+                    label7.Text = "Qtd. Pulsos: " + distancia_pulsos1.ToString();
+                    label9.Text = "Pulsos/s: " + velocidade_pulsos1.ToString();
+                }
+                else
+                {
+                    // Se a conversão falhar, pode exibir uma mensagem de erro ou ignorar a ação
+                    label7.Text = "Entrada inválida!";
+                    label9.Text = "Entrada inválida!";
+                }
+            }
+        }
+
     }
 }
