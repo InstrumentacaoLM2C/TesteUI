@@ -320,7 +320,7 @@ namespace TesteUI
                     btnEnergizarVertical.BackColor = Color.Green;
                     on_energizar_vertical = false;
                 }
-                else
+                else if (on_energizar_vertical == false)
                 {
                     if(ligarMotor_vertical == true)
                     {

@@ -447,7 +447,7 @@
             // 
             this.btnDirecaoVerticalBaixo.AutoSize = true;
             this.btnDirecaoVerticalBaixo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDirecaoVerticalBaixo.Location = new System.Drawing.Point(508, 153);
+            this.btnDirecaoVerticalBaixo.Location = new System.Drawing.Point(508, 152);
             this.btnDirecaoVerticalBaixo.Name = "btnDirecaoVerticalBaixo";
             this.btnDirecaoVerticalBaixo.Size = new System.Drawing.Size(82, 29);
             this.btnDirecaoVerticalBaixo.TabIndex = 21;
@@ -459,7 +459,7 @@
             // 
             this.btnDireicaoVerticalCima.AutoSize = true;
             this.btnDireicaoVerticalCima.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDireicaoVerticalCima.Location = new System.Drawing.Point(382, 154);
+            this.btnDireicaoVerticalCima.Location = new System.Drawing.Point(382, 153);
             this.btnDireicaoVerticalCima.Name = "btnDireicaoVerticalCima";
             this.btnDireicaoVerticalCima.Size = new System.Drawing.Size(79, 29);
             this.btnDireicaoVerticalCima.TabIndex = 20;
