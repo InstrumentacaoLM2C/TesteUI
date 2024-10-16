@@ -19,8 +19,8 @@ namespace TesteUI
     {
         bool on_sensor = false;
         private delegate void d1(string indata);
-        bool on_energizar_vertical = false;
-        bool on_energizar_horizontal = false;
+        bool on_energizar_vertical = true;
+        bool on_energizar_horizontal = true;
         bool on_sensor_vertical = false;
         bool on_sensor_horizontal = false;
         bool motorVertical = true;
@@ -319,6 +319,7 @@ namespace TesteUI
                     btnEnergizarVertical.Text = "Energizado";
                     btnEnergizarVertical.BackColor = Color.Green;
                     on_energizar_vertical = false;
+                   
                 }
                 else if (on_energizar_vertical == false)
                 {
@@ -337,8 +338,9 @@ namespace TesteUI
                             MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         btnEnergizarVertical.Text = "Desenergizado";
-                        btnEnergizarVertical.BackColor = Color.DarkGray;
+                        btnEnergizarVertical.BackColor = Color.Gainsboro;
                         on_energizar_vertical = true;
+                       
                     }
                     
                 }
@@ -436,7 +438,7 @@ namespace TesteUI
                             MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         btnLigarHorizontal.Text = "Ligar";
-                        btnLigarHorizontal.BackColor = Color.DarkGray;
+                        btnLigarHorizontal.BackColor = Color.Gainsboro;
                         ligarMotor_horizontal = false;
                         on_energizar_horizontal = false;
                        
@@ -562,7 +564,7 @@ namespace TesteUI
                     {
                         serialPort1.Write("a#");
                         btnEnergizarHorizontal.Text = "Desenergizado";
-                        btnEnergizarHorizontal.BackColor = Color.DarkGray;
+                        btnEnergizarHorizontal.BackColor = Color.Gainsboro;
                         on_energizar_horizontal = true;
                     }
                 }
@@ -616,7 +618,7 @@ namespace TesteUI
                     if (ligarMotor_vertical == true) { 
 
                         btnLigarVertical.Text = "Ligar";
-                        btnLigarVertical.BackColor = Color.DarkGray;
+                        btnLigarVertical.BackColor = Color.Gainsboro;
                         ligarMotor_vertical = false;
                         on_energizar_vertical = false;
                         try
@@ -711,7 +713,7 @@ namespace TesteUI
             }
             catch
             {
-                MessageBox.Show("Conecte-se a porta serial e escreva apenas números!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Conecte-se a porta serial. Não deixe de preencher os campos de distância, velocidade e da constante. Utilize apenas números!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 //richTextBox_Arduino.AppendText("O tipo de texto que você colocou na caixa de constante não é válido. Tente Novamente!\r\n\r\n");
 
             }

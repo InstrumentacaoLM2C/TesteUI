@@ -90,6 +90,7 @@
             // button6
             // 
             this.button6.BackColor = System.Drawing.Color.Gainsboro;
+            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button6.Dock = System.Windows.Forms.DockStyle.Top;
             this.button6.FlatAppearance.BorderSize = 0;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -106,7 +107,8 @@
             // richTextBox4
             // 
             this.richTextBox4.AutoWordSelection = true;
-            this.richTextBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.richTextBox4.BackColor = System.Drawing.Color.White;
+            this.richTextBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox4.Cursor = System.Windows.Forms.Cursors.Default;
             this.richTextBox4.Dock = System.Windows.Forms.DockStyle.Top;
             this.richTextBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -119,11 +121,11 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.Cursor = System.Windows.Forms.Cursors.PanWest;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button1.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.Enabled = false;
             this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.button1.ForeColor = System.Drawing.Color.Black;
             this.button1.Location = new System.Drawing.Point(0, 299);
@@ -150,6 +152,7 @@
             // button4
             // 
             this.button4.BackColor = System.Drawing.Color.Gainsboro;
+            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button4.FlatAppearance.BorderSize = 0;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -194,6 +197,7 @@
             // 
             this.button2.BackColor = System.Drawing.Color.Gainsboro;
             this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.Dock = System.Windows.Forms.DockStyle.Top;
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -224,6 +228,7 @@
             // btnMotor
             // 
             this.btnMotor.BackColor = System.Drawing.Color.Gainsboro;
+            this.btnMotor.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnMotor.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnMotor.FlatAppearance.BorderSize = 0;
             this.btnMotor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
@@ -262,6 +267,7 @@
             // btnDirecaoHorizontalCima
             // 
             this.btnDirecaoHorizontalCima.AutoSize = true;
+            this.btnDirecaoHorizontalCima.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDirecaoHorizontalCima.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDirecaoHorizontalCima.Location = new System.Drawing.Point(382, 154);
             this.btnDirecaoHorizontalCima.Name = "btnDirecaoHorizontalCima";
@@ -284,6 +290,7 @@
             // btnDirecaoHorizontalBaixo
             // 
             this.btnDirecaoHorizontalBaixo.AutoSize = true;
+            this.btnDirecaoHorizontalBaixo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDirecaoHorizontalBaixo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDirecaoHorizontalBaixo.Location = new System.Drawing.Point(508, 154);
             this.btnDirecaoHorizontalBaixo.Name = "btnDirecaoHorizontalBaixo";
@@ -295,7 +302,8 @@
             // btnEnergizarVertical
             // 
             this.btnEnergizarVertical.BackColor = System.Drawing.Color.Gainsboro;
-            this.btnEnergizarVertical.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnEnergizarVertical.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEnergizarVertical.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnEnergizarVertical.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEnergizarVertical.Location = new System.Drawing.Point(18, 132);
             this.btnEnergizarVertical.Name = "btnEnergizarVertical";
@@ -318,8 +326,9 @@
             // 
             // btnSensorHorizontal
             // 
-            this.btnSensorHorizontal.BackColor = System.Drawing.Color.DarkGray;
-            this.btnSensorHorizontal.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnSensorHorizontal.BackColor = System.Drawing.Color.Gainsboro;
+            this.btnSensorHorizontal.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSensorHorizontal.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSensorHorizontal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSensorHorizontal.Location = new System.Drawing.Point(192, 132);
             this.btnSensorHorizontal.Name = "btnSensorHorizontal";
@@ -342,8 +351,9 @@
             // 
             // btnLigarHorizontal
             // 
-            this.btnLigarHorizontal.BackColor = System.Drawing.Color.DarkGray;
-            this.btnLigarHorizontal.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnLigarHorizontal.BackColor = System.Drawing.Color.Gainsboro;
+            this.btnLigarHorizontal.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLigarHorizontal.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnLigarHorizontal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLigarHorizontal.Location = new System.Drawing.Point(18, 360);
             this.btnLigarHorizontal.Name = "btnLigarHorizontal";
@@ -433,7 +443,8 @@
             // btnSensorVertical
             // 
             this.btnSensorVertical.BackColor = System.Drawing.Color.Gainsboro;
-            this.btnSensorVertical.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnSensorVertical.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSensorVertical.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSensorVertical.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSensorVertical.Location = new System.Drawing.Point(192, 132);
             this.btnSensorVertical.Name = "btnSensorVertical";
@@ -446,6 +457,7 @@
             // btnDirecaoVerticalBaixo
             // 
             this.btnDirecaoVerticalBaixo.AutoSize = true;
+            this.btnDirecaoVerticalBaixo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDirecaoVerticalBaixo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDirecaoVerticalBaixo.Location = new System.Drawing.Point(508, 152);
             this.btnDirecaoVerticalBaixo.Name = "btnDirecaoVerticalBaixo";
@@ -458,8 +470,9 @@
             // btnDireicaoVerticalCima
             // 
             this.btnDireicaoVerticalCima.AutoSize = true;
+            this.btnDireicaoVerticalCima.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDireicaoVerticalCima.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDireicaoVerticalCima.Location = new System.Drawing.Point(382, 153);
+            this.btnDireicaoVerticalCima.Location = new System.Drawing.Point(382, 152);
             this.btnDireicaoVerticalCima.Name = "btnDireicaoVerticalCima";
             this.btnDireicaoVerticalCima.Size = new System.Drawing.Size(79, 29);
             this.btnDireicaoVerticalCima.TabIndex = 20;
@@ -469,6 +482,7 @@
             // 
             // richTextBox2
             // 
+            this.richTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox2.Location = new System.Drawing.Point(319, 247);
             this.richTextBox2.Name = "richTextBox2";
@@ -478,6 +492,7 @@
             // 
             // richTextBox1
             // 
+            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.richTextBox1.Location = new System.Drawing.Point(18, 247);
             this.richTextBox1.Name = "richTextBox1";
@@ -487,8 +502,9 @@
             // 
             // btnEnergizarHorizontal
             // 
-            this.btnEnergizarHorizontal.BackColor = System.Drawing.Color.DarkGray;
-            this.btnEnergizarHorizontal.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnEnergizarHorizontal.BackColor = System.Drawing.Color.Gainsboro;
+            this.btnEnergizarHorizontal.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEnergizarHorizontal.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnEnergizarHorizontal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnEnergizarHorizontal.Location = new System.Drawing.Point(18, 132);
             this.btnEnergizarHorizontal.Name = "btnEnergizarHorizontal";
@@ -501,7 +517,7 @@
             // button7
             // 
             this.button7.BackColor = System.Drawing.Color.Red;
-            this.button7.Cursor = System.Windows.Forms.Cursors.Default;
+            this.button7.Cursor = System.Windows.Forms.Cursors.No;
             this.button7.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -516,7 +532,8 @@
             // btnLigarVertical
             // 
             this.btnLigarVertical.BackColor = System.Drawing.Color.Gainsboro;
-            this.btnLigarVertical.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnLigarVertical.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLigarVertical.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnLigarVertical.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLigarVertical.Location = new System.Drawing.Point(18, 360);
             this.btnLigarVertical.Name = "btnLigarVertical";
@@ -533,9 +550,10 @@
             // 
             // richTextBox_Arduino
             // 
+            this.richTextBox_Arduino.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox_Arduino.Location = new System.Drawing.Point(319, 343);
             this.richTextBox_Arduino.Name = "richTextBox_Arduino";
-            this.richTextBox_Arduino.Size = new System.Drawing.Size(240, 107);
+            this.richTextBox_Arduino.Size = new System.Drawing.Size(240, 96);
             this.richTextBox_Arduino.TabIndex = 29;
             this.richTextBox_Arduino.Text = "";
             // 
