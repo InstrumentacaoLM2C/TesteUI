@@ -240,7 +240,7 @@
             this.btnMotor.Location = new System.Drawing.Point(0, 0);
             this.btnMotor.Margin = new System.Windows.Forms.Padding(0);
             this.btnMotor.Name = "btnMotor";
-            this.btnMotor.Size = new System.Drawing.Size(618, 78);
+            this.btnMotor.Size = new System.Drawing.Size(616, 78);
             this.btnMotor.TabIndex = 0;
             this.btnMotor.Text = "Motor Vertical";
             this.btnMotor.UseVisualStyleBackColor = false;
@@ -370,6 +370,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.DarkGray;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.richTextBox_Arduino);
             this.panel2.Controls.Add(this.label9);
             this.panel2.Controls.Add(this.label8);
@@ -404,6 +405,7 @@
             // richTextBox_Arduino
             // 
             this.richTextBox_Arduino.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox_Arduino.Cursor = System.Windows.Forms.Cursors.Help;
             this.richTextBox_Arduino.Location = new System.Drawing.Point(319, 343);
             this.richTextBox_Arduino.Name = "richTextBox_Arduino";
             this.richTextBox_Arduino.Size = new System.Drawing.Size(240, 96);
@@ -537,9 +539,9 @@
             this.button7.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(0, 458);
+            this.button7.Location = new System.Drawing.Point(0, 456);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(618, 95);
+            this.button7.Size = new System.Drawing.Size(616, 95);
             this.button7.TabIndex = 24;
             this.button7.Text = "Parar";
             this.button7.UseVisualStyleBackColor = false;
