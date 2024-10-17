@@ -723,10 +723,10 @@ namespace TesteUI
                 else
                 {
                     serialPort1.Close();
-                    string[] ports = SerialPort.GetPortNames();
+                    string[] port = SerialPort.GetPortNames();
                     comboBox1.Items.Clear();
                     button4.Text = "Conectar";
-                    comboBox1.Items.AddRange(ports);
+                    comboBox1.Items.AddRange(port);
                 }
             }
             catch (UnauthorizedAccessException)
@@ -880,10 +880,6 @@ namespace TesteUI
                                             "Erro Desconhecido",
                                             MessageBoxButtons.OK,
                                             MessageBoxIcon.Error);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
 
                     }
