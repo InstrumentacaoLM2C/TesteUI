@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO.Ports;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -125,7 +127,7 @@ namespace TesteUI
 
                 case 'T':
                     btnSensorHorizontal.Text = "Desligado";
-                    btnSensorHorizontal.BackColor = Color.DarkGray;
+                    btnSensorHorizontal.BackColor = Color.Gainsboro;
                     on_sensor = true;
                     richTextBox_Arduino.AppendText("Mude a direção do deslocamento para movimenta-lo." + "\r\n\r\n" + "Aperte o botão para ativar o sensor indutivo novamente!" + "\r\n\r\n");
                     break;
@@ -142,7 +144,7 @@ namespace TesteUI
                     ligarMotor_horizontal = false;
                     on_energizar_horizontal = false;
                     btnLigarHorizontal.Text = "Ligar";
-                    btnLigarHorizontal.BackColor = Color.DarkGray;
+                    btnLigarHorizontal.BackColor = Color.Gainsboro;
                     MessageBox.Show("O motor horizontal parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
 
@@ -153,7 +155,7 @@ namespace TesteUI
                     ligarMotor_vertical = false;
                     on_energizar_vertical = false;
                     btnLigarVertical.Text = "Ligar";
-                    btnLigarVertical.BackColor = Color.DarkGray;
+                    btnLigarVertical.BackColor = Color.Gainsboro;
                     MessageBox.Show("O motor vertical parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     break;
@@ -246,6 +248,33 @@ namespace TesteUI
                     btnDirecaoVerticalBaixo.Text = " ";
                     btnDirecaoHorizontalCima.Text = "Direita";
                     btnDirecaoHorizontalBaixo.Text = "Esquerda";
+
+                    if (richTextBox1 != null)
+                    {
+                        string inputDistancia2 = richTextBox1.Text.Replace('.', ',');
+
+                        // Tenta converter a string para float
+                        float distancia_mm2 = float.Parse(inputDistancia2, new CultureInfo("pt-BR"));
+
+                        // Calcula os pulsos com base no valor convertido
+                        distancia_pulsos2 = (float)Math.Round(distancia_mm2 / constanteCalibracao1);
+
+                        // Atualiza o label com o valor calculado
+                        label6.Text = "Qtd. Pulsos: " + distancia_pulsos2.ToString();
+                    }
+                    if (richTextBox2 != null)
+                    {
+                        string inputVelocidade2 = richTextBox2.Text.Replace('.', ',');
+
+                        // Tenta converter a string para float
+                        float velocidade_mm2 = float.Parse(inputVelocidade2, new CultureInfo("pt-BR"));
+
+                        // Calcula os pulsos com base no valor convertido
+                        velocidade_pulsos2 = (float)Math.Round(velocidade_mm2 / constanteCalibracao1);
+
+                        // Atualiza o label com o valor calculado
+                        label8.Text = "Pulsos/s: " + velocidade_pulsos2.ToString();
+                    }
                 }
                 else if (motorVertical == false)
                 {
@@ -272,6 +301,33 @@ namespace TesteUI
                     btnDirecaoVerticalBaixo.Text = "Baixo";
                     btnDirecaoHorizontalCima.Text = " ";
                     btnDirecaoHorizontalBaixo.Text = " ";
+
+                    if (richTextBox1 != null)
+                    {
+                        string inputDistancia1 = richTextBox1.Text.Replace('.', ',');
+
+                        // Tenta converter a string para float
+                        float distancia_mm1 = float.Parse(inputDistancia1, new CultureInfo("pt-BR"));
+
+                        // Calcula os pulsos com base no valor convertido
+                        distancia_pulsos1 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
+
+                        // Atualiza o label com o valor calculado
+                        label7.Text = "Qtd. Pulsos: " + distancia_pulsos1.ToString();
+                    }
+                    if (richTextBox2 != null)
+                    {
+                        string inputVelocidade1 = richTextBox2.Text.Replace('.', ',');
+
+                        // Tenta converter a string para float
+                        float velocidade_mm1 = float.Parse(inputVelocidade1, new CultureInfo("pt-BR"));
+
+                        // Calcula os pulsos com base no valor convertido
+                        velocidade_pulsos1 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
+
+                        // Atualiza o label com o valor calculado
+                        label9.Text = "Pulsos/s: " + velocidade_pulsos1.ToString();
+                    }
 
                 }
             }
@@ -661,46 +717,27 @@ namespace TesteUI
                 if (motorVertical == true)
                 {
 
-                    string inputDistancia1 = richTextBox1.Text.Replace('.', ',');
-                    string inputVelocidade1 = richTextBox2.Text.Replace('.', ',');
+                    
                     string inputConstanteCalibracao = richTextBox4.Text.Replace('.', ',');
 
-                    distancia_mm1 = float.Parse(inputDistancia1, new CultureInfo("pt-BR"));
-                    velocidade_mm1 = float.Parse(inputVelocidade1, new CultureInfo("pt-BR"));
                     constanteCalibracao1 = double.Parse(inputConstanteCalibracao, new CultureInfo("pt-BR"));
 
-
-
-                    distancia_pulsos1 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
-                    velocidade_pulsos1 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
-
                     button1.Text = "Constante de Calibração: " + constanteCalibracao1;
-                    label7.Text = "Qtd. Pulsos: " + distancia_pulsos1.ToString();
-                    label9.Text = "Pulsos/s: " + velocidade_pulsos1.ToString();
-                    label6.Text = "Qtd. Pulsos: " + distancia_pulsos2.ToString();
-                    label8.Text = "Pulsos/s: " + velocidade_pulsos2.ToString();
-
-
+    
                 }
                 else if (motorVertical == false)
                 {
 
-                    string inputDistancia2 = richTextBox1.Text.Replace('.', ',');
-                    string inputVelocidade2 = richTextBox2.Text.Replace('.', ',');
+                  
                     string inputConstanteCalibracao = richTextBox4.Text.Replace('.', ',');
 
-                    distancia_mm2 = float.Parse(inputDistancia2, new CultureInfo("pt-BR"));
-                    velocidade_mm2 = float.Parse(inputVelocidade2, new CultureInfo("pt-BR"));
+                    
                     constanteCalibracao2 = float.Parse(inputConstanteCalibracao, new CultureInfo("pt-BR"));
 
-                    distancia_pulsos2 = (float)Math.Round(distancia_mm2 / constanteCalibracao2);
-                    velocidade_pulsos2 = (float)Math.Round(velocidade_mm2 / constanteCalibracao2);
+                
 
                     button1.Text = "Constante de Calibração: " + constanteCalibracao2;
-                    label7.Text = "Qtd. Pulsos: " + distancia_pulsos1.ToString();
-                    label9.Text = "Pulsos/s: " + velocidade_pulsos1.ToString();
-                    label6.Text = "Qtd. Pulsos: " + distancia_pulsos2.ToString();
-                    label8.Text = "Pulsos/s: " + velocidade_pulsos2.ToString();
+                    
 
                 }
 
@@ -812,30 +849,149 @@ namespace TesteUI
         {
             if (richTextBox4 != null)
             {
-                // Substitui pontos por vírgulas
-                string inputDistancia1 = richTextBox1.Text.Replace('.', ',');
-                string inputVelocidade1 = richTextBox2.Text.Replace('.', ',');
-
-                // Verifica se as entradas podem ser convertidas para float
-                if (float.TryParse(inputDistancia1, NumberStyles.Float, new CultureInfo("pt-BR"), out float distancia_mm1) &&
-                    float.TryParse(inputVelocidade1, NumberStyles.Float, new CultureInfo("pt-BR"), out float velocidade_mm1))
+                try
                 {
-                    // Calcula os pulsos com base nos valores convertidos
-                    distancia_pulsos1 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
-                    velocidade_pulsos1 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
+                    if (motorVertical == true)
+                    {
+                        // Substitui pontos por vírgulas
+                        string inputDistancia1 = richTextBox1.Text.Replace('.', ',');
 
-                    // Atualiza os labels
-                    label7.Text = "Qtd. Pulsos: " + distancia_pulsos1.ToString();
-                    label9.Text = "Pulsos/s: " + velocidade_pulsos1.ToString();
+                        // Tenta converter a string para float
+                        float distancia_mm1 = float.Parse(inputDistancia1, new CultureInfo("pt-BR"));
+
+                        // Calcula os pulsos com base no valor convertido
+                        distancia_pulsos1 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
+
+                        // Atualiza o label com o valor calculado
+                        label7.Text = "Qtd. Pulsos: " + distancia_pulsos1.ToString();
+                    }
+                    else
+                    {
+                        string inputDistancia2 = richTextBox1.Text.Replace('.', ',');
+
+                        // Tenta converter a string para float
+                        float distancia_mm2 = float.Parse(inputDistancia2, new CultureInfo("pt-BR"));
+
+                        // Calcula os pulsos com base no valor convertido
+                        distancia_pulsos2 = (float)Math.Round(distancia_mm2 / constanteCalibracao1);
+
+                        // Atualiza o label com o valor calculado
+                        label6.Text = "Qtd. Pulsos: " + distancia_pulsos2.ToString();
+                    }
                 }
-                else
+                catch (FormatException)
                 {
-                    // Se a conversão falhar, pode exibir uma mensagem de erro ou ignorar a ação
-                    label7.Text = "Entrada inválida!";
-                    label9.Text = "Entrada inválida!";
+                    // Se ocorrer uma exceção de formato, exibe uma mensagem de erro
+                    if(motorVertical == true)
+                    {
+                        label7.Text = "Entrada inválida!";
+                    }
+                    else
+                    {
+                        label6.Text = "Entrada inválida!";
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+                    // Captura qualquer outra exceção que possa ocorrer
+                    MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
+        private void richTextBox1_SizeChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void richTextBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (richTextBox4 != null)
+            {
+                try
+                {
+                    if (motorVertical == true)
+                    {
+                        // Substitui pontos por vírgulas
+                        string inputVelocidade1 = richTextBox2.Text.Replace('.', ',');
+
+                        // Tenta converter a string para float
+                        float velocidade_mm1 = float.Parse(inputVelocidade1, new CultureInfo("pt-BR"));
+
+                        // Calcula os pulsos com base no valor convertido
+                        velocidade_pulsos1 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
+
+                        // Atualiza o label com o valor calculado
+                        label9.Text = "Pulsos/s: " + velocidade_pulsos1.ToString();
+                    }
+                    else
+                    {
+                        string inputVelocidade2 = richTextBox2.Text.Replace('.', ',');
+
+                        // Tenta converter a string para float
+                        float velocidade_mm2 = float.Parse(inputVelocidade2, new CultureInfo("pt-BR"));
+
+                        // Calcula os pulsos com base no valor convertido
+                        velocidade_pulsos2 = (float)Math.Round(velocidade_mm2 / constanteCalibracao1);
+
+                        // Atualiza o label com o valor calculado
+                        label8.Text = "Pulsos/s: " + velocidade_pulsos2.ToString();
+                    }
+                }
+                catch (FormatException)
+                {
+                    // Se ocorrer uma exceção de formato, exibe uma mensagem de erro
+                    if(motorVertical == true)
+                    {
+                        label9.Text = "Entrada inválida!";
+                    } else
+                    {
+                        label8.Text = "Entrada inválida!";
+                    }
+                    
+                }
+                catch (Exception ex)
+                {
+                    // Captura qualquer outra exceção que possa ocorrer
+                    MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void richTextBox4_TextChanged(object sender, EventArgs e)
+        {
+            // Salva a posição atual do cursor
+            int cursorPosition = richTextBox4.SelectionStart;
+
+            // Seleciona todo o texto
+            richTextBox4.SelectAll();
+
+            // Centraliza o texto selecionado
+            richTextBox4.SelectionAlignment = HorizontalAlignment.Center;
+
+            // Remove a seleção e restaura a posição do cursor
+            richTextBox4.Select(cursorPosition, 0);
+        }
+
+        private void richTextBox4_Click(object sender, EventArgs e)
+        {
+            // Salva a posição atual do cursor
+            int cursorPosition = richTextBox4.SelectionStart;
+
+            // Seleciona todo o texto
+            richTextBox4.SelectAll();
+
+            // Centraliza o texto selecionado
+            richTextBox4.SelectionAlignment = HorizontalAlignment.Center;
+
+            // Remove a seleção e restaura a posição do cursor
+            richTextBox4.Select(cursorPosition, 0);
+        }
     }
 }
