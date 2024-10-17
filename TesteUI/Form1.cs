@@ -6,6 +6,7 @@ using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Globalization;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Net.NetworkInformation;
@@ -249,7 +250,7 @@ namespace TesteUI
                     btnDirecaoHorizontalCima.Text = "Direita";
                     btnDirecaoHorizontalBaixo.Text = "Esquerda";
 
-                    if (richTextBox1 != null)
+                    if (!string.IsNullOrWhiteSpace(richTextBox1.Text))
                     {
                         string inputDistancia2 = richTextBox1.Text.Replace('.', ',');
 
@@ -262,7 +263,7 @@ namespace TesteUI
                         // Atualiza o label com o valor calculado
                         label6.Text = "Qtd. Pulsos: " + distancia_pulsos2.ToString();
                     }
-                    if (richTextBox2 != null)
+                    if (!string.IsNullOrWhiteSpace(richTextBox2.Text))
                     {
                         string inputVelocidade2 = richTextBox2.Text.Replace('.', ',');
 
@@ -275,6 +276,7 @@ namespace TesteUI
                         // Atualiza o label com o valor calculado
                         label8.Text = "Pulsos/s: " + velocidade_pulsos2.ToString();
                     }
+
                 }
                 else if (motorVertical == false)
                 {
@@ -302,7 +304,7 @@ namespace TesteUI
                     btnDirecaoHorizontalCima.Text = " ";
                     btnDirecaoHorizontalBaixo.Text = " ";
 
-                    if (richTextBox1 != null)
+                    if (!string.IsNullOrWhiteSpace(richTextBox1.Text))
                     {
                         string inputDistancia1 = richTextBox1.Text.Replace('.', ',');
 
@@ -315,7 +317,7 @@ namespace TesteUI
                         // Atualiza o label com o valor calculado
                         label7.Text = "Qtd. Pulsos: " + distancia_pulsos1.ToString();
                     }
-                    if (richTextBox2 != null)
+                    if (!string.IsNullOrWhiteSpace(richTextBox2.Text))
                     {
                         string inputVelocidade1 = richTextBox2.Text.Replace('.', ',');
 
@@ -331,10 +333,17 @@ namespace TesteUI
 
                 }
             }
+            catch (IOException ioEx)
+            {
+                MessageBox.Show("Erro de comunicação com a porta serial: " + ioEx.Message, "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (FormatException formatEx)
+            {
+                MessageBox.Show("Erro de formato nos valores inseridos: " + formatEx.Message, "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
-                MessageBox.Show("Conecte a porta serial!", "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                MessageBox.Show("Ocorreu um erro inesperado: " + ex.Message, "Erro!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -370,9 +379,29 @@ namespace TesteUI
                         // Enviar comando para parar o motor
                         serialPort1.Write("A#");
                     }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        // Erro específico para portas não autorizadas
+                        MessageBox.Show("Acesso negado à porta serial. Verifique se o dispositivo está conectado corretamente ou se a porta já está em uso.",
+                                        "Erro de Acesso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        // Erro específico para operação inválida na porta serial
+                        MessageBox.Show("A operação não pôde ser completada. Verifique se a porta serial está configurada corretamente e tente novamente.",
+                                        "Erro de Operação", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    catch (IOException ex)
+                    {
+                        // Erro específico para I/O
+                        MessageBox.Show("Falha de comunicação com a porta serial. Certifique-se de que o dispositivo está conectado corretamente.",
+                                        "Erro de Comunicação", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        // Erro genérico
+                        MessageBox.Show($"Erro inesperado ao enviar comando de parada: {ex.Message}",
+                                        "Erro Desconhecido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     btnEnergizarVertical.Text = "Energizado";
                     btnEnergizarVertical.BackColor = Color.Green;
@@ -392,9 +421,29 @@ namespace TesteUI
                             // Enviar comando para parar o motor
                             serialPort1.Write("a#");
                         }
+                        catch (UnauthorizedAccessException ex)
+                        {
+                            // Erro específico para portas não autorizadas
+                            MessageBox.Show("Acesso negado à porta serial. Verifique se o dispositivo está conectado corretamente ou se a porta já está em uso.",
+                                            "Erro de Acesso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                        catch (InvalidOperationException ex)
+                        {
+                            // Erro específico para operação inválida na porta serial
+                            MessageBox.Show("A operação não pôde ser completada. Verifique se a porta serial está configurada corretamente e tente novamente.",
+                                            "Erro de Operação", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                        catch (IOException ex)
+                        {
+                            // Erro específico para I/O
+                            MessageBox.Show("Falha de comunicação com a porta serial. Certifique-se de que o dispositivo está conectado corretamente.",
+                                            "Erro de Comunicação", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                         catch (Exception ex)
                         {
-                            MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            // Erro genérico
+                            MessageBox.Show($"Erro inesperado ao enviar comando de parada: {ex.Message}",
+                                            "Erro Desconhecido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         btnEnergizarVertical.Text = "Desenergizado";
                         btnEnergizarVertical.BackColor = Color.Gainsboro;
@@ -423,9 +472,39 @@ namespace TesteUI
                     // Enviar comando para parar o motor
                     serialPort1.Write("S#");
                 }
+                catch (UnauthorizedAccessException)
+                {
+                    MessageBox.Show("Acesso negado à porta serial. " +
+                                    "Verifique se a porta já está em uso ou se você tem permissão para acessá-la.",
+                                    "Erro de Acesso",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                }
+                catch (InvalidOperationException)
+                {
+                    MessageBox.Show("A operação não pôde ser completada. " +
+                                    "Verifique se a porta serial está aberta e configurada corretamente.",
+                                    "Erro de Operação",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show("Falha de comunicação com o sensor indutivo. " +
+                                    "Certifique-se de que o dispositivo está conectado corretamente.\n\n" +
+                                    $"Detalhes do erro: {ex.Message}",
+                                    "Erro de Comunicação",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Não foi possível iniciar o sensor indutivo. " +
+                                    "Uma falha inesperada ocorreu. Por favor, verifique a configuração do dispositivo.\n\n" +
+                                    $"Detalhes do erro: {ex.Message}",
+                                    "Erro Desconhecido",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
                 }
                 btnSensorHorizontal.Text = "Ligado";
                 btnSensorHorizontal.BackColor = Color.Green;
@@ -492,9 +571,39 @@ namespace TesteUI
                             serialPort1.Write("n#");
                             System.Threading.Thread.Sleep(100);
                         }
+                        catch (UnauthorizedAccessException)
+                        {
+                            MessageBox.Show("Acesso negado à porta serial. " +
+                                            "Verifique se a porta já está em uso ou se você tem permissão para acessá-la.",
+                                            "Erro de Acesso",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Warning);
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            MessageBox.Show("A operação não pôde ser completada. " +
+                                            "Verifique se a porta serial está aberta e configurada corretamente.",
+                                            "Erro de Operação",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Error);
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show("Falha de comunicação ao tentar parar o motor. " +
+                                            "Certifique-se de que o dispositivo está conectado corretamente.\n\n" +
+                                            $"Detalhes do erro: {ex.Message}",
+                                            "Erro de Comunicação",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Error);
+                        }
                         catch (Exception ex)
                         {
-                            MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            MessageBox.Show("Não foi possível parar o motor. " +
+                                            "Uma falha inesperada ocorreu. Por favor, verifique a configuração do dispositivo.\n\n" +
+                                            $"Detalhes do erro: {ex.Message}",
+                                            "Erro Desconhecido",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Error);
                         }
                         btnLigarHorizontal.Text = "Ligar";
                         btnLigarHorizontal.BackColor = Color.Gainsboro;
@@ -539,14 +648,43 @@ namespace TesteUI
                 serialPort1.Open();
                 button3.Text = "desconectar";
             }
-            catch (Exception err)
+            catch (UnauthorizedAccessException)
             {
-                //richTextBox_Arduino.AppendText("Erro! Tente novamente!" + "\r\n\r\n");
-                string[] ports = SerialPort.GetPortNames();
-                comboBox1.Items.Clear();
-                comboBox1.Items.AddRange(ports);
-
+                MessageBox.Show("Acesso negado à porta serial. " +
+                                "Verifique se a porta já está em uso ou se você tem permissão para acessá-la.",
+                                "Erro de Acesso",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
             }
+            catch (IOException)
+            {
+                MessageBox.Show("Falha ao tentar abrir a porta serial. " +
+                                "Certifique-se de que o dispositivo está conectado corretamente e tente novamente.",
+                                "Erro de Comunicação",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show("O nome da porta serial selecionada é inválido. " +
+                                "Por favor, selecione uma porta válida no menu suspenso.",
+                                "Erro de Porta Inválida",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Não foi possível conectar à porta serial. " +
+                                "Uma falha inesperada ocorreu. Tente novamente.\n\n" +
+                                $"Detalhes do erro: {ex.Message}",
+                                "Erro Desconhecido",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+
+            string[] ports = SerialPort.GetPortNames();
+            comboBox1.Items.Clear();
+            comboBox1.Items.AddRange(ports);
         }
 
         private void btnParar_Click(object sender, EventArgs e)
@@ -591,14 +729,46 @@ namespace TesteUI
                     comboBox1.Items.AddRange(ports);
                 }
             }
-            catch
+            catch (UnauthorizedAccessException)
             {
-                richTextBox_Arduino.AppendText("Erro! Tente novamente!" + "\r\n\r\n");
-                string[] ports = SerialPort.GetPortNames();
-                comboBox1.Items.Clear();
-                comboBox1.Items.AddRange(ports);
-
+                MessageBox.Show("Acesso negado à porta serial. " +
+                                "Verifique se a porta já está em uso ou se você tem permissão para acessá-la.",
+                                "Erro de Acesso",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
             }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Falha ao tentar abrir a porta serial. " +
+                                "Certifique-se de que o dispositivo está conectado corretamente e tente novamente.\n\n" +
+                                $"Detalhes do erro: {ex.Message}",
+                                "Erro de Comunicação",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show("O nome da porta serial selecionada é inválido. " +
+                                "Por favor, selecione uma porta válida no menu suspenso.",
+                                "Erro de Porta Inválida",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Não foi possível conectar à porta serial. " +
+                                "Uma falha inesperada ocorreu. Tente novamente.\n\n" +
+                                $"Detalhes do erro: {ex.Message}",
+                                "Erro Desconhecido",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+
+            // Atualizar a lista de portas disponíveis
+            string[] ports = SerialPort.GetPortNames();
+            comboBox1.Items.Clear();
+            comboBox1.Items.AddRange(ports);
+
         }
 
         private void btnMotorHorizontal_Click(object sender, EventArgs e)
@@ -677,6 +847,40 @@ namespace TesteUI
                             serialPort1.Write("n#");
                             System.Threading.Thread.Sleep(100);
                         }
+                        catch (UnauthorizedAccessException)
+                        {
+                            MessageBox.Show("Acesso negado à porta serial. " +
+                                            "Verifique se a porta já está em uso ou se você tem permissão para acessá-la.",
+                                            "Erro de Acesso",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Warning);
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            MessageBox.Show("A operação não pôde ser completada. " +
+                                            "Verifique se a porta serial está aberta e configurada corretamente.",
+                                            "Erro de Operação",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Error);
+                        }
+                        catch (IOException ex)
+                        {
+                            MessageBox.Show("Falha de comunicação ao tentar parar o motor. " +
+                                            "Certifique-se de que o dispositivo está conectado corretamente.\n\n" +
+                                            $"Detalhes do erro: {ex.Message}",
+                                            "Erro de Comunicação",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Error);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Não foi possível parar o motor. " +
+                                            "Uma falha inesperada ocorreu. Tente novamente.\n\n" +
+                                            $"Detalhes do erro: {ex.Message}",
+                                            "Erro Desconhecido",
+                                            MessageBoxButtons.OK,
+                                            MessageBoxIcon.Error);
+                        }
                         catch (Exception ex)
                         {
                             MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -743,11 +947,42 @@ namespace TesteUI
 
 
             }
-            catch
+            catch (FormatException)
             {
-                MessageBox.Show("Conecte-se a porta serial. Não deixe de preencher os campos de distância, velocidade e da constante. Utilize apenas números!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //richTextBox_Arduino.AppendText("O tipo de texto que você colocou na caixa de constante não é válido. Tente Novamente!\r\n\r\n");
-
+                MessageBox.Show("Formato inválido. Certifique-se de que a constante de calibração é um número válido.",
+                                "Erro de Formato",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (ArgumentNullException)
+            {
+                MessageBox.Show("O campo de constante de calibração não pode estar vazio. Preencha o campo antes de continuar.",
+                                "Campo Vazio",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("A porta serial não está aberta. Conecte-se à porta serial antes de enviar dados.",
+                                "Erro de Conexão",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Erro de comunicação ao tentar enviar dados. Verifique a conexão com o dispositivo.\n\n" +
+                                $"Detalhes do erro: {ex.Message}",
+                                "Erro de Comunicação",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Uma falha inesperada ocorreu. Tente novamente.\n\n" +
+                                $"Detalhes do erro: {ex.Message}",
+                                "Erro Desconhecido",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
             }
         }
 
@@ -766,9 +1001,36 @@ namespace TesteUI
                     // Enviar comando para parar o motor
                     serialPort1.Write("S#");
                 }
+                catch (UnauthorizedAccessException)
+                {
+                    MessageBox.Show("Acesso negado à porta serial. Verifique se a porta já está em uso ou se você tem permissão para acessá-la.",
+                                    "Erro de Acesso",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                }
+                catch (InvalidOperationException)
+                {
+                    MessageBox.Show("A porta serial não está aberta. Conecte-se à porta serial antes de ativar o sensor.",
+                                    "Erro de Conexão",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show("Erro de comunicação ao tentar ativar o sensor indutivo. " +
+                                    "Verifique a conexão com o dispositivo.\n\n" +
+                                    $"Detalhes do erro: {ex.Message}",
+                                    "Erro de Comunicação",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Não foi possível ativar o sensor indutivo. Uma falha inesperada ocorreu. Tente novamente.\n\n" +
+                                    $"Detalhes do erro: {ex.Message}",
+                                    "Erro Desconhecido",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
                 }
                 btnSensorVertical.Text = "Ligado";
                 btnSensorVertical.BackColor = Color.Green;
@@ -794,9 +1056,39 @@ namespace TesteUI
                     // Enviar comando para parar o motor
                     serialPort1.Write("n#");
                 }
+                catch (UnauthorizedAccessException)
+                {
+                    MessageBox.Show("Acesso negado à porta serial. " +
+                                    "Verifique se a porta já está em uso ou se você tem permissão para acessá-la.",
+                                    "Erro de Acesso",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Warning);
+                }
+                catch (InvalidOperationException)
+                {
+                    MessageBox.Show("A operação não pôde ser completada. " +
+                                    "Verifique se a porta serial está aberta e configurada corretamente.",
+                                    "Erro de Operação",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show("Falha de comunicação ao tentar parar o motor. " +
+                                    "Certifique-se de que o dispositivo está conectado corretamente.\n\n" +
+                                    $"Detalhes do erro: {ex.Message}",
+                                    "Erro de Comunicação",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Erro ao enviar comando de parada: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Não foi possível parar o motor. " +
+                                    "Uma falha inesperada ocorreu. Tente novamente.\n\n" +
+                                    $"Detalhes do erro: {ex.Message}",
+                                    "Erro Desconhecido",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
                 }
 
             }
