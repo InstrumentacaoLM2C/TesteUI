@@ -62,11 +62,35 @@ namespace TesteUI
 
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
-            string indata = serialPort1.ReadLine();
-            d1 writeit = new d1(Write2Form);
-            Invoke(writeit, indata);
+            try
+            {
+                // Ler a linha recebida da porta serial
+                string indata = serialPort1.ReadLine();
 
+                // Usar Invoke para atualizar a interface do usuário de forma segura
+                d1 writeit = new d1(Write2Form);
+                Invoke(writeit, indata);
+            }
+            catch (IOException ioEx)
+            {
+                // Exibir uma mensagem de erro se houver um problema de I/O
+                MessageBox.Show("Erro de comunicação com a porta serial.\n\n" +
+                                $"Detalhes do erro: {ioEx.Message}",
+                                "Erro de Comunicação",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                // Tratar outros tipos de exceções que possam ocorrer
+                MessageBox.Show("Uma falha inesperada ocorreu ao receber dados da porta serial.\n\n" +
+                                $"Detalhes do erro: {ex.Message}",
+                                "Erro Desconhecido",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
         }
+
 
         private void commit() { }
         private bool VerificarTextoValido(RichTextBox richTextBox)
@@ -723,10 +747,12 @@ namespace TesteUI
                 else
                 {
                     serialPort1.Close();
-                    string[] port = SerialPort.GetPortNames();
+                    // Atualizar a lista de portas disponíveis após a desconexão
+                    string[] ports = SerialPort.GetPortNames();
                     comboBox1.Items.Clear();
-                    button4.Text = "Conectar";
-                    comboBox1.Items.AddRange(port);
+                    comboBox1.Items.AddRange(ports);
+
+                    button4.Text = "Conectar"; // Mantenha o texto do botão em "Conectar"
                 }
             }
             catch (UnauthorizedAccessException)
@@ -763,11 +789,6 @@ namespace TesteUI
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
             }
-
-            // Atualizar a lista de portas disponíveis
-            string[] ports = SerialPort.GetPortNames();
-            comboBox1.Items.Clear();
-            comboBox1.Items.AddRange(ports);
 
         }
 
