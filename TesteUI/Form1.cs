@@ -809,7 +809,6 @@ namespace TesteUI
             if (serialPort1.IsOpen)
             {
                 serialPort1.Close();
-                MessageBox.Show("A porta serial foi fechada.", "Aviso!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -992,6 +991,11 @@ namespace TesteUI
 
             // Remove a seleção e restaura a posição do cursor
             richTextBox4.Select(cursorPosition, 0);
+        }
+
+        private void btnEnergizarVertical_MouseHover(object sender, EventArgs e)
+        {
+            
         }
     }
 }

@@ -316,6 +316,7 @@
             this.btnEnergizarVertical.Text = "Desenergizado";
             this.btnEnergizarVertical.UseVisualStyleBackColor = false;
             this.btnEnergizarVertical.Click += new System.EventHandler(this.button4_Click);
+            this.btnEnergizarVertical.MouseHover += new System.EventHandler(this.btnEnergizarVertical_MouseHover);
             // 
             // label4
             // 
