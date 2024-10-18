@@ -412,6 +412,7 @@
             this.richTextBox_Arduino.Size = new System.Drawing.Size(240, 96);
             this.richTextBox_Arduino.TabIndex = 29;
             this.richTextBox_Arduino.Text = "";
+            this.richTextBox_Arduino.TextChanged += new System.EventHandler(this.richTextBox_Arduino_TextChanged);
             // 
             // label9
             // 

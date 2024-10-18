@@ -944,6 +944,35 @@ namespace TesteUI
                     constanteCalibracao1 = double.Parse(inputConstanteCalibracao, new CultureInfo("pt-BR"));
 
                     button1.Text = "Constante de Calibração: " + constanteCalibracao1;
+
+                    if (!(string.IsNullOrWhiteSpace(richTextBox1.Text)))
+                    {
+                        string inputDistancia1 = richTextBox1.Text.Replace('.', ',');
+
+                        // Tenta converter a string para float
+                        float distancia_mm1 = float.Parse(inputDistancia1, new CultureInfo("pt-BR"));
+
+                        // Calcula os pulsos com base no valor convertido
+                        distancia_pulsos1 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
+
+                        // Atualiza o label com o valor calculado
+                        label7.Text = "Qtd. Pulsos: " + distancia_pulsos1.ToString();
+                    }
+
+                    if (!(string.IsNullOrWhiteSpace(richTextBox2.Text)))
+                    {
+                        string inputVelocidade1 = richTextBox2.Text.Replace('.', ',');
+
+                        // Tenta converter a string para float
+                        float velocidade_mm1 = float.Parse(inputVelocidade1, new CultureInfo("pt-BR"));
+
+                        // Calcula os pulsos com base no valor convertido
+                        velocidade_pulsos1 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
+
+                        // Atualiza o label com o valor calculado
+                        label9.Text = "Pulsos/s: " + velocidade_pulsos1.ToString();
+                    }
+
     
                 }
                 else if (motorVertical == false)
@@ -958,7 +987,34 @@ namespace TesteUI
                 
 
                     button1.Text = "Constante de Calibração: " + constanteCalibracao2;
-                    
+
+                    if (!(string.IsNullOrWhiteSpace(richTextBox1.Text)))
+                    {
+                        string inputDistancia2 = richTextBox1.Text.Replace('.', ',');
+
+                        // Tenta converter a string para float
+                        float distancia_mm2 = float.Parse(inputDistancia2, new CultureInfo("pt-BR"));
+
+                        // Calcula os pulsos com base no valor convertido
+                        distancia_pulsos2 = (float)Math.Round(distancia_mm2 / constanteCalibracao1);
+
+                        // Atualiza o label com o valor calculado
+                        label6.Text = "Qtd. Pulsos: " + distancia_pulsos2.ToString();
+                    }
+
+                    if (!(string.IsNullOrWhiteSpace(richTextBox2.Text)))
+                    {
+                        string inputVelocidade2 = richTextBox2.Text.Replace('.', ',');
+
+                        // Tenta converter a string para float
+                        float velocidade_mm2 = float.Parse(inputVelocidade2, new CultureInfo("pt-BR"));
+
+                        // Calcula os pulsos com base no valor convertido
+                        velocidade_pulsos2 = (float)Math.Round(velocidade_mm2 / constanteCalibracao1);
+
+                        // Atualiza o label com o valor calculado
+                        label8.Text = "Pulsos/s: " + velocidade_pulsos2.ToString();
+                    }
 
                 }
 
@@ -1155,7 +1211,7 @@ namespace TesteUI
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-            if (richTextBox4 != null)
+            if (!(string.IsNullOrWhiteSpace(richTextBox4.Text)))
             {
                 try
                 {
@@ -1215,7 +1271,7 @@ namespace TesteUI
 
         private void richTextBox2_TextChanged(object sender, EventArgs e)
         {
-            if (richTextBox4 != null)
+            if (!(string.IsNullOrWhiteSpace(richTextBox4.Text)))
             {
                 try
                 {
@@ -1305,6 +1361,11 @@ namespace TesteUI
         private void btnEnergizarVertical_MouseHover(object sender, EventArgs e)
         {
             
+        }
+
+        private void richTextBox_Arduino_TextChanged(object sender, EventArgs e)
+        {
+            richTextBox_Arduino.ScrollToCaret();
         }
     }
 }
