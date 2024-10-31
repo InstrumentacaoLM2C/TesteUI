@@ -10,7 +10,9 @@ using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Reflection.Emit;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -1305,6 +1307,34 @@ namespace TesteUI
         private void btnEnergizarVertical_MouseHover(object sender, EventArgs e)
         {
             
+        }
+
+        private void Botao_Painel_subsidencia_Click(object sender, EventArgs e)
+        {
+            if(Botao_Painel_subsidencia.Text == "Modo subsidência"){
+                //Desligando os botões do modo bi-direcional
+                panel1.Visible = false;
+                panel_subsidencia.Visible = true;
+                Botao_Painel_subsidencia.Text = "Modo Bi-Direcional";
+
+            }
+            else
+            {
+                panel1.Visible = true;
+                panel_subsidencia.Visible = false;
+                Botao_Painel_subsidencia.Text = "Modo subsidência";
+            }
+
+        }
+
+        private void button5_Click_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Solta_motor_Click(object sender, EventArgs e)
+        {
+            serialPort1.Write("n#");
         }
     }
 }

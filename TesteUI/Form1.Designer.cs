@@ -65,15 +65,22 @@
             this.button7 = new System.Windows.Forms.Button();
             this.btnLigarVertical = new System.Windows.Forms.Button();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.Botao_Painel_subsidencia = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel_subsidencia = new System.Windows.Forms.Panel();
+            this.Solta_motor = new System.Windows.Forms.Button();
             this.panelSideMenu.SuspendLayout();
             this.panelPortsSubmenu.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel_subsidencia.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelSideMenu
             // 
             this.panelSideMenu.AutoScroll = true;
             this.panelSideMenu.BackColor = System.Drawing.Color.DarkGray;
+            this.panelSideMenu.Controls.Add(this.Botao_Painel_subsidencia);
             this.panelSideMenu.Controls.Add(this.button6);
             this.panelSideMenu.Controls.Add(this.richTextBox4);
             this.panelSideMenu.Controls.Add(this.button1);
@@ -83,7 +90,7 @@
             this.panelSideMenu.ForeColor = System.Drawing.Color.Gray;
             this.panelSideMenu.Location = new System.Drawing.Point(0, 0);
             this.panelSideMenu.Name = "panelSideMenu";
-            this.panelSideMenu.Size = new System.Drawing.Size(314, 553);
+            this.panelSideMenu.Size = new System.Drawing.Size(314, 562);
             this.panelSideMenu.TabIndex = 0;
             this.panelSideMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.panelSideMenu_Paint);
             // 
@@ -233,14 +240,13 @@
             // 
             this.btnMotor.BackColor = System.Drawing.Color.Gainsboro;
             this.btnMotor.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnMotor.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnMotor.FlatAppearance.BorderSize = 0;
             this.btnMotor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnMotor.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMotor.Location = new System.Drawing.Point(0, 0);
+            this.btnMotor.Location = new System.Drawing.Point(0, -1);
             this.btnMotor.Margin = new System.Windows.Forms.Padding(0);
             this.btnMotor.Name = "btnMotor";
-            this.btnMotor.Size = new System.Drawing.Size(616, 78);
+            this.btnMotor.Size = new System.Drawing.Size(624, 78);
             this.btnMotor.TabIndex = 0;
             this.btnMotor.Text = "Motor Vertical";
             this.btnMotor.UseVisualStyleBackColor = false;
@@ -250,7 +256,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(13, 213);
+            this.label1.Location = new System.Drawing.Point(28, 214);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(179, 29);
             this.label1.TabIndex = 3;
@@ -261,7 +267,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(314, 215);
+            this.label2.Location = new System.Drawing.Point(329, 216);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(222, 29);
             this.label2.TabIndex = 4;
@@ -273,7 +279,7 @@
             this.btnDirecaoHorizontalCima.AutoSize = true;
             this.btnDirecaoHorizontalCima.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDirecaoHorizontalCima.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDirecaoHorizontalCima.Location = new System.Drawing.Point(382, 154);
+            this.btnDirecaoHorizontalCima.Location = new System.Drawing.Point(397, 155);
             this.btnDirecaoHorizontalCima.Name = "btnDirecaoHorizontalCima";
             this.btnDirecaoHorizontalCima.Size = new System.Drawing.Size(17, 16);
             this.btnDirecaoHorizontalCima.TabIndex = 5;
@@ -284,7 +290,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(377, 100);
+            this.label3.Location = new System.Drawing.Point(392, 101);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(205, 29);
             this.label3.TabIndex = 7;
@@ -296,7 +302,7 @@
             this.btnDirecaoHorizontalBaixo.AutoSize = true;
             this.btnDirecaoHorizontalBaixo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDirecaoHorizontalBaixo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDirecaoHorizontalBaixo.Location = new System.Drawing.Point(508, 154);
+            this.btnDirecaoHorizontalBaixo.Location = new System.Drawing.Point(523, 155);
             this.btnDirecaoHorizontalBaixo.Name = "btnDirecaoHorizontalBaixo";
             this.btnDirecaoHorizontalBaixo.Size = new System.Drawing.Size(17, 16);
             this.btnDirecaoHorizontalBaixo.TabIndex = 8;
@@ -309,7 +315,7 @@
             this.btnEnergizarVertical.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEnergizarVertical.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnEnergizarVertical.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEnergizarVertical.Location = new System.Drawing.Point(18, 132);
+            this.btnEnergizarVertical.Location = new System.Drawing.Point(33, 133);
             this.btnEnergizarVertical.Name = "btnEnergizarVertical";
             this.btnEnergizarVertical.Size = new System.Drawing.Size(165, 60);
             this.btnEnergizarVertical.TabIndex = 9;
@@ -322,7 +328,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(13, 100);
+            this.label4.Location = new System.Drawing.Point(28, 101);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(75, 29);
             this.label4.TabIndex = 10;
@@ -335,7 +341,7 @@
             this.btnSensorHorizontal.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSensorHorizontal.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSensorHorizontal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSensorHorizontal.Location = new System.Drawing.Point(192, 132);
+            this.btnSensorHorizontal.Location = new System.Drawing.Point(207, 133);
             this.btnSensorHorizontal.Name = "btnSensorHorizontal";
             this.btnSensorHorizontal.Size = new System.Drawing.Size(165, 60);
             this.btnSensorHorizontal.TabIndex = 11;
@@ -347,7 +353,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(187, 100);
+            this.label5.Location = new System.Drawing.Point(202, 101);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(179, 29);
             this.label5.TabIndex = 12;
@@ -360,7 +366,7 @@
             this.btnLigarHorizontal.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLigarHorizontal.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnLigarHorizontal.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLigarHorizontal.Location = new System.Drawing.Point(18, 360);
+            this.btnLigarHorizontal.Location = new System.Drawing.Point(33, 361);
             this.btnLigarHorizontal.Name = "btnLigarHorizontal";
             this.btnLigarHorizontal.Size = new System.Drawing.Size(240, 60);
             this.btnLigarHorizontal.TabIndex = 13;
@@ -372,34 +378,12 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.DarkGray;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel2.Controls.Add(this.richTextBox_Arduino);
-            this.panel2.Controls.Add(this.label9);
-            this.panel2.Controls.Add(this.label8);
-            this.panel2.Controls.Add(this.label7);
-            this.panel2.Controls.Add(this.label6);
-            this.panel2.Controls.Add(this.btnSensorVertical);
-            this.panel2.Controls.Add(this.btnDirecaoVerticalBaixo);
-            this.panel2.Controls.Add(this.btnDireicaoVerticalCima);
-            this.panel2.Controls.Add(this.richTextBox2);
-            this.panel2.Controls.Add(this.richTextBox1);
-            this.panel2.Controls.Add(this.label5);
-            this.panel2.Controls.Add(this.label4);
-            this.panel2.Controls.Add(this.btnEnergizarVertical);
-            this.panel2.Controls.Add(this.btnDirecaoHorizontalBaixo);
-            this.panel2.Controls.Add(this.label3);
-            this.panel2.Controls.Add(this.btnDirecaoHorizontalCima);
-            this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.btnMotor);
-            this.panel2.Controls.Add(this.btnSensorHorizontal);
-            this.panel2.Controls.Add(this.btnEnergizarHorizontal);
-            this.panel2.Controls.Add(this.button7);
-            this.panel2.Controls.Add(this.btnLigarVertical);
-            this.panel2.Controls.Add(this.btnLigarHorizontal);
+            this.panel2.Controls.Add(this.panel1);
+            this.panel2.Controls.Add(this.panel_subsidencia);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(314, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(618, 553);
+            this.panel2.Size = new System.Drawing.Size(624, 562);
             this.panel2.TabIndex = 2;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
@@ -407,7 +391,7 @@
             // 
             this.richTextBox_Arduino.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox_Arduino.Cursor = System.Windows.Forms.Cursors.Help;
-            this.richTextBox_Arduino.Location = new System.Drawing.Point(319, 343);
+            this.richTextBox_Arduino.Location = new System.Drawing.Point(334, 344);
             this.richTextBox_Arduino.Name = "richTextBox_Arduino";
             this.richTextBox_Arduino.Size = new System.Drawing.Size(240, 96);
             this.richTextBox_Arduino.TabIndex = 29;
@@ -417,7 +401,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(314, 298);
+            this.label9.Location = new System.Drawing.Point(329, 299);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(111, 29);
             this.label9.TabIndex = 28;
@@ -427,7 +411,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(314, 298);
+            this.label8.Location = new System.Drawing.Point(329, 299);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(111, 29);
             this.label8.TabIndex = 27;
@@ -438,7 +422,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(13, 299);
+            this.label7.Location = new System.Drawing.Point(28, 300);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(143, 29);
             this.label7.TabIndex = 26;
@@ -449,7 +433,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(13, 298);
+            this.label6.Location = new System.Drawing.Point(28, 299);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(143, 29);
             this.label6.TabIndex = 25;
@@ -462,7 +446,7 @@
             this.btnSensorVertical.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnSensorVertical.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSensorVertical.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSensorVertical.Location = new System.Drawing.Point(192, 132);
+            this.btnSensorVertical.Location = new System.Drawing.Point(207, 133);
             this.btnSensorVertical.Name = "btnSensorVertical";
             this.btnSensorVertical.Size = new System.Drawing.Size(165, 60);
             this.btnSensorVertical.TabIndex = 22;
@@ -475,7 +459,7 @@
             this.btnDirecaoVerticalBaixo.AutoSize = true;
             this.btnDirecaoVerticalBaixo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDirecaoVerticalBaixo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDirecaoVerticalBaixo.Location = new System.Drawing.Point(508, 152);
+            this.btnDirecaoVerticalBaixo.Location = new System.Drawing.Point(523, 153);
             this.btnDirecaoVerticalBaixo.Name = "btnDirecaoVerticalBaixo";
             this.btnDirecaoVerticalBaixo.Size = new System.Drawing.Size(82, 29);
             this.btnDirecaoVerticalBaixo.TabIndex = 21;
@@ -488,7 +472,7 @@
             this.btnDireicaoVerticalCima.AutoSize = true;
             this.btnDireicaoVerticalCima.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnDireicaoVerticalCima.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDireicaoVerticalCima.Location = new System.Drawing.Point(382, 152);
+            this.btnDireicaoVerticalCima.Location = new System.Drawing.Point(397, 153);
             this.btnDireicaoVerticalCima.Name = "btnDireicaoVerticalCima";
             this.btnDireicaoVerticalCima.Size = new System.Drawing.Size(79, 29);
             this.btnDireicaoVerticalCima.TabIndex = 20;
@@ -500,7 +484,7 @@
             // 
             this.richTextBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox2.Location = new System.Drawing.Point(319, 247);
+            this.richTextBox2.Location = new System.Drawing.Point(334, 248);
             this.richTextBox2.Name = "richTextBox2";
             this.richTextBox2.Size = new System.Drawing.Size(240, 38);
             this.richTextBox2.TabIndex = 16;
@@ -511,7 +495,7 @@
             // 
             this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox1.Location = new System.Drawing.Point(18, 247);
+            this.richTextBox1.Location = new System.Drawing.Point(33, 248);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(240, 38);
             this.richTextBox1.TabIndex = 15;
@@ -525,7 +509,7 @@
             this.btnEnergizarHorizontal.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnEnergizarHorizontal.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnEnergizarHorizontal.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEnergizarHorizontal.Location = new System.Drawing.Point(18, 132);
+            this.btnEnergizarHorizontal.Location = new System.Drawing.Point(33, 133);
             this.btnEnergizarHorizontal.Name = "btnEnergizarHorizontal";
             this.btnEnergizarHorizontal.Size = new System.Drawing.Size(165, 60);
             this.btnEnergizarHorizontal.TabIndex = 18;
@@ -535,14 +519,14 @@
             // 
             // button7
             // 
+            this.button7.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.button7.BackColor = System.Drawing.Color.Red;
             this.button7.Cursor = System.Windows.Forms.Cursors.No;
-            this.button7.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(0, 456);
+            this.button7.Location = new System.Drawing.Point(0, 466);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(616, 95);
+            this.button7.Size = new System.Drawing.Size(625, 95);
             this.button7.TabIndex = 24;
             this.button7.Text = "Parar";
             this.button7.UseVisualStyleBackColor = false;
@@ -554,7 +538,7 @@
             this.btnLigarVertical.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLigarVertical.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnLigarVertical.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLigarVertical.Location = new System.Drawing.Point(18, 360);
+            this.btnLigarVertical.Location = new System.Drawing.Point(33, 361);
             this.btnLigarVertical.Name = "btnLigarVertical";
             this.btnLigarVertical.Size = new System.Drawing.Size(240, 60);
             this.btnLigarVertical.TabIndex = 19;
@@ -567,11 +551,77 @@
             this.serialPort1.PortName = "COM14";
             this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
+            // Botao_Painel_subsidencia
+            // 
+            this.Botao_Painel_subsidencia.BackColor = System.Drawing.Color.Gainsboro;
+            this.Botao_Painel_subsidencia.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Botao_Painel_subsidencia.FlatAppearance.BorderSize = 0;
+            this.Botao_Painel_subsidencia.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Botao_Painel_subsidencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Botao_Painel_subsidencia.ForeColor = System.Drawing.Color.Black;
+            this.Botao_Painel_subsidencia.Location = new System.Drawing.Point(0, 505);
+            this.Botao_Painel_subsidencia.Name = "Botao_Painel_subsidencia";
+            this.Botao_Painel_subsidencia.Size = new System.Drawing.Size(314, 52);
+            this.Botao_Painel_subsidencia.TabIndex = 23;
+            this.Botao_Painel_subsidencia.Text = "Modo subsidência";
+            this.Botao_Painel_subsidencia.UseVisualStyleBackColor = false;
+            this.Botao_Painel_subsidencia.Click += new System.EventHandler(this.Botao_Painel_subsidencia_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnMotor);
+            this.panel1.Controls.Add(this.richTextBox_Arduino);
+            this.panel1.Controls.Add(this.button7);
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.btnLigarHorizontal);
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.btnLigarVertical);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.btnEnergizarHorizontal);
+            this.panel1.Controls.Add(this.btnSensorVertical);
+            this.panel1.Controls.Add(this.btnSensorHorizontal);
+            this.panel1.Controls.Add(this.btnDirecaoVerticalBaixo);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.btnDireicaoVerticalCima);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.richTextBox2);
+            this.panel1.Controls.Add(this.btnDirecaoHorizontalCima);
+            this.panel1.Controls.Add(this.richTextBox1);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.btnDirecaoHorizontalBaixo);
+            this.panel1.Controls.Add(this.btnEnergizarVertical);
+            this.panel1.Location = new System.Drawing.Point(-1, -1);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(624, 557);
+            this.panel1.TabIndex = 30;
+            // 
+            // panel_subsidencia
+            // 
+            this.panel_subsidencia.Controls.Add(this.Solta_motor);
+            this.panel_subsidencia.Location = new System.Drawing.Point(-1, -2);
+            this.panel_subsidencia.Name = "panel_subsidencia";
+            this.panel_subsidencia.Size = new System.Drawing.Size(624, 563);
+            this.panel_subsidencia.TabIndex = 30;
+            // 
+            // Solta_motor
+            // 
+            this.Solta_motor.BackColor = System.Drawing.Color.Gainsboro;
+            this.Solta_motor.Location = new System.Drawing.Point(222, 248);
+            this.Solta_motor.Name = "Solta_motor";
+            this.Solta_motor.Size = new System.Drawing.Size(179, 110);
+            this.Solta_motor.TabIndex = 0;
+            this.Solta_motor.Text = "Solta Motor";
+            this.Solta_motor.UseVisualStyleBackColor = false;
+            this.Solta_motor.Click += new System.EventHandler(this.Solta_motor_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(932, 553);
+            this.ClientSize = new System.Drawing.Size(938, 562);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panelSideMenu);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -583,7 +633,9 @@
             this.panelSideMenu.ResumeLayout(false);
             this.panelPortsSubmenu.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel_subsidencia.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -626,6 +678,10 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.RichTextBox richTextBox_Arduino;
+        private System.Windows.Forms.Button Botao_Painel_subsidencia;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel_subsidencia;
+        private System.Windows.Forms.Button Solta_motor;
     }
 }
 
