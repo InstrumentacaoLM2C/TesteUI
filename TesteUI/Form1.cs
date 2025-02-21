@@ -1334,7 +1334,7 @@ namespace TesteUI
 
         private void Solta_motor_Click(object sender, EventArgs e)
         {
-            serialPort1.Write("n#");
+            serialPort1.Write("K#");
         }
     }
 }
