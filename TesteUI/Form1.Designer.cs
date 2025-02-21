@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panelSideMenu = new System.Windows.Forms.Panel();
+            this.Botao_Painel_subsidencia = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.richTextBox4 = new System.Windows.Forms.RichTextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -51,10 +52,13 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnLigarHorizontal = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.richTextBox_Arduino = new System.Windows.Forms.RichTextBox();
+            this.button7 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.btnLigarVertical = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.btnSensorVertical = new System.Windows.Forms.Button();
             this.btnDirecaoVerticalBaixo = new System.Windows.Forms.RadioButton();
@@ -62,12 +66,9 @@
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.btnEnergizarHorizontal = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.btnLigarVertical = new System.Windows.Forms.Button();
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.Botao_Painel_subsidencia = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.panel_subsidencia = new System.Windows.Forms.Panel();
+            this.panel_Falhas = new System.Windows.Forms.Panel();
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.Solta_motor = new System.Windows.Forms.Button();
             this.panelSideMenu.SuspendLayout();
             this.panelPortsSubmenu.SuspendLayout();
@@ -90,9 +91,25 @@
             this.panelSideMenu.ForeColor = System.Drawing.Color.Gray;
             this.panelSideMenu.Location = new System.Drawing.Point(0, 0);
             this.panelSideMenu.Name = "panelSideMenu";
-            this.panelSideMenu.Size = new System.Drawing.Size(314, 562);
+            this.panelSideMenu.Size = new System.Drawing.Size(314, 558);
             this.panelSideMenu.TabIndex = 0;
             this.panelSideMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.panelSideMenu_Paint);
+            // 
+            // Botao_Painel_subsidencia
+            // 
+            this.Botao_Painel_subsidencia.BackColor = System.Drawing.Color.Gainsboro;
+            this.Botao_Painel_subsidencia.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.Botao_Painel_subsidencia.FlatAppearance.BorderSize = 0;
+            this.Botao_Painel_subsidencia.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.Botao_Painel_subsidencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Botao_Painel_subsidencia.ForeColor = System.Drawing.Color.Black;
+            this.Botao_Painel_subsidencia.Location = new System.Drawing.Point(0, 505);
+            this.Botao_Painel_subsidencia.Name = "Botao_Painel_subsidencia";
+            this.Botao_Painel_subsidencia.Size = new System.Drawing.Size(314, 52);
+            this.Botao_Painel_subsidencia.TabIndex = 23;
+            this.Botao_Painel_subsidencia.Text = "Modo Subsidência";
+            this.Botao_Painel_subsidencia.UseVisualStyleBackColor = false;
+            this.Botao_Painel_subsidencia.Click += new System.EventHandler(this.Botao_Painel_subsidencia_Click);
             // 
             // button6
             // 
@@ -380,12 +397,44 @@
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Controls.Add(this.panel_subsidencia);
+            this.panel2.Controls.Add(this.panel_Falhas);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(314, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(624, 562);
+            this.panel2.Size = new System.Drawing.Size(622, 558);
             this.panel2.TabIndex = 2;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnMotor);
+            this.panel1.Controls.Add(this.richTextBox_Arduino);
+            this.panel1.Controls.Add(this.button7);
+            this.panel1.Controls.Add(this.label9);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.label8);
+            this.panel1.Controls.Add(this.label7);
+            this.panel1.Controls.Add(this.btnLigarVertical);
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.btnSensorVertical);
+            this.panel1.Controls.Add(this.btnSensorHorizontal);
+            this.panel1.Controls.Add(this.btnDirecaoVerticalBaixo);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Controls.Add(this.btnDireicaoVerticalCima);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.richTextBox2);
+            this.panel1.Controls.Add(this.btnDirecaoHorizontalCima);
+            this.panel1.Controls.Add(this.richTextBox1);
+            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.btnDirecaoHorizontalBaixo);
+            this.panel1.Controls.Add(this.btnLigarHorizontal);
+            this.panel1.Controls.Add(this.btnEnergizarVertical);
+            this.panel1.Controls.Add(this.btnEnergizarHorizontal);
+            this.panel1.Location = new System.Drawing.Point(-1, -1);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(624, 557);
+            this.panel1.TabIndex = 30;
             // 
             // richTextBox_Arduino
             // 
@@ -396,6 +445,21 @@
             this.richTextBox_Arduino.Size = new System.Drawing.Size(240, 96);
             this.richTextBox_Arduino.TabIndex = 29;
             this.richTextBox_Arduino.Text = "";
+            // 
+            // button7
+            // 
+            this.button7.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.button7.BackColor = System.Drawing.Color.Red;
+            this.button7.Cursor = System.Windows.Forms.Cursors.No;
+            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button7.Location = new System.Drawing.Point(0, 466);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(625, 95);
+            this.button7.TabIndex = 24;
+            this.button7.Text = "Parar";
+            this.button7.UseVisualStyleBackColor = false;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // label9
             // 
@@ -428,6 +492,20 @@
             this.label7.TabIndex = 26;
             this.label7.Text = "Qtd. Pulsos:";
             this.label7.Click += new System.EventHandler(this.label7_Click);
+            // 
+            // btnLigarVertical
+            // 
+            this.btnLigarVertical.BackColor = System.Drawing.Color.Gainsboro;
+            this.btnLigarVertical.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLigarVertical.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnLigarVertical.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLigarVertical.Location = new System.Drawing.Point(33, 361);
+            this.btnLigarVertical.Name = "btnLigarVertical";
+            this.btnLigarVertical.Size = new System.Drawing.Size(240, 60);
+            this.btnLigarVertical.TabIndex = 19;
+            this.btnLigarVertical.Text = "Ligar";
+            this.btnLigarVertical.UseVisualStyleBackColor = false;
+            this.btnLigarVertical.Click += new System.EventHandler(this.btnLigarVertical_Click);
             // 
             // label6
             // 
@@ -517,94 +595,25 @@
             this.btnEnergizarHorizontal.UseVisualStyleBackColor = false;
             this.btnEnergizarHorizontal.Click += new System.EventHandler(this.btnMotorHorizontal_Click);
             // 
-            // button7
+            // panel_subsidencia
             // 
-            this.button7.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.button7.BackColor = System.Drawing.Color.Red;
-            this.button7.Cursor = System.Windows.Forms.Cursors.No;
-            this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(0, 466);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(625, 95);
-            this.button7.TabIndex = 24;
-            this.button7.Text = "Parar";
-            this.button7.UseVisualStyleBackColor = false;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.panel_subsidencia.Controls.Add(this.Solta_motor);
+            this.panel_subsidencia.Location = new System.Drawing.Point(-1, -1);
+            this.panel_subsidencia.Name = "panel_subsidencia";
+            this.panel_subsidencia.Size = new System.Drawing.Size(624, 563);
+            this.panel_subsidencia.TabIndex = 30;
             // 
-            // btnLigarVertical
+            // panel_Falhas
             // 
-            this.btnLigarVertical.BackColor = System.Drawing.Color.Gainsboro;
-            this.btnLigarVertical.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLigarVertical.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnLigarVertical.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLigarVertical.Location = new System.Drawing.Point(33, 361);
-            this.btnLigarVertical.Name = "btnLigarVertical";
-            this.btnLigarVertical.Size = new System.Drawing.Size(240, 60);
-            this.btnLigarVertical.TabIndex = 19;
-            this.btnLigarVertical.Text = "Ligar";
-            this.btnLigarVertical.UseVisualStyleBackColor = false;
-            this.btnLigarVertical.Click += new System.EventHandler(this.btnLigarVertical_Click);
+            this.panel_Falhas.Location = new System.Drawing.Point(-1, -1);
+            this.panel_Falhas.Name = "panel_Falhas";
+            this.panel_Falhas.Size = new System.Drawing.Size(624, 557);
+            this.panel_Falhas.TabIndex = 31;
             // 
             // serialPort1
             // 
             this.serialPort1.PortName = "COM14";
             this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
-            // 
-            // Botao_Painel_subsidencia
-            // 
-            this.Botao_Painel_subsidencia.BackColor = System.Drawing.Color.Gainsboro;
-            this.Botao_Painel_subsidencia.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.Botao_Painel_subsidencia.FlatAppearance.BorderSize = 0;
-            this.Botao_Painel_subsidencia.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.Botao_Painel_subsidencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Botao_Painel_subsidencia.ForeColor = System.Drawing.Color.Black;
-            this.Botao_Painel_subsidencia.Location = new System.Drawing.Point(0, 505);
-            this.Botao_Painel_subsidencia.Name = "Botao_Painel_subsidencia";
-            this.Botao_Painel_subsidencia.Size = new System.Drawing.Size(314, 52);
-            this.Botao_Painel_subsidencia.TabIndex = 23;
-            this.Botao_Painel_subsidencia.Text = "Modo subsidência";
-            this.Botao_Painel_subsidencia.UseVisualStyleBackColor = false;
-            this.Botao_Painel_subsidencia.Click += new System.EventHandler(this.Botao_Painel_subsidencia_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.btnMotor);
-            this.panel1.Controls.Add(this.richTextBox_Arduino);
-            this.panel1.Controls.Add(this.button7);
-            this.panel1.Controls.Add(this.label9);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.label8);
-            this.panel1.Controls.Add(this.btnLigarHorizontal);
-            this.panel1.Controls.Add(this.label7);
-            this.panel1.Controls.Add(this.btnLigarVertical);
-            this.panel1.Controls.Add(this.label6);
-            this.panel1.Controls.Add(this.btnEnergizarHorizontal);
-            this.panel1.Controls.Add(this.btnSensorVertical);
-            this.panel1.Controls.Add(this.btnSensorHorizontal);
-            this.panel1.Controls.Add(this.btnDirecaoVerticalBaixo);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.btnDireicaoVerticalCima);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.richTextBox2);
-            this.panel1.Controls.Add(this.btnDirecaoHorizontalCima);
-            this.panel1.Controls.Add(this.richTextBox1);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label5);
-            this.panel1.Controls.Add(this.btnDirecaoHorizontalBaixo);
-            this.panel1.Controls.Add(this.btnEnergizarVertical);
-            this.panel1.Location = new System.Drawing.Point(-1, -1);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(624, 557);
-            this.panel1.TabIndex = 30;
-            // 
-            // panel_subsidencia
-            // 
-            this.panel_subsidencia.Controls.Add(this.Solta_motor);
-            this.panel_subsidencia.Location = new System.Drawing.Point(-1, -2);
-            this.panel_subsidencia.Name = "panel_subsidencia";
-            this.panel_subsidencia.Size = new System.Drawing.Size(624, 563);
-            this.panel_subsidencia.TabIndex = 30;
             // 
             // Solta_motor
             // 
@@ -621,7 +630,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(938, 562);
+            this.ClientSize = new System.Drawing.Size(936, 558);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panelSideMenu);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -681,6 +690,7 @@
         private System.Windows.Forms.Button Botao_Painel_subsidencia;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel_subsidencia;
+        private System.Windows.Forms.Panel panel_Falhas;
         private System.Windows.Forms.Button Solta_motor;
     }
 }

@@ -1,28 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.IO.Ports;
-using System.Linq;
-using System.Net.NetworkInformation;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 
 namespace TesteUI
 {
     public partial class Form1 : Form
     {
+#pragma warning disable CS0414 // O campo "Form1.on_sensor" é atribuído, mas seu valor nunca é usado
         bool on_sensor = false;
+#pragma warning restore CS0414 // O campo "Form1.on_sensor" é atribuído, mas seu valor nunca é usado
         private delegate void d1(string indata);
         bool on_energizar_vertical = true;
         bool on_energizar_horizontal = true;
@@ -31,18 +20,28 @@ namespace TesteUI
         bool motorVertical = true;
         bool ligarMotor_vertical = false;
         bool ligarMotor_horizontal = false;
+#pragma warning disable CS0169 // O campo "Form1.distancia_mm1" nunca é usado
         double distancia_mm1;
+#pragma warning restore CS0169 // O campo "Form1.distancia_mm1" nunca é usado
         float distancia_mm2;
+#pragma warning disable CS0169 // O campo "Form1.velocidade_mm1" nunca é usado
         float velocidade_mm1;
+#pragma warning restore CS0169 // O campo "Form1.velocidade_mm1" nunca é usado
         float velocidade_mm2;
         double distancia_pulsos1;
         double distancia_pulsos2;
         double velocidade_pulsos1;
         double velocidade_pulsos2;
+#pragma warning disable CS0414 // O campo "Form1.distancia" é atribuído, mas seu valor nunca é usado
         string distancia = "0";  // posição
+#pragma warning restore CS0414 // O campo "Form1.distancia" é atribuído, mas seu valor nunca é usado
+#pragma warning disable CS0414 // O campo "Form1.velocidade" é atribuído, mas seu valor nunca é usado
         string velocidade = "0";  // velocidade
+#pragma warning restore CS0414 // O campo "Form1.velocidade" é atribuído, mas seu valor nunca é usado
         string direcao = "0";  // direção
+#pragma warning disable CS0414 // O campo "Form1.motor" é atribuído, mas seu valor nunca é usado
         int motor = 1; // Armazena qual motor está sendo utilizado
+#pragma warning restore CS0414 // O campo "Form1.motor" é atribuído, mas seu valor nunca é usado
         double constanteCalibracao2 = 1;
         double constanteCalibracao1 = 1;  //A constante de calibração default dos motores que representa a velocidade de aceleração de 2500pulsos/s
 
@@ -400,6 +399,9 @@ namespace TesteUI
                 if (on_energizar_vertical)
                 {
                     // Send command to the arduino to turn on the enable function of the driver energizing the motor
+#pragma warning disable CS0168 // A variável foi declarada, mas nunca foi usada
+#pragma warning disable CS0168 // A variável foi declarada, mas nunca foi usada
+#pragma warning disable CS0168 // A variável foi declarada, mas nunca foi usada
                     try
                     {
                         // Enviar comando para parar o motor
@@ -429,6 +431,9 @@ namespace TesteUI
                         MessageBox.Show($"Erro inesperado ao enviar comando de parada: {ex.Message}",
                                         "Erro Desconhecido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
+#pragma warning restore CS0168 // A variável foi declarada, mas nunca foi usada
+#pragma warning restore CS0168 // A variável foi declarada, mas nunca foi usada
+#pragma warning restore CS0168 // A variável foi declarada, mas nunca foi usada
                     btnEnergizarVertical.Text = "Energizado";
                     btnEnergizarVertical.BackColor = Color.Green;
                     on_energizar_vertical = false;
@@ -442,6 +447,9 @@ namespace TesteUI
                     }
                     else if (ligarMotor_vertical == false)
                     {
+#pragma warning disable CS0168 // A variável foi declarada, mas nunca foi usada
+#pragma warning disable CS0168 // A variável foi declarada, mas nunca foi usada
+#pragma warning disable CS0168 // A variável foi declarada, mas nunca foi usada
                         try
                         {
                             // Enviar comando para parar o motor
@@ -471,6 +479,9 @@ namespace TesteUI
                             MessageBox.Show($"Erro inesperado ao enviar comando de parada: {ex.Message}",
                                             "Erro Desconhecido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
+#pragma warning restore CS0168 // A variável foi declarada, mas nunca foi usada
+#pragma warning restore CS0168 // A variável foi declarada, mas nunca foi usada
+#pragma warning restore CS0168 // A variável foi declarada, mas nunca foi usada
                         btnEnergizarVertical.Text = "Desenergizado";
                         btnEnergizarVertical.BackColor = Color.Gainsboro;
                         on_energizar_vertical = true;
@@ -743,8 +754,10 @@ namespace TesteUI
                 {
                     serialPort1.PortName = comboBox1.Text;
                     serialPort1.PortName = comboBox1.Items[comboBox1.SelectedIndex].ToString();
-                    button4.Text = "Desconectar";
                     serialPort1.Open();
+                    SerialPortManager.SerialPort = serialPort1;
+                    button4.Text = "Desconectar";
+
                 }
                 else
                 {
@@ -940,27 +953,27 @@ namespace TesteUI
                 if (motorVertical == true)
                 {
 
-                    
+
                     string inputConstanteCalibracao = richTextBox4.Text.Replace('.', ',');
 
                     constanteCalibracao1 = double.Parse(inputConstanteCalibracao, new CultureInfo("pt-BR"));
 
                     button1.Text = "Constante de Calibração: " + constanteCalibracao1;
-    
+
                 }
                 else if (motorVertical == false)
                 {
 
-                  
+
                     string inputConstanteCalibracao = richTextBox4.Text.Replace('.', ',');
 
-                    
+
                     constanteCalibracao2 = float.Parse(inputConstanteCalibracao, new CultureInfo("pt-BR"));
 
-                
+
 
                     button1.Text = "Constante de Calibração: " + constanteCalibracao2;
-                    
+
 
                 }
 
@@ -1192,7 +1205,7 @@ namespace TesteUI
                 catch (FormatException)
                 {
                     // Se ocorrer uma exceção de formato, exibe uma mensagem de erro
-                    if(motorVertical == true)
+                    if (motorVertical == true)
                     {
                         label7.Text = "Entrada inválida!";
                     }
@@ -1200,7 +1213,7 @@ namespace TesteUI
                     {
                         label6.Text = "Entrada inválida!";
                     }
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -1252,14 +1265,15 @@ namespace TesteUI
                 catch (FormatException)
                 {
                     // Se ocorrer uma exceção de formato, exibe uma mensagem de erro
-                    if(motorVertical == true)
+                    if (motorVertical == true)
                     {
                         label9.Text = "Entrada inválida!";
-                    } else
+                    }
+                    else
                     {
                         label8.Text = "Entrada inválida!";
                     }
-                    
+
                 }
                 catch (Exception ex)
                 {
@@ -1306,23 +1320,34 @@ namespace TesteUI
 
         private void btnEnergizarVertical_MouseHover(object sender, EventArgs e)
         {
-            
+
         }
 
         private void Botao_Painel_subsidencia_Click(object sender, EventArgs e)
         {
-            if(Botao_Painel_subsidencia.Text == "Modo subsidência"){
+            if (Botao_Painel_subsidencia.Text == "Modo Subsidência")
+            {
                 //Desligando os botões do modo bi-direcional
                 panel1.Visible = false;
                 panel_subsidencia.Visible = true;
-                Botao_Painel_subsidencia.Text = "Modo Bi-Direcional";
+                panel_Falhas.Visible = false;
+                Botao_Painel_subsidencia.Text = "Modo Falhas";
 
             }
-            else
+            else if (Botao_Painel_subsidencia.Text == "Modo Falhas")
+            {
+                //Desligando os botões do modo de subsidência
+                panel1.Visible = false;
+                panel_Falhas.Visible = true;
+                panel_subsidencia.Visible = false;
+                Botao_Painel_subsidencia.Text = "Modo Bi-Direcional";
+            }
+            else if (Botao_Painel_subsidencia.Text == "Modo Bi-Direcional")
             {
                 panel1.Visible = true;
+                panel_Falhas.Visible = false;
                 panel_subsidencia.Visible = false;
-                Botao_Painel_subsidencia.Text = "Modo subsidência";
+                Botao_Painel_subsidencia.Text = "Modo Subsidência";
             }
 
         }
@@ -1334,7 +1359,8 @@ namespace TesteUI
 
         private void Solta_motor_Click(object sender, EventArgs e)
         {
-            serialPort1.Write("n#");
+
+            serialPort1.Write("K#");
         }
     }
 }
