@@ -336,7 +336,9 @@ namespace TesteUI
                         // Tenta converter a string para float
                         float distancia_mm1 = float.Parse(inputDistancia1, new CultureInfo("pt-BR"));
 
+
                         // Calcula os pulsos com base no valor convertido
+
                         distancia_pulsos1 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
 
                         // Atualiza o label com o valor calculado
@@ -399,9 +401,6 @@ namespace TesteUI
                 if (on_energizar_vertical)
                 {
                     // Send command to the arduino to turn on the enable function of the driver energizing the motor
-#pragma warning disable CS0168 // A variável foi declarada, mas nunca foi usada
-#pragma warning disable CS0168 // A variável foi declarada, mas nunca foi usada
-#pragma warning disable CS0168 // A variável foi declarada, mas nunca foi usada
                     try
                     {
                         // Enviar comando para parar o motor
@@ -431,9 +430,6 @@ namespace TesteUI
                         MessageBox.Show($"Erro inesperado ao enviar comando de parada: {ex.Message}",
                                         "Erro Desconhecido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-#pragma warning restore CS0168 // A variável foi declarada, mas nunca foi usada
-#pragma warning restore CS0168 // A variável foi declarada, mas nunca foi usada
-#pragma warning restore CS0168 // A variável foi declarada, mas nunca foi usada
                     btnEnergizarVertical.Text = "Energizado";
                     btnEnergizarVertical.BackColor = Color.Green;
                     on_energizar_vertical = false;
@@ -447,9 +443,6 @@ namespace TesteUI
                     }
                     else if (ligarMotor_vertical == false)
                     {
-#pragma warning disable CS0168 // A variável foi declarada, mas nunca foi usada
-#pragma warning disable CS0168 // A variável foi declarada, mas nunca foi usada
-#pragma warning disable CS0168 // A variável foi declarada, mas nunca foi usada
                         try
                         {
                             // Enviar comando para parar o motor
@@ -479,9 +472,6 @@ namespace TesteUI
                             MessageBox.Show($"Erro inesperado ao enviar comando de parada: {ex.Message}",
                                             "Erro Desconhecido", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-#pragma warning restore CS0168 // A variável foi declarada, mas nunca foi usada
-#pragma warning restore CS0168 // A variável foi declarada, mas nunca foi usada
-#pragma warning restore CS0168 // A variável foi declarada, mas nunca foi usada
                         btnEnergizarVertical.Text = "Desenergizado";
                         btnEnergizarVertical.BackColor = Color.Gainsboro;
                         on_energizar_vertical = true;
@@ -1341,6 +1331,9 @@ namespace TesteUI
                 panel_Falhas.Visible = true;
                 panel_subsidencia.Visible = false;
                 Botao_Painel_subsidencia.Text = "Modo Bi-Direcional";
+
+                Form2_BiDirecional form2 = new Form2_BiDirecional(this.serialPort1); // Cria uma instância do Form2
+                form2.Show();              // Exibe o Form2
             }
             else if (Botao_Painel_subsidencia.Text == "Modo Bi-Direcional")
             {

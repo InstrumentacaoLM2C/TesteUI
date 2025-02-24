@@ -67,9 +67,9 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.btnEnergizarHorizontal = new System.Windows.Forms.Button();
             this.panel_subsidencia = new System.Windows.Forms.Panel();
+            this.Solta_motor = new System.Windows.Forms.Button();
             this.panel_Falhas = new System.Windows.Forms.Panel();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.Solta_motor = new System.Windows.Forms.Button();
             this.panelSideMenu.SuspendLayout();
             this.panelPortsSubmenu.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -603,6 +603,17 @@
             this.panel_subsidencia.Size = new System.Drawing.Size(624, 563);
             this.panel_subsidencia.TabIndex = 30;
             // 
+            // Solta_motor
+            // 
+            this.Solta_motor.BackColor = System.Drawing.Color.Gainsboro;
+            this.Solta_motor.Location = new System.Drawing.Point(222, 248);
+            this.Solta_motor.Name = "Solta_motor";
+            this.Solta_motor.Size = new System.Drawing.Size(179, 110);
+            this.Solta_motor.TabIndex = 0;
+            this.Solta_motor.Text = "Solta Motor";
+            this.Solta_motor.UseVisualStyleBackColor = false;
+            this.Solta_motor.Click += new System.EventHandler(this.Solta_motor_Click);
+            // 
             // panel_Falhas
             // 
             this.panel_Falhas.Location = new System.Drawing.Point(-1, -1);
@@ -614,17 +625,6 @@
             // 
             this.serialPort1.PortName = "COM14";
             this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
-            // 
-            // Solta_motor
-            // 
-            this.Solta_motor.BackColor = System.Drawing.Color.Gainsboro;
-            this.Solta_motor.Location = new System.Drawing.Point(222, 248);
-            this.Solta_motor.Name = "Solta_motor";
-            this.Solta_motor.Size = new System.Drawing.Size(179, 110);
-            this.Solta_motor.TabIndex = 0;
-            this.Solta_motor.Text = "Solta Motor";
-            this.Solta_motor.UseVisualStyleBackColor = false;
-            this.Solta_motor.Click += new System.EventHandler(this.Solta_motor_Click);
             // 
             // Form1
             // 
