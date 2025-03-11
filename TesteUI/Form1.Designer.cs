@@ -29,16 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.panelSideMenu = new System.Windows.Forms.Panel();
+            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
             this.Botao_Painel_subsidencia = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.richTextBox4 = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.panelPortsSubmenu = new System.Windows.Forms.Panel();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.btnMotor = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -52,9 +49,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnLigarHorizontal = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel_Falhas = new System.Windows.Forms.Panel();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button6 = new System.Windows.Forms.Button();
             this.richTextBox_Arduino = new System.Windows.Forms.RichTextBox();
             this.button7 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.richTextBox4 = new System.Windows.Forms.RichTextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -68,32 +71,25 @@
             this.btnEnergizarHorizontal = new System.Windows.Forms.Button();
             this.panel_subsidencia = new System.Windows.Forms.Panel();
             this.Solta_motor = new System.Windows.Forms.Button();
-            this.panel_Falhas = new System.Windows.Forms.Panel();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.panelSideMenu.SuspendLayout();
+            this.Timer1 = new System.Windows.Forms.Timer(this.components);
             this.panelPortsSubmenu.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel_Falhas.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel_subsidencia.SuspendLayout();
             this.SuspendLayout();
             // 
-            // panelSideMenu
+            // richTextBox3
             // 
-            this.panelSideMenu.AutoScroll = true;
-            this.panelSideMenu.BackColor = System.Drawing.Color.DarkGray;
-            this.panelSideMenu.Controls.Add(this.Botao_Painel_subsidencia);
-            this.panelSideMenu.Controls.Add(this.button6);
-            this.panelSideMenu.Controls.Add(this.richTextBox4);
-            this.panelSideMenu.Controls.Add(this.button1);
-            this.panelSideMenu.Controls.Add(this.panelPortsSubmenu);
-            this.panelSideMenu.Controls.Add(this.panelLogo);
-            this.panelSideMenu.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelSideMenu.ForeColor = System.Drawing.Color.Gray;
-            this.panelSideMenu.Location = new System.Drawing.Point(0, 0);
-            this.panelSideMenu.Name = "panelSideMenu";
-            this.panelSideMenu.Size = new System.Drawing.Size(314, 558);
-            this.panelSideMenu.TabIndex = 0;
-            this.panelSideMenu.Paint += new System.Windows.Forms.PaintEventHandler(this.panelSideMenu_Paint);
+            this.richTextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox3.Cursor = System.Windows.Forms.Cursors.Help;
+            this.richTextBox3.Location = new System.Drawing.Point(334, 446);
+            this.richTextBox3.Name = "richTextBox3";
+            this.richTextBox3.Size = new System.Drawing.Size(240, 96);
+            this.richTextBox3.TabIndex = 30;
+            this.richTextBox3.Text = "";
+            this.richTextBox3.TextChanged += new System.EventHandler(this.richTextBox3_TextChanged);
             // 
             // Botao_Painel_subsidencia
             // 
@@ -103,110 +99,25 @@
             this.Botao_Painel_subsidencia.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.Botao_Painel_subsidencia.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Botao_Painel_subsidencia.ForeColor = System.Drawing.Color.Black;
-            this.Botao_Painel_subsidencia.Location = new System.Drawing.Point(0, 505);
+            this.Botao_Painel_subsidencia.Location = new System.Drawing.Point(134, 214);
             this.Botao_Painel_subsidencia.Name = "Botao_Painel_subsidencia";
             this.Botao_Painel_subsidencia.Size = new System.Drawing.Size(314, 52);
             this.Botao_Painel_subsidencia.TabIndex = 23;
-            this.Botao_Painel_subsidencia.Text = "Modo Subsidência";
+            this.Botao_Painel_subsidencia.Text = "Atuador Bi-Direcional";
             this.Botao_Painel_subsidencia.UseVisualStyleBackColor = false;
             this.Botao_Painel_subsidencia.Click += new System.EventHandler(this.Botao_Painel_subsidencia_Click);
-            // 
-            // button6
-            // 
-            this.button6.BackColor = System.Drawing.Color.Gainsboro;
-            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button6.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button6.FlatAppearance.BorderSize = 0;
-            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button6.ForeColor = System.Drawing.Color.Black;
-            this.button6.Location = new System.Drawing.Point(0, 415);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(314, 47);
-            this.button6.TabIndex = 22;
-            this.button6.Text = "Enviar";
-            this.button6.UseVisualStyleBackColor = false;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // richTextBox4
-            // 
-            this.richTextBox4.BackColor = System.Drawing.Color.White;
-            this.richTextBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox4.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.richTextBox4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.richTextBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox4.Location = new System.Drawing.Point(0, 372);
-            this.richTextBox4.Multiline = false;
-            this.richTextBox4.Name = "richTextBox4";
-            this.richTextBox4.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Horizontal;
-            this.richTextBox4.Size = new System.Drawing.Size(314, 43);
-            this.richTextBox4.TabIndex = 21;
-            this.richTextBox4.Text = "";
-            this.richTextBox4.Click += new System.EventHandler(this.richTextBox4_Click);
-            this.richTextBox4.TextChanged += new System.EventHandler(this.richTextBox4_TextChanged);
-            // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.White;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.button1.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.button1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.button1.ForeColor = System.Drawing.Color.Black;
-            this.button1.Location = new System.Drawing.Point(0, 299);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(314, 73);
-            this.button1.TabIndex = 19;
-            this.button1.Text = "Constante de Calibração: ";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click_2);
             // 
             // panelPortsSubmenu
             // 
             this.panelPortsSubmenu.BackColor = System.Drawing.Color.DimGray;
-            this.panelPortsSubmenu.Controls.Add(this.button4);
-            this.panelPortsSubmenu.Controls.Add(this.button3);
             this.panelPortsSubmenu.Controls.Add(this.comboBox1);
             this.panelPortsSubmenu.Controls.Add(this.button2);
-            this.panelPortsSubmenu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelPortsSubmenu.Location = new System.Drawing.Point(0, 163);
+            this.panelPortsSubmenu.Controls.Add(this.button4);
+            this.panelPortsSubmenu.Controls.Add(this.button3);
+            this.panelPortsSubmenu.Location = new System.Drawing.Point(134, 427);
             this.panelPortsSubmenu.Name = "panelPortsSubmenu";
-            this.panelPortsSubmenu.Size = new System.Drawing.Size(314, 136);
+            this.panelPortsSubmenu.Size = new System.Drawing.Size(314, 133);
             this.panelPortsSubmenu.TabIndex = 2;
-            // 
-            // button4
-            // 
-            this.button4.BackColor = System.Drawing.Color.Gainsboro;
-            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button4.FlatAppearance.BorderSize = 0;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.Color.Black;
-            this.button4.Location = new System.Drawing.Point(0, 97);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(314, 39);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "Conectar";
-            this.button4.UseVisualStyleBackColor = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click_3);
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.Color.DarkGray;
-            this.button3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.ForeColor = System.Drawing.Color.Black;
-            this.button3.Location = new System.Drawing.Point(0, 97);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(314, 39);
-            this.button3.TabIndex = 3;
-            this.button3.Text = " Conectar";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click_1);
             // 
             // comboBox1
             // 
@@ -239,14 +150,46 @@
             this.button2.UseVisualStyleBackColor = false;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // button4
+            // 
+            this.button4.AutoSize = true;
+            this.button4.BackColor = System.Drawing.Color.Gainsboro;
+            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button4.FlatAppearance.BorderSize = 0;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.ForeColor = System.Drawing.Color.Black;
+            this.button4.Location = new System.Drawing.Point(0, 94);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(314, 39);
+            this.button4.TabIndex = 4;
+            this.button4.Text = "Conectar";
+            this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click_3);
+            // 
+            // button3
+            // 
+            this.button3.BackColor = System.Drawing.Color.DarkGray;
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.ForeColor = System.Drawing.Color.Black;
+            this.button3.Location = new System.Drawing.Point(0, 97);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(314, 39);
+            this.button3.TabIndex = 3;
+            this.button3.Text = " Conectar";
+            this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.button3_Click_1);
+            // 
             // panelLogo
             // 
+            this.panelLogo.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.panelLogo.BackColor = System.Drawing.Color.Silver;
             this.panelLogo.BackgroundImage = global::TesteUI.Properties.Resources.LM2C_Retina___Copia;
             this.panelLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.panelLogo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelLogo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelLogo.Location = new System.Drawing.Point(0, 0);
+            this.panelLogo.Location = new System.Drawing.Point(134, 30);
             this.panelLogo.Margin = new System.Windows.Forms.Padding(0);
             this.panelLogo.Name = "panelLogo";
             this.panelLogo.Size = new System.Drawing.Size(314, 163);
@@ -395,21 +338,70 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.DarkGray;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.panel_Falhas);
             this.panel2.Controls.Add(this.panel1);
             this.panel2.Controls.Add(this.panel_subsidencia);
-            this.panel2.Controls.Add(this.panel_Falhas);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(314, 0);
+            this.panel2.Location = new System.Drawing.Point(0, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(622, 558);
+            this.panel2.Size = new System.Drawing.Size(622, 588);
             this.panel2.TabIndex = 2;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
+            // panel_Falhas
+            // 
+            this.panel_Falhas.Controls.Add(this.button8);
+            this.panel_Falhas.Controls.Add(this.button5);
+            this.panel_Falhas.Controls.Add(this.panelLogo);
+            this.panel_Falhas.Controls.Add(this.panelPortsSubmenu);
+            this.panel_Falhas.Controls.Add(this.Botao_Painel_subsidencia);
+            this.panel_Falhas.Location = new System.Drawing.Point(-1, -1);
+            this.panel_Falhas.Name = "panel_Falhas";
+            this.panel_Falhas.Size = new System.Drawing.Size(624, 590);
+            this.panel_Falhas.TabIndex = 31;
+            this.panel_Falhas.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_Falhas_Paint);
+            // 
+            // button8
+            // 
+            this.button8.BackColor = System.Drawing.Color.Gainsboro;
+            this.button8.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button8.FlatAppearance.BorderSize = 0;
+            this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button8.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button8.ForeColor = System.Drawing.Color.Black;
+            this.button8.Location = new System.Drawing.Point(134, 347);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(314, 69);
+            this.button8.TabIndex = 25;
+            this.button8.Text = "Atuador Universal + Unidirecional";
+            this.button8.UseVisualStyleBackColor = false;
+            // 
+            // button5
+            // 
+            this.button5.BackColor = System.Drawing.Color.Gainsboro;
+            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button5.FlatAppearance.BorderSize = 0;
+            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button5.ForeColor = System.Drawing.Color.Black;
+            this.button5.Location = new System.Drawing.Point(134, 280);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(314, 52);
+            this.button5.TabIndex = 24;
+            this.button5.Text = "Atuador Universal";
+            this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click_3);
+            // 
             // panel1
             // 
+            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.panel1.Controls.Add(this.richTextBox3);
             this.panel1.Controls.Add(this.btnMotor);
+            this.panel1.Controls.Add(this.button6);
             this.panel1.Controls.Add(this.richTextBox_Arduino);
             this.panel1.Controls.Add(this.button7);
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.richTextBox4);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label8);
@@ -431,10 +423,26 @@
             this.panel1.Controls.Add(this.btnLigarHorizontal);
             this.panel1.Controls.Add(this.btnEnergizarVertical);
             this.panel1.Controls.Add(this.btnEnergizarHorizontal);
-            this.panel1.Location = new System.Drawing.Point(-1, -1);
+            this.panel1.Location = new System.Drawing.Point(-156, -1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(624, 557);
+            this.panel1.Size = new System.Drawing.Size(620, 648);
             this.panel1.TabIndex = 30;
+            // 
+            // button6
+            // 
+            this.button6.BackColor = System.Drawing.Color.Gainsboro;
+            this.button6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button6.FlatAppearance.BorderSize = 0;
+            this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button6.ForeColor = System.Drawing.Color.Black;
+            this.button6.Location = new System.Drawing.Point(14, 543);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(314, 47);
+            this.button6.TabIndex = 22;
+            this.button6.Text = "Enviar";
+            this.button6.UseVisualStyleBackColor = false;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // richTextBox_Arduino
             // 
@@ -445,6 +453,7 @@
             this.richTextBox_Arduino.Size = new System.Drawing.Size(240, 96);
             this.richTextBox_Arduino.TabIndex = 29;
             this.richTextBox_Arduino.Text = "";
+            this.richTextBox_Arduino.TextChanged += new System.EventHandler(this.richTextBox_Arduino_TextChanged);
             // 
             // button7
             // 
@@ -453,13 +462,47 @@
             this.button7.Cursor = System.Windows.Forms.Cursors.No;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button7.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button7.Location = new System.Drawing.Point(0, 466);
+            this.button7.Location = new System.Drawing.Point(-6, 550);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(625, 95);
             this.button7.TabIndex = 24;
             this.button7.Text = "Parar";
             this.button7.UseVisualStyleBackColor = false;
             this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.White;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.button1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.button1.ForeColor = System.Drawing.Color.Black;
+            this.button1.Location = new System.Drawing.Point(14, 427);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(314, 73);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "Constante de Calibração: ";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click_2);
+            // 
+            // richTextBox4
+            // 
+            this.richTextBox4.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.richTextBox4.BackColor = System.Drawing.Color.White;
+            this.richTextBox4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox4.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.richTextBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox4.Location = new System.Drawing.Point(12, 501);
+            this.richTextBox4.Multiline = false;
+            this.richTextBox4.Name = "richTextBox4";
+            this.richTextBox4.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Horizontal;
+            this.richTextBox4.Size = new System.Drawing.Size(314, 43);
+            this.richTextBox4.TabIndex = 21;
+            this.richTextBox4.Text = "";
+            this.richTextBox4.Click += new System.EventHandler(this.richTextBox4_Click);
+            this.richTextBox4.TextChanged += new System.EventHandler(this.richTextBox4_TextChanged);
             // 
             // label9
             // 
@@ -614,34 +657,30 @@
             this.Solta_motor.UseVisualStyleBackColor = false;
             this.Solta_motor.Click += new System.EventHandler(this.Solta_motor_Click);
             // 
-            // panel_Falhas
-            // 
-            this.panel_Falhas.Location = new System.Drawing.Point(-1, -1);
-            this.panel_Falhas.Name = "panel_Falhas";
-            this.panel_Falhas.Size = new System.Drawing.Size(624, 557);
-            this.panel_Falhas.TabIndex = 31;
-            // 
             // serialPort1
             // 
-            this.serialPort1.PortName = "COM14";
+            this.serialPort1.BaudRate = 115200;
+            this.serialPort1.DtrEnable = true;
+            this.serialPort1.PortName = "COM12";
+            this.serialPort1.RtsEnable = true;
             this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(936, 558);
+            this.ClientSize = new System.Drawing.Size(622, 588);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panelSideMenu);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.MinimumSize = new System.Drawing.Size(950, 600);
+            this.MinimumSize = new System.Drawing.Size(500, 500);
             this.Name = "Form1";
             this.Text = "Atuador Bi-Direcional UI";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.panelSideMenu.ResumeLayout(false);
             this.panelPortsSubmenu.ResumeLayout(false);
+            this.panelPortsSubmenu.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel_Falhas.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel_subsidencia.ResumeLayout(false);
@@ -650,8 +689,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panelSideMenu;
         private System.Windows.Forms.Panel panelPortsSubmenu;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Panel panelLogo;
@@ -671,7 +708,6 @@
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.RichTextBox richTextBox2;
         private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Button btnEnergizarHorizontal;
@@ -679,9 +715,6 @@
         private System.Windows.Forms.RadioButton btnDirecaoVerticalBaixo;
         private System.Windows.Forms.RadioButton btnDireicaoVerticalCima;
         private System.Windows.Forms.Button btnSensorVertical;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.RichTextBox richTextBox4;
-        private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
@@ -692,6 +725,14 @@
         private System.Windows.Forms.Panel panel_subsidencia;
         private System.Windows.Forms.Panel panel_Falhas;
         private System.Windows.Forms.Button Solta_motor;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Timer Timer1;
+        private System.Windows.Forms.RichTextBox richTextBox3;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.RichTextBox richTextBox4;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button5;
     }
 }
 

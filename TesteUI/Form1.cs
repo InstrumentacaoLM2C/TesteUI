@@ -9,9 +9,10 @@ namespace TesteUI
 {
     public partial class Form1 : Form
     {
-#pragma warning disable CS0414 // O campo "Form1.on_sensor" é atribuído, mas seu valor nunca é usado
+        private Form2_BiDirecional form2;
+        private Form3_Universal form3;
+
         bool on_sensor = false;
-#pragma warning restore CS0414 // O campo "Form1.on_sensor" é atribuído, mas seu valor nunca é usado
         private delegate void d1(string indata);
         bool on_energizar_vertical = true;
         bool on_energizar_horizontal = true;
@@ -20,28 +21,18 @@ namespace TesteUI
         bool motorVertical = true;
         bool ligarMotor_vertical = false;
         bool ligarMotor_horizontal = false;
-#pragma warning disable CS0169 // O campo "Form1.distancia_mm1" nunca é usado
         double distancia_mm1;
-#pragma warning restore CS0169 // O campo "Form1.distancia_mm1" nunca é usado
         float distancia_mm2;
-#pragma warning disable CS0169 // O campo "Form1.velocidade_mm1" nunca é usado
         float velocidade_mm1;
-#pragma warning restore CS0169 // O campo "Form1.velocidade_mm1" nunca é usado
         float velocidade_mm2;
         double distancia_pulsos1;
         double distancia_pulsos2;
         double velocidade_pulsos1;
         double velocidade_pulsos2;
-#pragma warning disable CS0414 // O campo "Form1.distancia" é atribuído, mas seu valor nunca é usado
         string distancia = "0";  // posição
-#pragma warning restore CS0414 // O campo "Form1.distancia" é atribuído, mas seu valor nunca é usado
-#pragma warning disable CS0414 // O campo "Form1.velocidade" é atribuído, mas seu valor nunca é usado
         string velocidade = "0";  // velocidade
-#pragma warning restore CS0414 // O campo "Form1.velocidade" é atribuído, mas seu valor nunca é usado
         string direcao = "0";  // direção
-#pragma warning disable CS0414 // O campo "Form1.motor" é atribuído, mas seu valor nunca é usado
         int motor = 1; // Armazena qual motor está sendo utilizado
-#pragma warning restore CS0414 // O campo "Form1.motor" é atribuído, mas seu valor nunca é usado
         double constanteCalibracao2 = 1;
         double constanteCalibracao1 = 1;  //A constante de calibração default dos motores que representa a velocidade de aceleração de 2500pulsos/s
 
@@ -59,18 +50,33 @@ namespace TesteUI
             btnDireicaoVerticalCima.Text = "Cima";
             btnDirecaoVerticalBaixo.Text = "Baixo";
 
+
+
         }
+
+        private void UpdateRichTextBox(string data)
+        {
+            // Adiciona os dados recebidos ao RichTextBox
+            richTextBox3.AppendText(data);
+
+            // Rola automaticamente para a última linha
+            richTextBox3.ScrollToCaret();
+        }
+
 
         private void serialPort1_DataReceived(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
             try
             {
                 // Ler a linha recebida da porta serial
-                string indata = serialPort1.ReadLine();
+                string indata = serialPort1.ReadExisting();
 
                 // Usar Invoke para atualizar a interface do usuário de forma segura
                 d1 writeit = new d1(Write2Form);
                 Invoke(writeit, indata);
+
+                this.Invoke(new Action(() => UpdateRichTextBox(indata)));
+
             }
             catch (IOException ioEx)
             {
@@ -114,10 +120,25 @@ namespace TesteUI
 
         public void Write2Form(String indata)
         {
-            // This function handles data sent from the arduino
 
+
+
+            // Remove espaços em branco e novas linhas do início e do fim da string
+            indata = indata.Trim();
+
+            // Verifica se a string não está vazia após o Trim
+            if (string.IsNullOrEmpty(indata))
+            {
+                return; // Se a string estiver vazia, não faz nada
+            }
+
+            // Obtém o primeiro caractere da string
             char g = indata[0];
-            String texto = Convert.ToString(indata).Substring(1).Replace("#", "");
+
+            // Obtém o restante da string (substring a partir do segundo caractere)
+            // e remove o caractere '#' se estiver presente
+            String texto = indata.Length > 1 ? indata.Substring(1).Replace("#", "") : "";
+
 
             switch (g)
             {
@@ -735,22 +756,50 @@ namespace TesteUI
         {
 
         }
+        private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+        {
+            try
+            {
+                SerialPort sp = (SerialPort)sender;
+                string data = sp.ReadExisting(); // Lê os dados recebidos
 
+                // Atualiza a interface gráfica na thread principal
+                this.Invoke(new Action(() => richTextBox3.AppendText(data)));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao processar dados recebidos: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void button4_Click_3(object sender, EventArgs e)
         {
             try
             {
                 if (button4.Text == "Conectar")
                 {
-                    serialPort1.PortName = comboBox1.Text;
+                    //serialPort1.PortName = comboBox1.Text;
+                    //serialPort1.PortName = comboBox1.Items[comboBox1.SelectedIndex].ToString();
+
+                    string PortName = comboBox1.Items[comboBox1.SelectedIndex].ToString();
                     serialPort1.PortName = comboBox1.Items[comboBox1.SelectedIndex].ToString();
+                    serialPort1.BaudRate = 115200;
+                    serialPort1.DtrEnable = true;
+                    serialPort1.DataBits = 8;
+                    serialPort1.Parity = Parity.None;
+                    serialPort1.StopBits = StopBits.One;
+                    serialPort1.Handshake = Handshake.None;
+
+                    serialPort1.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+
                     serialPort1.Open();
+                    Timer1.Start();
                     SerialPortManager.SerialPort = serialPort1;
                     button4.Text = "Desconectar";
 
                 }
                 else
                 {
+                    Timer1.Stop();
                     serialPort1.Close();
                     // Atualizar a lista de portas disponíveis após a desconexão
                     string[] ports = SerialPort.GetPortNames();
@@ -1077,6 +1126,7 @@ namespace TesteUI
                 {
                     // Enviar comando para parar o motor
                     serialPort1.Write("n#");
+
                 }
                 catch (UnauthorizedAccessException)
                 {
@@ -1315,34 +1365,28 @@ namespace TesteUI
 
         private void Botao_Painel_subsidencia_Click(object sender, EventArgs e)
         {
-            if (Botao_Painel_subsidencia.Text == "Modo Subsidência")
+            if (serialPort1 != null && serialPort1.IsOpen) // Verifica se a porta serial está aberta
             {
-                //Desligando os botões do modo bi-direcional
-                panel1.Visible = false;
-                panel_subsidencia.Visible = true;
-                panel_Falhas.Visible = false;
-                Botao_Painel_subsidencia.Text = "Modo Falhas";
-
-            }
-            else if (Botao_Painel_subsidencia.Text == "Modo Falhas")
-            {
-                //Desligando os botões do modo de subsidência
-                panel1.Visible = false;
-                panel_Falhas.Visible = true;
-                panel_subsidencia.Visible = false;
-                Botao_Painel_subsidencia.Text = "Modo Bi-Direcional";
-
                 Form2_BiDirecional form2 = new Form2_BiDirecional(this.serialPort1); // Cria uma instância do Form2
                 form2.Show();              // Exibe o Form2
             }
-            else if (Botao_Painel_subsidencia.Text == "Modo Bi-Direcional")
+            else
             {
-                panel1.Visible = true;
-                panel_Falhas.Visible = false;
-                panel_subsidencia.Visible = false;
-                Botao_Painel_subsidencia.Text = "Modo Subsidência";
+                MessageBox.Show("Por favor, conecte-se à porta serial antes de abrir o Modo Falhas.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
 
+        private void button5_Click_3(object sender, EventArgs e)
+        {
+            if (serialPort1 != null && serialPort1.IsOpen) // Verifica se a porta serial está aberta
+            {
+                Form3_Universal form3 = new Form3_Universal(this.serialPort1); // Cria uma instância do Form3
+                form3.Show();              // Exibe o Form3
+            }
+            else
+            {
+                MessageBox.Show("Por favor, conecte-se à porta serial antes de abrir o Modo Falhas.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void button5_Click_2(object sender, EventArgs e)
@@ -1355,5 +1399,22 @@ namespace TesteUI
 
             serialPort1.Write("K#");
         }
+
+        private void richTextBox_Arduino_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void richTextBox3_TextChanged(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void panel_Falhas_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        
     }
 }
