@@ -188,6 +188,7 @@
             this.btnDireicaoVerticalCima.TabIndex = 22;
             this.btnDireicaoVerticalCima.Text = "Cima";
             this.btnDireicaoVerticalCima.UseVisualStyleBackColor = true;
+            this.btnDireicaoVerticalCima.CheckedChanged += new System.EventHandler(this.btnDireicaoVerticalCima_CheckedChanged);
             // 
             // btnLigarVertical
             // 

@@ -12,6 +12,7 @@ namespace TesteUI
         private Form2_BiDirecional form2;
         private Form3_Universal form3;
 
+
         bool on_sensor = false;
         private delegate void d1(string indata);
         bool on_energizar_vertical = true;
@@ -36,6 +37,8 @@ namespace TesteUI
         double constanteCalibracao2 = 1;
         double constanteCalibracao1 = 1;  //A constante de calibração default dos motores que representa a velocidade de aceleração de 2500pulsos/s
 
+        public event EventHandler<string> OnDataReceived;
+
         public Form1()
         {
             InitializeComponent();
@@ -50,6 +53,11 @@ namespace TesteUI
         private void UpdateRichTextBox(string data)
         {
            
+        }
+
+        private void InitializeSerialPort()
+        {
+
         }
 
 
@@ -88,7 +96,21 @@ namespace TesteUI
         }
 
 
-        private void commit() { }
+        public void SendData(string data)
+        {
+            if (serialPort1 != null && serialPort1.IsOpen)
+            {
+                try
+                {
+                    serialPort1.Write(data);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Erro ao enviar dados: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
         private bool VerificarTextoValido(RichTextBox richTextBox)
         {
             // Verifica se a RichTextBox está vazia ou contém apenas espaços em branco
@@ -189,7 +211,7 @@ namespace TesteUI
                 case 'y'://motor1
 
                     ligarMotor_vertical = false;
-                    on_energizar_vertical = false;
+                    on_energizar_vertical = true;
                     btnLigarVertical.Text = "Ligar";
                     btnLigarVertical.BackColor = Color.Gainsboro;
                     MessageBox.Show("O motor vertical parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -777,8 +799,9 @@ namespace TesteUI
                     serialPort1.Parity = Parity.None;
                     serialPort1.StopBits = StopBits.One;
                     serialPort1.Handshake = Handshake.None;
+                    serialPort1.ReadBufferSize = 4096;
 
-                    serialPort1.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+                    serialPort1.DataReceived += serialPort1_DataReceived;
 
                     serialPort1.Open();
                     Timer1.Start();
@@ -833,6 +856,25 @@ namespace TesteUI
                                 MessageBoxIcon.Error);
             }
 
+        }
+
+        private void SerialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        {
+            try
+            {
+                // Lê os dados recebidos
+                string indata = serialPort1.ReadExisting();
+
+                // Notifica os outros formulários sobre os dados recebidos
+                OnDataReceived?.Invoke(this, indata);
+
+                // Atualiza a interface do usuário de forma segura
+                this.Invoke(new Action(() => UpdateRichTextBox(indata)));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao processar dados: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnMotorHorizontal_Click(object sender, EventArgs e)

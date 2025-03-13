@@ -323,7 +323,7 @@ namespace TesteUI
                         btnLigarVertical.Text = "Ligado";
                         btnLigarVertical.BackColor = Color.Green;
                         ligarMotor_vertical = true;
-                        on_energizar_vertical = true;
+                        on_energizar_vertical = false;
                     }
 
                     // Pequeno delay para garantir que o comando seja processado
@@ -378,7 +378,6 @@ namespace TesteUI
                 try
                 {
                     // Enviar comando para parar o motor
-                 
                     _serialPort.Write("n#");
                 }
                 catch (UnauthorizedAccessException)
@@ -512,6 +511,11 @@ namespace TesteUI
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void btnDireicaoVerticalCima_CheckedChanged(object sender, EventArgs e)
         {
 
         }
