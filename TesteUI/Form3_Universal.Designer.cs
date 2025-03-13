@@ -30,6 +30,8 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
             this.button_parar_vertical = new System.Windows.Forms.Button();
             this.btnEnergizarVertical = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
@@ -44,8 +46,6 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.richTextBox_Arduino2 = new System.Windows.Forms.RichTextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -82,6 +82,34 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(524, 515);
             this.panel2.TabIndex = 27;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(296, 17);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(173, 25);
+            this.label6.TabIndex = 31;
+            this.label6.Text = "Constante Motor 2";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
+            // richTextBox3
+            // 
+            this.richTextBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.richTextBox3.BackColor = System.Drawing.Color.White;
+            this.richTextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.richTextBox3.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.richTextBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.richTextBox3.Location = new System.Drawing.Point(273, 45);
+            this.richTextBox3.Multiline = false;
+            this.richTextBox3.Name = "richTextBox3";
+            this.richTextBox3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Horizontal;
+            this.richTextBox3.Size = new System.Drawing.Size(212, 34);
+            this.richTextBox3.TabIndex = 30;
+            this.richTextBox3.Text = "";
+            this.richTextBox3.TextChanged += new System.EventHandler(this.richTextBox3_TextChanged);
             // 
             // button_parar_vertical
             // 
@@ -251,33 +279,6 @@
             this.richTextBox_Arduino2.Size = new System.Drawing.Size(532, 53);
             this.richTextBox_Arduino2.TabIndex = 31;
             this.richTextBox_Arduino2.Text = "";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(296, 17);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(173, 25);
-            this.label6.TabIndex = 31;
-            this.label6.Text = "Constante Motor 2";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
-            // 
-            // richTextBox3
-            // 
-            this.richTextBox3.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.richTextBox3.BackColor = System.Drawing.Color.White;
-            this.richTextBox3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.richTextBox3.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.richTextBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBox3.Location = new System.Drawing.Point(273, 45);
-            this.richTextBox3.Multiline = false;
-            this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Horizontal;
-            this.richTextBox3.Size = new System.Drawing.Size(212, 34);
-            this.richTextBox3.TabIndex = 30;
-            this.richTextBox3.Text = "";
-            this.richTextBox3.TextChanged += new System.EventHandler(this.richTextBox3_TextChanged);
             // 
             // Form3_Universal
             // 

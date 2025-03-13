@@ -42,25 +42,14 @@ namespace TesteUI
         }
 
         private void Form1_Load(object sender, EventArgs e)
-        {
-
-
-            btnMotor.Text = "Motor Vertical";
-
-            btnDireicaoVerticalCima.Text = "Cima";
-            btnDirecaoVerticalBaixo.Text = "Baixo";
-
+        { 
 
 
         }
 
         private void UpdateRichTextBox(string data)
         {
-            // Adiciona os dados recebidos ao RichTextBox
-            richTextBox3.AppendText(data);
-
-            // Rola automaticamente para a última linha
-            richTextBox3.ScrollToCaret();
+           
         }
 
 
@@ -692,7 +681,7 @@ namespace TesteUI
             {
 
                 serialPort1.PortName = comboBox1.Text;
-                serialPort1.BaudRate = 9600;
+                serialPort1.BaudRate = 115200;
                 serialPort1.Open();
                 button3.Text = "desconectar";
             }
@@ -1380,6 +1369,45 @@ namespace TesteUI
         {
             if (serialPort1 != null && serialPort1.IsOpen) // Verifica se a porta serial está aberta
             {
+                
+                try
+                {
+                    // Verifica se a porta serial está aberta antes de tentar escrever
+                    if (serialPort1 != null && serialPort1.IsOpen)
+                    {
+                        serialPort1.Write("m#"); // Envia o comando para trocar para motores simultâneos
+                    }
+                    else
+                    {
+                        MessageBox.Show("A porta serial não está aberta. Verifique a conexão.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    // Erro específico para portas não autorizadas
+                    MessageBox.Show("Acesso negado à porta serial. Verifique se o dispositivo está conectado corretamente ou se a porta já está em uso.",
+                                    "Erro de Acesso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    // Erro específico para operação inválida na porta serial
+                    MessageBox.Show("A operação não pôde ser completada. Verifique se a porta serial está configurada corretamente e tente novamente.",
+                                    "Erro de Operação", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (IOException ex)
+                {
+                    // Erro específico para I/O
+                    MessageBox.Show("Falha de comunicação com a porta serial. Certifique-se de que o dispositivo está conectado corretamente.",
+                                    "Erro de Comunicação", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (Exception ex)
+                {
+                    // Erro genérico
+                    MessageBox.Show($"Erro inesperado ao enviar comando: {ex.Message}",
+                                    "Erro Desconhecido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+
                 Form3_Universal form3 = new Form3_Universal(this.serialPort1); // Cria uma instância do Form3
                 form3.Show();              // Exibe o Form3
             }

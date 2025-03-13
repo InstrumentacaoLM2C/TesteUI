@@ -80,6 +80,12 @@ namespace TesteUI
         }
         public void AtualizarInterface(string indata) // como se fosse a função "Write2Form"
         {
+
+            if (IsDisposed || richTextBox_Arduino2.IsDisposed || btnLigarVertical.IsDisposed)
+            {
+                return; // Sai do método se o formulário ou controles não existirem mais
+            }
+
             if (InvokeRequired) // Se estiver sendo chamado de uma thread diferente da thread da interface do usuário
             {
                 Invoke(new Action<string>(AtualizarInterface), indata); // Chama a si mesmo na thread da interface do usuário
@@ -138,8 +144,6 @@ namespace TesteUI
                     btnLigarHorizontal.Text = "Ligar";
                     btnLigarHorizontal.BackColor = Color.Gainsboro;
                     MessageBox.Show("O motor horizontal parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-
                     break;
 
                 case 'y'://motor1

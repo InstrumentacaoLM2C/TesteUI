@@ -32,153 +32,85 @@ namespace TesteUI
         double constanteCalibracao1 = 1;  //A constante de calibração default dos motores que representa a velocidade de aceleração de 2500pulsos/s
         double constanteCalibracao2 = 1;
         bool on_energizar_vertical = true;
-        bool on_energizar_horizontal = true;
         bool on_sensor_vertical = false;
         bool on_sensor_horizontal = false;
         bool motorVertical = true;
         bool ligarMotor_vertical = false;
-        bool ligarMotor_horizontal = false;
         int motor = 1; // Armazena qual motor está sendo utilizado
 
         bool on_sensor = false;
 
         private SerialPort _serialPort;
-        public Form3_Universal(SerialPort SerialPort)
-        {
-            InitializeComponent();
 
-            this._serialPort = SerialPort;
-
-            // Attach the DataReceived event handler here!  IMPORTANT!
-            _serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
-        }
-
-        private void Form3_Universal_Load(object sender, System.EventArgs e)
-        {
-            if (_serialPort == null)
+            public Form3_Universal(SerialPort serialPort)
             {
-                MessageBox.Show("A porta serial não foi inicializada. Conecte-se através do Form1 primeiro.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                this.Close(); // Fecha o Form3 se a porta serial não estiver inicializada
-                return;
-            }
-        }
+                InitializeComponent();
 
-        private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+                if (serialPort == null)
+                {
+                    MessageBox.Show("A porta serial não foi fornecida. Conecte-se através do Form1 primeiro.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    this.Close(); // Fecha o Form3 se a porta serial não for fornecida
+                    return;
+                }
+
+                this._serialPort = serialPort;
+
+                // Inscreve o evento DataReceived
+                _serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+            }
+
+            private void Form3_Universal_Load(object sender, EventArgs e)
+            {
+                if (_serialPort == null || !_serialPort.IsOpen)
+                {
+                    MessageBox.Show("A porta serial não está inicializada ou não está aberta. Conecte-se através do Form1 primeiro.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    this.Close(); // Fecha o Form3 se a porta serial não estiver inicializada ou aberta
+                    return;
+                }
+            }
+
+            private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
         {
             try
             {
                 SerialPort sp = (SerialPort)sender;
-                string data = sp.ReadExisting(); // Reads the received data
-                //MessageBox.Show(data);
-                // Update the graphical interface in the main thread
-                this.Invoke(new Action(() => AtualizarInterface(data))); // Use AtualizarInterface here
+                string data = sp.ReadExisting(); // Lê os dados recebidos
 
-
+                // Atualiza a interface gráfica na thread principal
+                if (!IsDisposed && richTextBox_Arduino2.IsHandleCreated && btnLigarVertical.IsHandleCreated)
+                {
+                    this.BeginInvoke(new Action<string>(AtualizarInterface), data); // Usa AtualizarInterface aqui
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error processing received data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                // Log de erro mais detalhado
+                string errorMessage = $"Error processing received data: {ex.Message}\nStack Trace: {ex.StackTrace}";
+                MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        public void AtualizarInterface(string indata) // como se fosse a função "Write2Form"
+
+        public void AtualizarInterface(string indata)
         {
-            if (InvokeRequired) // Se estiver sendo chamado de uma thread diferente da thread da interface do usuário
+            // Verifica se o formulário ou controles foram descartados
+            if (IsDisposed || richTextBox_Arduino2.IsDisposed || btnLigarVertical.IsDisposed)
             {
-                Invoke(new Action<string>(AtualizarInterface), indata); // Chama a si mesmo na thread da interface do usuário
-                return;
+                return; // Sai do método se o formulário ou controles não existirem mais
             }
 
-            // Atualize os controles do Form2 com os dados recebidos
-            // This function handles data sent from the arduino
-
-            char g = '/';   //indata[0];
-            String texto = "";// Convert.ToString(indata).Substring(1).Replace("#", "");
-
-            switch (g)
+            // Processa os dados recebidos
+            if (indata.Contains("y")) // Verifica se o caractere 'y' está presente
             {
-
-                //Algumas mensagens com caracteres especiais
-                case 'j':
-                    richTextBox_Arduino2.AppendText("Calibração iniciada!\r\n\r\n");
-                    break;
-                case 'c':
-                    richTextBox_Arduino2.AppendText("Direcão motor 1: Para cima\r\n\r\n");
-                    break;
-                case 'C':
-                    richTextBox_Arduino2.AppendText("Direcão motor 2: Para cima\r\n\r\n");
-                    break;
-
-                case 'b':
-                    richTextBox_Arduino2.AppendText("Direcão motor 1: Para baixo\r\n\r\n");
-                    break;
-                case 'B':
-                    richTextBox_Arduino2.AppendText("Direcão motor 2: Para baixo\r\n\r\n");
-                    break;
-
-                case 'a':
-                    richTextBox_Arduino2.AppendText("O motor 1 está se movendo com aceleração!\r\n\r\n");
-                    break;
-                case 'A':
-                    richTextBox_Arduino2.AppendText("O motor 2 está se movendo com aceleração!" + "\r\n\r\n");
-                    break;
-
-                case 'Q':
-                    richTextBox_Arduino2.AppendText("Valor de velocidade inválido! Insira um valor entre 200 e 8000 pulsos/segundo" + "\r\n\r\n");
-                    break;
-
-                case 'U':
-                    richTextBox_Arduino2.AppendText("Primeiro motor sendo operado!" + "\r\n\r\n");
-                    break;
-                case 'u':
-                    richTextBox_Arduino2.AppendText("Segundo motor sendo operado!" + "\r\n\r\n");
-                    break;
-
-                case 'Y'://motor2
-
-                    ligarMotor_horizontal = false;
-                    on_energizar_horizontal = false;
-                    //btnLigarHorizontal.Text = "Ligar";
-                    //btnLigarHorizontal.BackColor = Color.Gainsboro;
-                    MessageBox.Show("O motor horizontal parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-
-                    break;
-
-                case 'y'://motor1
-
-                    ligarMotor_vertical = false;
-                    on_energizar_vertical = false;
-                    btnLigarVertical.Text = "Ligar";
-                    btnLigarVertical.BackColor = Color.Gainsboro;
-                    MessageBox.Show("O motor vertical parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                    break;
-
-
-                case '/':
-                    richTextBox_Arduino2.AppendText(texto + "\r\n\r\n");
-                    break;
-
-                case 'w':
-                    if (motorVertical == true)
-                    {
-                        richTextBox_Arduino2.AppendText("A constante de calibração do motor 1 é:" + texto + "\r\n\r\n");
-                    }
-                    else
-                    {
-                        richTextBox_Arduino2.AppendText("A constante de calibração do motor 2 é:" + texto + "\r\n\r\n");
-                    }
-
-                    break;
-
-                default:
-                    richTextBox_Arduino2.AppendText(texto + "\r\n\r\n");
-                    break;
-
-
+                ligarMotor_vertical = false;
+                on_energizar_vertical = false;
+                btnLigarVertical.Text = "Ligar";
+                btnLigarVertical.BackColor = Color.Gainsboro;
+                MessageBox.Show("O motor vertical parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
             // Exemplo: Adiciona os dados a um RichTextBox
+            richTextBox_Arduino2.AppendText(indata + Environment.NewLine);
         }
 
         private bool VerificarTextoValido(RichTextBox richTextBox)
@@ -208,14 +140,15 @@ namespace TesteUI
         {
             try
             {
-                if (on_energizar_vertical)
+
+                if (on_energizar_vertical == true)
                 {
                     // Send command to the arduino to turn on the enable function of the driver energizing the motor
                     try
                     {
-                        // Enviar comando para parar o motor
-                        _serialPort.Write("m#"); // troca para os motores simultaneos
+                        // Enviar comando para ligar o motor
                         _serialPort.Write("A#");
+                        System.Threading.Thread.Sleep(100);
                     }
                     catch (UnauthorizedAccessException ex)
                     {
@@ -250,7 +183,7 @@ namespace TesteUI
                 {
                     if (ligarMotor_vertical == true)
                     {
-                        MessageBox.Show("Desligue os motores antes de energizá-los", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Pare os motores antes de desenergizá-los", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     else if (ligarMotor_vertical == false)
                     {
@@ -258,6 +191,7 @@ namespace TesteUI
                         {
                             // Enviar comando para parar o motor
                             _serialPort.Write("a#");
+                            System.Threading.Thread.Sleep(100);
                         }
                         catch (UnauthorizedAccessException ex)
                         {
@@ -310,6 +244,7 @@ namespace TesteUI
 
         private void btnLigarVertical_Click(object sender, EventArgs e)
         {
+            // Verifica a direção selecionada
             if (btnDirecaoVerticalBaixo.Checked)
             {
                 direcao1 = "B";
@@ -324,6 +259,7 @@ namespace TesteUI
                 return;
             }
 
+            // Verifica se os valores de distância e velocidade são válidos
             if (VerificarTextoValido(richTextBox1) && VerificarTextoValido(richTextBox2))
             {
                 try
@@ -331,15 +267,17 @@ namespace TesteUI
 
                     _serialPort.Write("W" + distancia_pulsos1 + ";" + velocidade_pulsos1 + ";" + distancia_pulsos2 + ";" + velocidade_pulsos2 + ";" + direcao1 + ";H#");
                     System.Threading.Thread.Sleep(100);
+
                     if (ligarMotor_vertical == true)
                     {
-
+                        
                         btnLigarVertical.Text = "Ligar";
                         btnLigarVertical.BackColor = Color.Gainsboro;
-                        ligarMotor_vertical = false;
                         on_energizar_vertical = false;
+                        ligarMotor_vertical = false;
                         try
                         {
+                         
                             // Enviar comando para parar o motor
                             _serialPort.Write("n#");
                             System.Threading.Thread.Sleep(100);
@@ -378,21 +316,52 @@ namespace TesteUI
                                             MessageBoxButtons.OK,
                                             MessageBoxIcon.Error);
                         }
-
                     }
                     else if (ligarMotor_vertical == false)
                     {
+                       
                         btnLigarVertical.Text = "Ligado";
                         btnLigarVertical.BackColor = Color.Green;
                         ligarMotor_vertical = true;
                         on_energizar_vertical = true;
-
-
                     }
+
+                    // Pequeno delay para garantir que o comando seja processado
+                    System.Threading.Thread.Sleep(100);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    MessageBox.Show("Acesso negado à porta serial. " +
+                                  "Verifique se a porta já está em uso ou se você tem permissão para acessá-la.",
+                                  "Erro de Acesso",
+                                  MessageBoxButtons.OK,
+                                  MessageBoxIcon.Warning);
+                }
+                catch (InvalidOperationException)
+                {
+                    MessageBox.Show("A operação não pôde ser completada. " +
+                                    "Verifique se a porta serial está aberta e configurada corretamente.",
+                                    "Erro de Operação",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
+                }
+                catch (IOException ex)
+                {
+                    MessageBox.Show("Falha de comunicação ao tentar parar o motor. " +
+                                    "Certifique-se de que o dispositivo está conectado corretamente.\n\n" +
+                                    $"Detalhes do erro: {ex.Message}",
+                                    "Erro de Comunicação",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Ocorreu um erro: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Não foi possível parar o motor. " +
+                                    "Uma falha inesperada ocorreu. Tente novamente.\n\n" +
+                                    $"Detalhes do erro: {ex.Message}",
+                                    "Erro Desconhecido",
+                                    MessageBoxButtons.OK,
+                                    MessageBoxIcon.Error);
                 }
             }
             else
@@ -401,15 +370,15 @@ namespace TesteUI
                 return;
             }
         }
-
         private void button_parar_vertical_Click(object sender, EventArgs e)
         {
+
             if (ligarMotor_vertical == true)
             {
                 try
                 {
                     // Enviar comando para parar o motor
-                    _serialPort.Write("m#"); // troca para o motor vertical
+                 
                     _serialPort.Write("n#");
                 }
                 catch (UnauthorizedAccessException)
@@ -447,6 +416,9 @@ namespace TesteUI
                                     MessageBoxIcon.Error);
                 }
 
+            } else if (ligarMotor_vertical == false)
+            {
+                MessageBox.Show("O motor já está parado.", "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -537,6 +509,11 @@ namespace TesteUI
                     MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
