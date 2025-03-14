@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace TesteUI
 {
@@ -25,10 +26,10 @@ namespace TesteUI
         // Variáveis para o motor
         string direcao1 = "0";  // direção
         string direcao2 = "0";  // direção
-        double distancia_pulsos1;  //Variavel que armazena a quantidade de pulsos que será dado pelo motor vertical
-        double distancia_pulsos2;
-        double velocidade_pulsos1;
-        double velocidade_pulsos2;
+        float distancia_pulsos1 = 0.0f;  // Pulsos do motor vertical
+        float distancia_pulsos2 = 0.0f;
+        float velocidade_pulsos1 = 0.0f;
+        float velocidade_pulsos2 = 0.0f;
         double constanteCalibracao1 = 1;  //A constante de calibração default dos motores que representa a velocidade de aceleração de 2500pulsos/s
         double constanteCalibracao2 = 1;
         bool on_energizar_vertical = true;
@@ -42,75 +43,58 @@ namespace TesteUI
 
         private SerialPort _serialPort;
 
-            public Form3_Universal(SerialPort serialPort)
+        public Form3_Universal(SerialPort serialPort)
+        {
+            InitializeComponent();
+
+            if (serialPort == null || !serialPort.IsOpen)
             {
-                InitializeComponent();
-
-                if (serialPort == null)
-                {
-                    MessageBox.Show("A porta serial não foi fornecida. Conecte-se através do Form1 primeiro.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    this.Close(); // Fecha o Form3 se a porta serial não for fornecida
-                    return;
-                }
-
-                this._serialPort = serialPort;
-
-                // Inscreve o evento DataReceived
-                _serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+                MessageBox.Show("A porta serial não está disponível.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
             }
 
-            private void Form3_Universal_Load(object sender, EventArgs e)
-            {
-                if (_serialPort == null || !_serialPort.IsOpen)
-                {
-                    MessageBox.Show("A porta serial não está inicializada ou não está aberta. Conecte-se através do Form1 primeiro.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    this.Close(); // Fecha o Form3 se a porta serial não estiver inicializada ou aberta
-                    return;
-                }
-            }
+            _serialPort = serialPort;
+            _serialPort.DataReceived += SerialPort_DataReceived;
+        }
 
-            private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             try
             {
-                SerialPort sp = (SerialPort)sender;
-                string data = sp.ReadExisting(); // Lê os dados recebidos
+                // Lê os dados da porta serial
+                string data = _serialPort.ReadExisting().Trim();
 
-                // Atualiza a interface gráfica na thread principal
-                if (!IsDisposed && richTextBox_Arduino2.IsHandleCreated && btnLigarVertical.IsHandleCreated)
+                // Verifica se contém 'y' e chama a atualização da interface
+                if (data.Contains("y"))
                 {
-                    this.BeginInvoke(new Action<string>(AtualizarInterface), data); // Usa AtualizarInterface aqui
+                    this.BeginInvoke(new Action(UpdateButton));
                 }
             }
             catch (Exception ex)
             {
-                // Log de erro mais detalhado
-                string errorMessage = $"Error processing received data: {ex.Message}\nStack Trace: {ex.StackTrace}";
-                MessageBox.Show(errorMessage, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine($"Erro na leitura da porta serial: {ex.Message}");
             }
         }
 
-
-        public void AtualizarInterface(string indata)
+        private void UpdateButton()
         {
-            // Verifica se o formulário ou controles foram descartados
-            if (IsDisposed || richTextBox_Arduino2.IsDisposed || btnLigarVertical.IsDisposed)
-            {
-                return; // Sai do método se o formulário ou controles não existirem mais
-            }
+            btnLigarVertical.Text = "Ligar";
+            btnLigarVertical.BackColor = System.Drawing.Color.Gainsboro;
+            MessageBox.Show("O motor vertical parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            ligarMotor_vertical = false;
+        }
+    
 
-            // Processa os dados recebidos
-            if (indata.Contains("y")) // Verifica se o caractere 'y' está presente
-            {
-                ligarMotor_vertical = false;
-                on_energizar_vertical = false;
-                btnLigarVertical.Text = "Ligar";
-                btnLigarVertical.BackColor = Color.Gainsboro;
-                MessageBox.Show("O motor vertical parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
 
-            // Exemplo: Adiciona os dados a um RichTextBox
-            richTextBox_Arduino2.AppendText(indata + Environment.NewLine);
+    private void Form3_Universal_Load(object sender, EventArgs e)
+        {
+            if (_serialPort == null || !_serialPort.IsOpen)
+            {
+                MessageBox.Show("A porta serial não está inicializada ou não está aberta. Conecte-se através do Form1 primeiro.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.Close(); // Fecha o Form3 se a porta serial não estiver inicializada ou aberta
+                return;
+            }
         }
 
         private bool VerificarTextoValido(RichTextBox richTextBox)
@@ -202,9 +186,8 @@ namespace TesteUI
 
         }
 
-        private void btnLigarVertical_Click(object sender, EventArgs e)
+        private async void btnLigarVertical_Click(object sender, EventArgs e)
         {
-            // Verifica a direção selecionada
             if (btnDirecaoVerticalBaixo.Checked)
             {
                 direcao1 = "B";
@@ -219,7 +202,6 @@ namespace TesteUI
                 return;
             }
 
-            // Verifica se os valores de distância e velocidade são válidos
             if (!VerificarTextoValido(richTextBox1) || !VerificarTextoValido(richTextBox2))
             {
                 MessageBox.Show("Por favor, selecione valores válidos para distância e velocidade.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -228,67 +210,63 @@ namespace TesteUI
 
             try
             {
-                // Envia comando para ligar/desligar motor
-                _serialPort.Write("W" + distancia_pulsos1 + ";" + velocidade_pulsos1 + ";" + distancia_pulsos2 + ";" + velocidade_pulsos2 + ";" + direcao1 + ";H#");
+                btnLigarVertical.Enabled = false;
 
-                if (ligarMotor_vertical)
+                await Task.Run(() =>
                 {
-                    btnLigarVertical.Text = "Ligar";
-                    btnLigarVertical.BackColor = Color.Gainsboro;
-                    on_energizar_vertical = false;
-                    ligarMotor_vertical = false;
+                    if (ligarMotor_vertical) // Se já estiver ligado, apenas para o motor
+                    {
+                        _serialPort.Write("n#");
+                        Console.WriteLine("Comando Enviado: n# (Parar motor)");
+                    }
+                    else // Se estiver desligado, liga o motor
+                    {
+                        string comando = $"W{distancia_pulsos1.ToString(CultureInfo.InvariantCulture)};" +
+                                        $"{velocidade_pulsos1.ToString(CultureInfo.InvariantCulture)};" +
+                                        $"{distancia_pulsos2.ToString(CultureInfo.InvariantCulture)};" +
+                                        $"{velocidade_pulsos2.ToString(CultureInfo.InvariantCulture)};" +
+                                        $"{direcao1};H#";
 
-                    // Enviar comando para parar o motor
-                    _serialPort.Write("n#");
-                }
-                else
+                        _serialPort.Write(comando);
+                        Console.WriteLine($"Comando Enviado: {comando}");
+                    }
+                });
+
+                // Atualiza a UI na thread principal
+                this.Invoke((Action)(() =>
                 {
-                    btnLigarVertical.Text = "Ligado";
-                    btnLigarVertical.BackColor = Color.Green;
-                    ligarMotor_vertical = true;
-                    on_energizar_vertical = false;
-                }
-
-                // Pequeno delay para garantir que o comando seja processado
-                System.Threading.Thread.Sleep(100);
-            }
-            catch (UnauthorizedAccessException)
-            {
-                MessageBox.Show("Acesso negado à porta serial. " +
-                                "Verifique se a porta já está em uso ou se você tem permissão para acessá-la.",
-                                "Erro de Acesso",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Warning);
-            }
-            catch (InvalidOperationException)
-            {
-                MessageBox.Show("A operação não pôde ser completada. " +
-                                "Verifique se a porta serial está aberta e configurada corretamente.",
-                                "Erro de Operação",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
-            }
-            catch (IOException ex)
-            {
-                MessageBox.Show("Falha de comunicação ao tentar parar o motor. " +
-                                "Certifique-se de que o dispositivo está conectado corretamente.\n\n" +
-                                $"Detalhes do erro: {ex.Message}",
-                                "Erro de Comunicação",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
+                    if (ligarMotor_vertical) // Se estava ligado, agora será desligado
+                    {
+                        btnLigarVertical.Text = "Ligar";
+                        btnLigarVertical.BackColor = Color.Gainsboro;
+                        ligarMotor_vertical = false;
+                        on_energizar_vertical = false;
+                        MessageBox.Show("O motor vertical parou! Botão Ligado", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    else // Se estava desligado, agora será ligado
+                    {
+                        btnLigarVertical.Text = "Ligado";
+                        btnLigarVertical.BackColor = Color.Green;
+                        ligarMotor_vertical = true;
+                        on_energizar_vertical = false;
+                    }
+                }));
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Não foi possível executar o comando. " +
-                                "Uma falha inesperada ocorreu. Tente novamente.\n\n" +
-                                $"Detalhes do erro: {ex.Message}",
-                                "Erro Desconhecido",
-                                MessageBoxButtons.OK,
-                                MessageBoxIcon.Error);
+                MessageBox.Show($"Erro ao comunicar com a porta serial: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                btnLigarVertical.Enabled = true;
             }
         }
 
-        private void button_parar_vertical_Click(object sender, EventArgs e)
+
+
+
+
+        private async void button_parar_vertical_Click(object sender, EventArgs e)
         {
             if (!ligarMotor_vertical)
             {
@@ -298,13 +276,24 @@ namespace TesteUI
 
             try
             {
-                // Enviar comando para parar o motor
-                _serialPort.Write("n#");
+                button_parar_vertical.Enabled = false; // Desativa o botão enquanto executa o comando
 
-                // Atualiza o estado do motor
-                ligarMotor_vertical = false;
-                btnLigarVertical.Text = "Ligar";
-                btnLigarVertical.BackColor = Color.Gainsboro;
+                await Task.Run(() =>
+                {
+                    // Enviar comando para parar o motor
+                    _serialPort.Write("n#");
+                    Console.WriteLine("Comando Enviado: n#");
+                });
+
+                // Atualiza a UI na thread principal
+                this.Invoke((Action)(() =>
+                {
+                    ligarMotor_vertical = false;
+                    btnLigarVertical.Text = "Ligar";
+                    btnLigarVertical.BackColor = Color.Gainsboro;
+
+                    MessageBox.Show("O motor foi parado com sucesso!", "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }));
             }
             catch (UnauthorizedAccessException)
             {
@@ -340,7 +329,12 @@ namespace TesteUI
                                 MessageBoxButtons.OK,
                                 MessageBoxIcon.Error);
             }
+            finally
+            {
+                button_parar_vertical.Enabled = true; // Reativa o botão após a execução
+            }
         }
+
 
 
         private void richTextBox4_TextChanged(object sender, EventArgs e)

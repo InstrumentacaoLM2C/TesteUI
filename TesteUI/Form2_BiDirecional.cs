@@ -152,7 +152,7 @@ namespace TesteUI
                     on_energizar_vertical = false;
                     btnLigarVertical.Text = "Ligar";
                     btnLigarVertical.BackColor = Color.Gainsboro;
-                    MessageBox.Show("O motor vertical parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //MessageBox.Show("O motor vertical parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                     break;
 

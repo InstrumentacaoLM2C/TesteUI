@@ -167,7 +167,7 @@
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(0, 60);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(314, 32);
+            this.comboBox1.Size = new System.Drawing.Size(314, 37);
             this.comboBox1.TabIndex = 2;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -397,7 +397,7 @@
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.Location = new System.Drawing.Point(329, 299);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(85, 24);
+            this.label9.Size = new System.Drawing.Size(111, 29);
             this.label9.TabIndex = 28;
             this.label9.Text = "Pulsos/s:";
             // 
@@ -407,7 +407,7 @@
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(28, 101);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(58, 24);
+            this.label4.Size = new System.Drawing.Size(75, 29);
             this.label4.TabIndex = 10;
             this.label4.Text = "Motor";
             this.label4.Click += new System.EventHandler(this.label4_Click);
@@ -418,7 +418,7 @@
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.Location = new System.Drawing.Point(329, 299);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(85, 24);
+            this.label8.Size = new System.Drawing.Size(111, 29);
             this.label8.TabIndex = 27;
             this.label8.Text = "Pulsos/s:";
             this.label8.Click += new System.EventHandler(this.label8_Click);
@@ -429,7 +429,7 @@
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.Location = new System.Drawing.Point(28, 300);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(111, 24);
+            this.label7.Size = new System.Drawing.Size(143, 29);
             this.label7.TabIndex = 26;
             this.label7.Text = "Qtd. Pulsos:";
             this.label7.Click += new System.EventHandler(this.label7_Click);
@@ -454,7 +454,7 @@
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.Location = new System.Drawing.Point(28, 299);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(111, 24);
+            this.label6.Size = new System.Drawing.Size(143, 29);
             this.label6.TabIndex = 25;
             this.label6.Text = "Qtd. Pulsos:";
             this.label6.Click += new System.EventHandler(this.label6_Click_1);
@@ -494,7 +494,7 @@
             this.btnDirecaoVerticalBaixo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDirecaoVerticalBaixo.Location = new System.Drawing.Point(523, 153);
             this.btnDirecaoVerticalBaixo.Name = "btnDirecaoVerticalBaixo";
-            this.btnDirecaoVerticalBaixo.Size = new System.Drawing.Size(66, 24);
+            this.btnDirecaoVerticalBaixo.Size = new System.Drawing.Size(82, 29);
             this.btnDirecaoVerticalBaixo.TabIndex = 21;
             this.btnDirecaoVerticalBaixo.Text = "Baixo";
             this.btnDirecaoVerticalBaixo.UseVisualStyleBackColor = true;
@@ -506,7 +506,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(28, 214);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(139, 24);
+            this.label1.Size = new System.Drawing.Size(179, 29);
             this.label1.TabIndex = 3;
             this.label1.Text = "Distância (mm):";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -518,7 +518,7 @@
             this.btnDireicaoVerticalCima.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDireicaoVerticalCima.Location = new System.Drawing.Point(397, 153);
             this.btnDireicaoVerticalCima.Name = "btnDireicaoVerticalCima";
-            this.btnDireicaoVerticalCima.Size = new System.Drawing.Size(63, 24);
+            this.btnDireicaoVerticalCima.Size = new System.Drawing.Size(79, 29);
             this.btnDireicaoVerticalCima.TabIndex = 20;
             this.btnDireicaoVerticalCima.Text = "Cima";
             this.btnDireicaoVerticalCima.UseVisualStyleBackColor = true;
@@ -530,7 +530,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(329, 216);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(174, 24);
+            this.label2.Size = new System.Drawing.Size(222, 29);
             this.label2.TabIndex = 4;
             this.label2.Text = "Velocidade (mm/s):";
             this.label2.Click += new System.EventHandler(this.label2_Click);
@@ -553,7 +553,7 @@
             this.btnDirecaoHorizontalCima.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDirecaoHorizontalCima.Location = new System.Drawing.Point(397, 155);
             this.btnDirecaoHorizontalCima.Name = "btnDirecaoHorizontalCima";
-            this.btnDirecaoHorizontalCima.Size = new System.Drawing.Size(14, 13);
+            this.btnDirecaoHorizontalCima.Size = new System.Drawing.Size(17, 16);
             this.btnDirecaoHorizontalCima.TabIndex = 5;
             this.btnDirecaoHorizontalCima.UseVisualStyleBackColor = true;
             this.btnDirecaoHorizontalCima.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
@@ -576,7 +576,7 @@
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(392, 101);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(160, 24);
+            this.label3.Size = new System.Drawing.Size(205, 29);
             this.label3.TabIndex = 7;
             this.label3.Text = "Direção do motor:";
             this.label3.Click += new System.EventHandler(this.label3_Click);
@@ -587,7 +587,7 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(202, 101);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(140, 24);
+            this.label5.Size = new System.Drawing.Size(179, 29);
             this.label5.TabIndex = 12;
             this.label5.Text = "Sensor indutivo";
             this.label5.Click += new System.EventHandler(this.label5_Click);
@@ -599,7 +599,7 @@
             this.btnDirecaoHorizontalBaixo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDirecaoHorizontalBaixo.Location = new System.Drawing.Point(523, 155);
             this.btnDirecaoHorizontalBaixo.Name = "btnDirecaoHorizontalBaixo";
-            this.btnDirecaoHorizontalBaixo.Size = new System.Drawing.Size(14, 13);
+            this.btnDirecaoHorizontalBaixo.Size = new System.Drawing.Size(17, 16);
             this.btnDirecaoHorizontalBaixo.TabIndex = 8;
             this.btnDirecaoHorizontalBaixo.UseVisualStyleBackColor = true;
             this.btnDirecaoHorizontalBaixo.CheckedChanged += new System.EventHandler(this.rdBtn2_CheckedChanged);
@@ -668,7 +668,7 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(622, 588);
             this.Controls.Add(this.panel2);
