@@ -332,100 +332,53 @@ namespace TesteUI
 
         private void btnLigarVertical_Click(object sender, EventArgs e)
         {
+            // Verifica a direção do motor vertical
             if (btnDirecaoVerticalBaixo.Checked)
-            {
                 direcao1 = "B";
-            }
             else if (btnDireicaoVerticalCima.Checked)
-            {
                 direcao1 = "C";
-            }
             else
             {
                 MessageBox.Show("Por favor, selecione uma direção.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            if (VerificarTextoValido(richTextBox1) && VerificarTextoValido(richTextBox2))
-            {
-                try
-                {
-
-                    _serialPort.Write("M#"); // troca para o motor vertical
-                    _serialPort.Write("T" + distancia_pulsos1 + ";" + velocidade_pulsos1 + ";" + direcao1 + ";H#");
-                    System.Threading.Thread.Sleep(100);
-                    if (ligarMotor_vertical == true)
-                    {
-
-                        btnLigarVertical.Text = "Ligar";
-                        btnLigarVertical.BackColor = Color.Gainsboro;
-                        ligarMotor_vertical = false;
-                        on_energizar_vertical = false;
-                        try
-                        {
-                            // Enviar comando para parar o motor
-                            _serialPort.Write("n#");
-                            System.Threading.Thread.Sleep(100);
-                        }
-                        catch (UnauthorizedAccessException)
-                        {
-                            MessageBox.Show("Acesso negado à porta serial. " +
-                                            "Verifique se a porta já está em uso ou se você tem permissão para acessá-la.",
-                                            "Erro de Acesso",
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Warning);
-                        }
-                        catch (InvalidOperationException)
-                        {
-                            MessageBox.Show("A operação não pôde ser completada. " +
-                                            "Verifique se a porta serial está aberta e configurada corretamente.",
-                                            "Erro de Operação",
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Error);
-                        }
-                        catch (IOException ex)
-                        {
-                            MessageBox.Show("Falha de comunicação ao tentar parar o motor. " +
-                                            "Certifique-se de que o dispositivo está conectado corretamente.\n\n" +
-                                            $"Detalhes do erro: {ex.Message}",
-                                            "Erro de Comunicação",
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Error);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Não foi possível parar o motor. " +
-                                            "Uma falha inesperada ocorreu. Tente novamente.\n\n" +
-                                            $"Detalhes do erro: {ex.Message}",
-                                            "Erro Desconhecido",
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Error);
-                        }
-
-                    }
-                    else if (ligarMotor_vertical == false)
-                    {
-                        btnLigarVertical.Text = "Ligado";
-                        btnLigarVertical.BackColor = Color.Green;
-                        ligarMotor_vertical = true;
-                        on_energizar_vertical = true;
-
-
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ocorreu um erro: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
+            // Verifica se os valores são válidos
+            if (!VerificarTextoValido(richTextBox1) || !VerificarTextoValido(richTextBox2))
             {
                 MessageBox.Show("Por favor, selecione valores válidos para distância e velocidade.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            try
+            {
+                // Envia comandos para o motor vertical
+                EnviarComandoSerial("M#");
+                EnviarComandoSerial($"T{distancia_pulsos1};{velocidade_pulsos1};{direcao1};H#");
 
+                if (ligarMotor_vertical)
+                {
+                    // Desliga o motor vertical
+                    btnLigarVertical.Text = "Ligar";
+                    btnLigarVertical.BackColor = Color.Gainsboro;
+                    ligarMotor_vertical = false;
+                    on_energizar_vertical = false;
 
+                    EnviarComandoSerial("n#"); // Comando para parar o motor
+                }
+                else
+                {
+                    // Liga o motor vertical
+                    btnLigarVertical.Text = "Ligado";
+                    btnLigarVertical.BackColor = Color.Green;
+                    ligarMotor_vertical = true;
+                    on_energizar_vertical = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocorreu um erro: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnDireicaoVerticalCima_CheckedChanged(object sender, EventArgs e)
@@ -435,204 +388,115 @@ namespace TesteUI
 
         private void btnEnergizarVertical_Click(object sender, EventArgs e)
         {
-
             try
             {
                 if (on_energizar_vertical)
                 {
-                    // Send command to the arduino to turn on the enable function of the driver energizing the motor
-                    try
-                    {
-                        // Enviar comando para parar o motor
-                        _serialPort.Write("M#"); // troca para o motor vertical
-                        _serialPort.Write("A#");
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        // Erro específico para portas não autorizadas
-                        MessageBox.Show("Acesso negado à porta serial. Verifique se o dispositivo está conectado corretamente ou se a porta já está em uso.",
-                                        "Erro de Acesso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    catch (InvalidOperationException ex)
-                    {
-                        // Erro específico para operação inválida na porta serial
-                        MessageBox.Show("A operação não pôde ser completada. Verifique se a porta serial está configurada corretamente e tente novamente.",
-                                        "Erro de Operação", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    catch (IOException ex)
-                    {
-                        // Erro específico para I/O
-                        MessageBox.Show("Falha de comunicação com a porta serial. Certifique-se de que o dispositivo está conectado corretamente.",
-                                        "Erro de Comunicação", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Erro genérico
-                        MessageBox.Show($"Erro inesperado ao enviar comando de parada: {ex.Message}",
-                                        "Erro Desconhecido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    EnviarComandoSerial("M#"); // Seleciona motor vertical
+                    EnviarComandoSerial("A#"); // Liga ENABLE do Driver
+
                     btnEnergizarVertical.Text = "Energizado";
                     btnEnergizarVertical.BackColor = Color.Green;
                     on_energizar_vertical = false;
-
                 }
-                else if (on_energizar_vertical == false)
+                else
                 {
-                    if (ligarMotor_vertical == true)
+                    if (ligarMotor_vertical)
                     {
-                        MessageBox.Show("Desligue o motor vertical para desenergizá-lo", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else if (ligarMotor_vertical == false)
-                    {
-                        try
-                        {
-                            // Enviar comando para parar o motor
-                            _serialPort.Write("a#");
-                        }
-                        catch (UnauthorizedAccessException ex)
-                        {
-                            // Erro específico para portas não autorizadas
-                            MessageBox.Show("Acesso negado à porta serial. Verifique se o dispositivo está conectado corretamente ou se a porta já está em uso.",
-                                            "Erro de Acesso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                        catch (InvalidOperationException ex)
-                        {
-                            // Erro específico para operação inválida na porta serial
-                            MessageBox.Show("A operação não pôde ser completada. Verifique se a porta serial está configurada corretamente e tente novamente.",
-                                            "Erro de Operação", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        catch (IOException ex)
-                        {
-                            // Erro específico para I/O
-                            MessageBox.Show("Falha de comunicação com a porta serial. Certifique-se de que o dispositivo está conectado corretamente.",
-                                            "Erro de Comunicação", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        catch (Exception ex)
-                        {
-                            // Erro genérico
-                            MessageBox.Show($"Erro inesperado ao enviar comando de parada: {ex.Message}",
-                                            "Erro Desconhecido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        btnEnergizarVertical.Text = "Desenergizado";
-                        btnEnergizarVertical.BackColor = Color.Gainsboro;
-                        on_energizar_vertical = true;
-
+                        MessageBox.Show("Desligue o motor vertical antes de desenergizá-lo.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
                     }
 
+                    EnviarComandoSerial("a#"); // Desliga ENABLE do Driver
+
+                    btnEnergizarVertical.Text = "Desenergizado";
+                    btnEnergizarVertical.BackColor = Color.Gainsboro;
+                    on_energizar_vertical = true;
                 }
             }
-            catch { richTextBox_Arduino2.AppendText("Algum valor está faltando. Tente novamente!" + "\r\n\r\n"); }
+            catch
+            {
+                richTextBox_Arduino2.AppendText("Algum valor está faltando. Tente novamente!\r\n\r\n");
+            }
+        }
 
+        // Método para envio de comandos pela porta serial com tratamento de erros
+        private void EnviarComandoSerial(string comando)
+        {
+            if (_serialPort == null || !_serialPort.IsOpen)
+            {
+                MessageBox.Show("A porta serial não está aberta. Verifique a conexão.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                _serialPort.Write(comando);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("Acesso negado à porta serial. Verifique se o dispositivo está conectado corretamente ou se a porta já está em uso.",
+                                "Erro de Acesso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("A operação não pôde ser completada. Verifique se a porta serial está configurada corretamente e tente novamente.",
+                                "Erro de Operação", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (IOException)
+            {
+                MessageBox.Show("Falha de comunicação com a porta serial. Certifique-se de que o dispositivo está conectado corretamente.",
+                                "Erro de Comunicação", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro inesperado ao enviar comando: {ex.Message}",
+                                "Erro Desconhecido", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void button_parar_vertical_Click(object sender, EventArgs e)
         {
+            if (!ligarMotor_vertical)
+                return; // Se o motor já está desligado, não faz nada
 
-            if (ligarMotor_vertical == true)
+            try
             {
-                try
-                {
-                    // Enviar comando para parar o motor
-                    _serialPort.Write("M#"); // troca para o motor vertical
-                    _serialPort.Write("n#");
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    MessageBox.Show("Acesso negado à porta serial. " +
-                                    "Verifique se a porta já está em uso ou se você tem permissão para acessá-la.",
-                                    "Erro de Acesso",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Warning);
-                }
-                catch (InvalidOperationException)
-                {
-                    MessageBox.Show("A operação não pôde ser completada. " +
-                                    "Verifique se a porta serial está aberta e configurada corretamente.",
-                                    "Erro de Operação",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                }
-                catch (IOException ex)
-                {
-                    MessageBox.Show("Falha de comunicação ao tentar parar o motor. " +
-                                    "Certifique-se de que o dispositivo está conectado corretamente.\n\n" +
-                                    $"Detalhes do erro: {ex.Message}",
-                                    "Erro de Comunicação",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Não foi possível parar o motor. " +
-                                    "Uma falha inesperada ocorreu. Tente novamente.\n\n" +
-                                    $"Detalhes do erro: {ex.Message}",
-                                    "Erro Desconhecido",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                }
-
+                // Enviar comando para parar o motor vertical
+                EnviarComandoSerial("M#"); // Seleciona o motor vertical
+                EnviarComandoSerial("n#"); // Comando para parar o motor
             }
-
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao tentar parar o motor:\n\n{ex.Message}",
+                                "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void button_parar_horizontal_Click(object sender, EventArgs e)
         {
+            if (!ligarMotor_horizontal) return;
 
-            if (ligarMotor_vertical == true)
+            try
             {
-                try
-                {
-                    // Enviar comando para parar o motor
-                    _serialPort.Write("R#"); // troca para o motor horizontal
-                    _serialPort.Write("n#");
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    MessageBox.Show("Acesso negado à porta serial. " +
-                                    "Verifique se a porta já está em uso ou se você tem permissão para acessá-la.",
-                                    "Erro de Acesso",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Warning);
-                }
-                catch (InvalidOperationException)
-                {
-                    MessageBox.Show("A operação não pôde ser completada. " +
-                                    "Verifique se a porta serial está aberta e configurada corretamente.",
-                                    "Erro de Operação",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                }
-                catch (IOException ex)
-                {
-                    MessageBox.Show("Falha de comunicação ao tentar parar o motor. " +
-                                    "Certifique-se de que o dispositivo está conectado corretamente.\n\n" +
-                                    $"Detalhes do erro: {ex.Message}",
-                                    "Erro de Comunicação",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Não foi possível parar o motor. " +
-                                    "Uma falha inesperada ocorreu. Tente novamente.\n\n" +
-                                    $"Detalhes do erro: {ex.Message}",
-                                    "Erro Desconhecido",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                }
-
+                // Troca para o motor horizontal e envia comando de parada
+                EnviarComandoSerial("R#");
+                EnviarComandoSerial("n#");
             }
-
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao tentar parar o motor: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnLigarHorizontal_Click(object sender, EventArgs e)
         {
-            
+            // Verifica a direção selecionada
             if (btnDirecaoHorizontalBaixo.Checked)
             {
                 direcao1 = "B";
             }
-            else if (btnDirecaoHorizontalBaixo.Checked)
+            else if (btnDireicaoHorizontallCima.Checked) // Corrigido erro de verificação duplicada
             {
                 direcao1 = "C";
             }
@@ -642,176 +506,80 @@ namespace TesteUI
                 return;
             }
 
-            if (VerificarTextoValido(richTextBox3) && VerificarTextoValido(richTextBox5) && VerificarTextoValido(richTextBox6))
-            {
-                try
-                {
-
-                    _serialPort.Write("R#"); // troca para o motor horizontal
-                    _serialPort.Write("T" + distancia_pulsos2 + ";" + velocidade_pulsos2 + ";" + direcao2 + ";H#");
-                    System.Threading.Thread.Sleep(100);
-                    if (ligarMotor_horizontal == true)
-                    {
-
-                        btnLigarHorizontal.Text = "Ligar";
-                        btnLigarHorizontal.BackColor = Color.Gainsboro;
-                        ligarMotor_horizontal = false;
-                        on_energizar_horizontal = false;
-                        try
-                        {
-                            // Enviar comando para parar o motor
-                            _serialPort.Write("n#");
-                            System.Threading.Thread.Sleep(100);
-                        }
-                        catch (UnauthorizedAccessException)
-                        {
-                            MessageBox.Show("Acesso negado à porta serial. " +
-                                            "Verifique se a porta já está em uso ou se você tem permissão para acessá-la.",
-                                            "Erro de Acesso",
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Warning);
-                        }
-                        catch (InvalidOperationException)
-                        {
-                            MessageBox.Show("A operação não pôde ser completada. " +
-                                            "Verifique se a porta serial está aberta e configurada corretamente.",
-                                            "Erro de Operação",
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Error);
-                        }
-                        catch (IOException ex)
-                        {
-                            MessageBox.Show("Falha de comunicação ao tentar parar o motor. " +
-                                            "Certifique-se de que o dispositivo está conectado corretamente.\n\n" +
-                                            $"Detalhes do erro: {ex.Message}",
-                                            "Erro de Comunicação",
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Error);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Não foi possível parar o motor. " +
-                                            "Uma falha inesperada ocorreu. Tente novamente.\n\n" +
-                                            $"Detalhes do erro: {ex.Message}",
-                                            "Erro Desconhecido",
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Error);
-                        }
-
-                    }
-                    else if (ligarMotor_horizontal == false)
-                    {
-                        btnLigarHorizontal.Text = "Ligado";
-                        btnLigarHorizontal.BackColor = Color.Green;
-                        ligarMotor_horizontal = true;
-                        on_energizar_horizontal = true;
-
-
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Ocorreu um erro: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
+            // Validação de entrada
+            if (!VerificarTextoValido(richTextBox3) || !VerificarTextoValido(richTextBox5) || !VerificarTextoValido(richTextBox6))
             {
                 MessageBox.Show("Por favor, selecione valores válidos para distância e velocidade.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
+            }
+
+            try
+            {
+                // Troca para o motor horizontal e envia comando
+                EnviarComandoSerial("R#");
+                EnviarComandoSerial($"T{distancia_pulsos2};{velocidade_pulsos2};{direcao2};H#");
+                System.Threading.Thread.Sleep(100);
+
+                if (ligarMotor_horizontal)
+                {
+                    btnLigarHorizontal.Text = "Ligar";
+                    btnLigarHorizontal.BackColor = Color.Gainsboro;
+                    ligarMotor_horizontal = false;
+                    on_energizar_horizontal = false;
+
+                    // Tenta parar o motor
+                    EnviarComandoSerial("n#");
+                    System.Threading.Thread.Sleep(100);
+                }
+                else
+                {
+                    btnLigarHorizontal.Text = "Ligado";
+                    btnLigarHorizontal.BackColor = Color.Green;
+                    ligarMotor_horizontal = true;
+                    on_energizar_horizontal = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocorreu um erro: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnEnergizarHorizontal_Click(object sender, EventArgs e)
         {
-
-
             try
             {
                 if (on_energizar_horizontal)
                 {
-                    // Send command to the arduino to turn on the enable function of the driver energizing the motor
-                    try
-                    {
-                        // Enviar comando para parar o motor
-                        _serialPort.Write("R#"); // troca para o motor horizontal
-                        _serialPort.Write("A#");
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        // Erro específico para portas não autorizadas
-                        MessageBox.Show("Acesso negado à porta serial. Verifique se o dispositivo está conectado corretamente ou se a porta já está em uso.",
-                                        "Erro de Acesso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    catch (InvalidOperationException ex)
-                    {
-                        // Erro específico para operação inválida na porta serial
-                        MessageBox.Show("A operação não pôde ser completada. Verifique se a porta serial está configurada corretamente e tente novamente.",
-                                        "Erro de Operação", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    catch (IOException ex)
-                    {
-                        // Erro específico para I/O
-                        MessageBox.Show("Falha de comunicação com a porta serial. Certifique-se de que o dispositivo está conectado corretamente.",
-                                        "Erro de Comunicação", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Erro genérico
-                        MessageBox.Show($"Erro inesperado ao enviar comando de parada: {ex.Message}",
-                                        "Erro Desconhecido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    EnviarComandoSerial("R#"); // Troca para o motor horizontal
+                    EnviarComandoSerial("A#");
+
                     btnEnergizarHorizontal.Text = "Energizado";
                     btnEnergizarHorizontal.BackColor = Color.Green;
                     on_energizar_horizontal = false;
-
                 }
-                else if (on_energizar_horizontal == false)
+                else
                 {
-                    if (ligarMotor_horizontal == true)
+                    if (ligarMotor_horizontal)
                     {
-                        MessageBox.Show("Desligue o motor Horizontal para desenergizá-lo", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Desligue o motor horizontal para desenergizá-lo.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-                    else if (ligarMotor_horizontal == false)
+                    else
                     {
-                        try
-                        {
-                            // Enviar comando para parar o motor
-                            _serialPort.Write("a#");
-                        }
-                        catch (UnauthorizedAccessException ex)
-                        {
-                            // Erro específico para portas não autorizadas
-                            MessageBox.Show("Acesso negado à porta serial. Verifique se o dispositivo está conectado corretamente ou se a porta já está em uso.",
-                                            "Erro de Acesso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                        catch (InvalidOperationException ex)
-                        {
-                            // Erro específico para operação inválida na porta serial
-                            MessageBox.Show("A operação não pôde ser completada. Verifique se a porta serial está configurada corretamente e tente novamente.",
-                                            "Erro de Operação", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        catch (IOException ex)
-                        {
-                            // Erro específico para I/O
-                            MessageBox.Show("Falha de comunicação com a porta serial. Certifique-se de que o dispositivo está conectado corretamente.",
-                                            "Erro de Comunicação", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        catch (Exception ex)
-                        {
-                            // Erro genérico
-                            MessageBox.Show($"Erro inesperado ao enviar comando de parada: {ex.Message}",
-                                            "Erro Desconhecido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
+                        EnviarComandoSerial("a#");
+
                         btnEnergizarHorizontal.Text = "Desenergizado";
                         btnEnergizarHorizontal.BackColor = Color.Gainsboro;
                         on_energizar_horizontal = true;
-
                     }
-
                 }
             }
-            catch { richTextBox_Arduino2.AppendText("Algum valor está faltando. Tente novamente!" + "\r\n\r\n"); }
+            catch
+            {
+                richTextBox_Arduino2.AppendText("Algum valor está faltando. Tente novamente!\r\n\r\n");
+            }
         }
+
 
         private void btnDireicaoHorizontallCima_CheckedChanged(object sender, EventArgs e)
         {
