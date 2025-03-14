@@ -1396,68 +1396,60 @@ namespace TesteUI
 
         private void Botao_Painel_subsidencia_Click(object sender, EventArgs e)
         {
-            if (serialPort1 != null && serialPort1.IsOpen) // Verifica se a porta serial está aberta
+            if (serialPort1 == null || !serialPort1.IsOpen)
             {
-                Form2_BiDirecional form2 = new Form2_BiDirecional(this.serialPort1); // Cria uma instância do Form2
-                form2.Show();              // Exibe o Form2
+                MessageBox.Show("Por favor, conecte-se à porta serial antes de abrir o Modo Falhas.",
+                                "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            else
+
+            // Exibe Form2_BiDirecional
+            using (Form2_BiDirecional form2 = new Form2_BiDirecional(serialPort1))
             {
-                MessageBox.Show("Por favor, conecte-se à porta serial antes de abrir o Modo Falhas.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                form2.ShowDialog(); // Abre o Form2 como modal, garantindo que a execução aguarde
             }
         }
 
         private void button5_Click_3(object sender, EventArgs e)
         {
-            if (serialPort1 != null && serialPort1.IsOpen) // Verifica se a porta serial está aberta
+            if (serialPort1 == null || !serialPort1.IsOpen)
             {
-                
-                try
-                {
-                    // Verifica se a porta serial está aberta antes de tentar escrever
-                    if (serialPort1 != null && serialPort1.IsOpen)
-                    {
-                        serialPort1.Write("m#"); // Envia o comando para trocar para motores simultâneos
-                    }
-                    else
-                    {
-                        MessageBox.Show("A porta serial não está aberta. Verifique a conexão.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    // Erro específico para portas não autorizadas
-                    MessageBox.Show("Acesso negado à porta serial. Verifique se o dispositivo está conectado corretamente ou se a porta já está em uso.",
-                                    "Erro de Acesso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                catch (InvalidOperationException ex)
-                {
-                    // Erro específico para operação inválida na porta serial
-                    MessageBox.Show("A operação não pôde ser completada. Verifique se a porta serial está configurada corretamente e tente novamente.",
-                                    "Erro de Operação", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                catch (IOException ex)
-                {
-                    // Erro específico para I/O
-                    MessageBox.Show("Falha de comunicação com a porta serial. Certifique-se de que o dispositivo está conectado corretamente.",
-                                    "Erro de Comunicação", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                catch (Exception ex)
-                {
-                    // Erro genérico
-                    MessageBox.Show($"Erro inesperado ao enviar comando: {ex.Message}",
-                                    "Erro Desconhecido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-
-                Form3_Universal form3 = new Form3_Universal(this.serialPort1); // Cria uma instância do Form3
-                form3.Show();              // Exibe o Form3
+                MessageBox.Show("Por favor, conecte-se à porta serial antes de abrir o Modo Falhas.",
+                                "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
             }
-            else
+
+            try
             {
-                MessageBox.Show("Por favor, conecte-se à porta serial antes de abrir o Modo Falhas.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                serialPort1.Write("m#"); // Envia o comando para trocar para motores simultâneos
+
+                using (Form3_Universal form3 = new Form3_Universal(this.serialPort1))
+                {
+                    form3.ShowDialog(); // Exibe o Form3 de forma modal
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("Acesso negado à porta serial. Verifique se o dispositivo está conectado corretamente ou se a porta já está em uso.",
+                                "Erro de Acesso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("A operação não pôde ser completada. Verifique se a porta serial está configurada corretamente e tente novamente.",
+                                "Erro de Operação", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (IOException)
+            {
+                MessageBox.Show("Falha de comunicação com a porta serial. Certifique-se de que o dispositivo está conectado corretamente.",
+                                "Erro de Comunicação", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro inesperado ao enviar comando: {ex.Message}",
+                                "Erro Desconhecido", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void button5_Click_2(object sender, EventArgs e)
         {

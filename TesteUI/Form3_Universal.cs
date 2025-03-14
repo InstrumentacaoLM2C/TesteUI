@@ -138,99 +138,59 @@ namespace TesteUI
 
         private void btnEnergizarVertical_Click(object sender, EventArgs e)
         {
+            if (ligarMotor_vertical)
+            {
+                MessageBox.Show("Pare os motores antes de desenergizá-los.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             try
             {
-
-                if (on_energizar_vertical == true)
+                if (on_energizar_vertical)
                 {
-                    // Send command to the arduino to turn on the enable function of the driver energizing the motor
-                    try
-                    {
-                        // Enviar comando para ligar o motor
-                        _serialPort.Write("A#");
-                        System.Threading.Thread.Sleep(100);
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        // Erro específico para portas não autorizadas
-                        MessageBox.Show("Acesso negado à porta serial. Verifique se o dispositivo está conectado corretamente ou se a porta já está em uso.",
-                                        "Erro de Acesso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    catch (InvalidOperationException ex)
-                    {
-                        // Erro específico para operação inválida na porta serial
-                        MessageBox.Show("A operação não pôde ser completada. Verifique se a porta serial está configurada corretamente e tente novamente.",
-                                        "Erro de Operação", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    catch (IOException ex)
-                    {
-                        // Erro específico para I/O
-                        MessageBox.Show("Falha de comunicação com a porta serial. Certifique-se de que o dispositivo está conectado corretamente.",
-                                        "Erro de Comunicação", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Erro genérico
-                        MessageBox.Show($"Erro inesperado ao enviar comando de parada: {ex.Message}",
-                                        "Erro Desconhecido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    // Enviar comando para energizar o motor
+                    _serialPort.Write("A#");
                     btnEnergizarVertical.Text = "Energizado";
                     btnEnergizarVertical.BackColor = Color.Green;
-                    on_energizar_vertical = false;
-
                 }
-                else if (on_energizar_vertical == false)
+                else
                 {
-                    if (ligarMotor_vertical == true)
-                    {
-                        MessageBox.Show("Pare os motores antes de desenergizá-los", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else if (ligarMotor_vertical == false)
-                    {
-                        try
-                        {
-                            // Enviar comando para parar o motor
-                            _serialPort.Write("a#");
-                            System.Threading.Thread.Sleep(100);
-                        }
-                        catch (UnauthorizedAccessException ex)
-                        {
-                            // Erro específico para portas não autorizadas
-                            MessageBox.Show("Acesso negado à porta serial. Verifique se o dispositivo está conectado corretamente ou se a porta já está em uso.",
-                                            "Erro de Acesso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                        catch (InvalidOperationException ex)
-                        {
-                            // Erro específico para operação inválida na porta serial
-                            MessageBox.Show("A operação não pôde ser completada. Verifique se a porta serial está configurada corretamente e tente novamente.",
-                                            "Erro de Operação", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        catch (IOException ex)
-                        {
-                            // Erro específico para I/O
-                            MessageBox.Show("Falha de comunicação com a porta serial. Certifique-se de que o dispositivo está conectado corretamente.",
-                                            "Erro de Comunicação", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        catch (Exception ex)
-                        {
-                            // Erro genérico
-                            MessageBox.Show($"Erro inesperado ao enviar comando de parada: {ex.Message}",
-                                            "Erro Desconhecido", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        btnEnergizarVertical.Text = "Desenergizado";
-                        btnEnergizarVertical.BackColor = Color.Gainsboro;
-                        on_energizar_vertical = true;
-
-                    }
-
+                    // Enviar comando para desenergizar o motor
+                    _serialPort.Write("a#");
+                    btnEnergizarVertical.Text = "Desenergizado";
+                    btnEnergizarVertical.BackColor = Color.Gainsboro;
                 }
+
+                // Pequeno delay para garantir que o comando seja processado
+                System.Threading.Thread.Sleep(100);
+
+                // Inverter o estado da variável
+                on_energizar_vertical = !on_energizar_vertical;
             }
-            catch { 
-                
-                richTextBox_Arduino2.AppendText("Algum valor está faltando. Tente novamente!" + "\r\n\r\n"); 
-           
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("Acesso negado à porta serial. Verifique se o dispositivo está conectado corretamente ou se a porta já está em uso.",
+                                "Erro de Acesso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("A operação não pôde ser completada. Verifique se a porta serial está configurada corretamente e tente novamente.",
+                                "Erro de Operação", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (IOException)
+            {
+                MessageBox.Show("Falha de comunicação com a porta serial. Certifique-se de que o dispositivo está conectado corretamente.",
+                                "Erro de Comunicação", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro inesperado: {ex.Message}",
+                                "Erro Desconhecido", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+
 
         private void label5_Click(object sender, EventArgs e)
         {
@@ -260,255 +220,231 @@ namespace TesteUI
             }
 
             // Verifica se os valores de distância e velocidade são válidos
-            if (VerificarTextoValido(richTextBox1) && VerificarTextoValido(richTextBox2))
-            {
-                try
-                {
-
-                    _serialPort.Write("W" + distancia_pulsos1 + ";" + velocidade_pulsos1 + ";" + distancia_pulsos2 + ";" + velocidade_pulsos2 + ";" + direcao1 + ";H#");
-                    System.Threading.Thread.Sleep(100);
-
-                    if (ligarMotor_vertical == true)
-                    {
-                        
-                        btnLigarVertical.Text = "Ligar";
-                        btnLigarVertical.BackColor = Color.Gainsboro;
-                        on_energizar_vertical = false;
-                        ligarMotor_vertical = false;
-                        try
-                        {
-                         
-                            // Enviar comando para parar o motor
-                            _serialPort.Write("n#");
-                            System.Threading.Thread.Sleep(100);
-                        }
-                        catch (UnauthorizedAccessException)
-                        {
-                            MessageBox.Show("Acesso negado à porta serial. " +
-                                            "Verifique se a porta já está em uso ou se você tem permissão para acessá-la.",
-                                            "Erro de Acesso",
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Warning);
-                        }
-                        catch (InvalidOperationException)
-                        {
-                            MessageBox.Show("A operação não pôde ser completada. " +
-                                            "Verifique se a porta serial está aberta e configurada corretamente.",
-                                            "Erro de Operação",
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Error);
-                        }
-                        catch (IOException ex)
-                        {
-                            MessageBox.Show("Falha de comunicação ao tentar parar o motor. " +
-                                            "Certifique-se de que o dispositivo está conectado corretamente.\n\n" +
-                                            $"Detalhes do erro: {ex.Message}",
-                                            "Erro de Comunicação",
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Error);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show("Não foi possível parar o motor. " +
-                                            "Uma falha inesperada ocorreu. Tente novamente.\n\n" +
-                                            $"Detalhes do erro: {ex.Message}",
-                                            "Erro Desconhecido",
-                                            MessageBoxButtons.OK,
-                                            MessageBoxIcon.Error);
-                        }
-                    }
-                    else if (ligarMotor_vertical == false)
-                    {
-                       
-                        btnLigarVertical.Text = "Ligado";
-                        btnLigarVertical.BackColor = Color.Green;
-                        ligarMotor_vertical = true;
-                        on_energizar_vertical = false;
-                    }
-
-                    // Pequeno delay para garantir que o comando seja processado
-                    System.Threading.Thread.Sleep(100);
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    MessageBox.Show("Acesso negado à porta serial. " +
-                                  "Verifique se a porta já está em uso ou se você tem permissão para acessá-la.",
-                                  "Erro de Acesso",
-                                  MessageBoxButtons.OK,
-                                  MessageBoxIcon.Warning);
-                }
-                catch (InvalidOperationException)
-                {
-                    MessageBox.Show("A operação não pôde ser completada. " +
-                                    "Verifique se a porta serial está aberta e configurada corretamente.",
-                                    "Erro de Operação",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                }
-                catch (IOException ex)
-                {
-                    MessageBox.Show("Falha de comunicação ao tentar parar o motor. " +
-                                    "Certifique-se de que o dispositivo está conectado corretamente.\n\n" +
-                                    $"Detalhes do erro: {ex.Message}",
-                                    "Erro de Comunicação",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Não foi possível parar o motor. " +
-                                    "Uma falha inesperada ocorreu. Tente novamente.\n\n" +
-                                    $"Detalhes do erro: {ex.Message}",
-                                    "Erro Desconhecido",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                }
-            }
-            else
+            if (!VerificarTextoValido(richTextBox1) || !VerificarTextoValido(richTextBox2))
             {
                 MessageBox.Show("Por favor, selecione valores válidos para distância e velocidade.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-        }
-        private void button_parar_vertical_Click(object sender, EventArgs e)
-        {
 
-            if (ligarMotor_vertical == true)
+            try
             {
-                try
+                // Envia comando para ligar/desligar motor
+                _serialPort.Write("W" + distancia_pulsos1 + ";" + velocidade_pulsos1 + ";" + distancia_pulsos2 + ";" + velocidade_pulsos2 + ";" + direcao1 + ";H#");
+
+                if (ligarMotor_vertical)
                 {
+                    btnLigarVertical.Text = "Ligar";
+                    btnLigarVertical.BackColor = Color.Gainsboro;
+                    on_energizar_vertical = false;
+                    ligarMotor_vertical = false;
+
                     // Enviar comando para parar o motor
                     _serialPort.Write("n#");
                 }
-                catch (UnauthorizedAccessException)
+                else
                 {
-                    MessageBox.Show("Acesso negado à porta serial. " +
-                                    "Verifique se a porta já está em uso ou se você tem permissão para acessá-la.",
-                                    "Erro de Acesso",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Warning);
-                }
-                catch (InvalidOperationException)
-                {
-                    MessageBox.Show("A operação não pôde ser completada. " +
-                                    "Verifique se a porta serial está aberta e configurada corretamente.",
-                                    "Erro de Operação",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                }
-                catch (IOException ex)
-                {
-                    MessageBox.Show("Falha de comunicação ao tentar parar o motor. " +
-                                    "Certifique-se de que o dispositivo está conectado corretamente.\n\n" +
-                                    $"Detalhes do erro: {ex.Message}",
-                                    "Erro de Comunicação",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Não foi possível parar o motor. " +
-                                    "Uma falha inesperada ocorreu. Tente novamente.\n\n" +
-                                    $"Detalhes do erro: {ex.Message}",
-                                    "Erro Desconhecido",
-                                    MessageBoxButtons.OK,
-                                    MessageBoxIcon.Error);
+                    btnLigarVertical.Text = "Ligado";
+                    btnLigarVertical.BackColor = Color.Green;
+                    ligarMotor_vertical = true;
+                    on_energizar_vertical = false;
                 }
 
-            } else if (ligarMotor_vertical == false)
+                // Pequeno delay para garantir que o comando seja processado
+                System.Threading.Thread.Sleep(100);
+            }
+            catch (UnauthorizedAccessException)
             {
-                MessageBox.Show("O motor já está parado.", "Erro.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Acesso negado à porta serial. " +
+                                "Verifique se a porta já está em uso ou se você tem permissão para acessá-la.",
+                                "Erro de Acesso",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("A operação não pôde ser completada. " +
+                                "Verifique se a porta serial está aberta e configurada corretamente.",
+                                "Erro de Operação",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Falha de comunicação ao tentar parar o motor. " +
+                                "Certifique-se de que o dispositivo está conectado corretamente.\n\n" +
+                                $"Detalhes do erro: {ex.Message}",
+                                "Erro de Comunicação",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Não foi possível executar o comando. " +
+                                "Uma falha inesperada ocorreu. Tente novamente.\n\n" +
+                                $"Detalhes do erro: {ex.Message}",
+                                "Erro Desconhecido",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
             }
         }
 
+        private void button_parar_vertical_Click(object sender, EventArgs e)
+        {
+            if (!ligarMotor_vertical)
+            {
+                MessageBox.Show("O motor já está parado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                // Enviar comando para parar o motor
+                _serialPort.Write("n#");
+
+                // Atualiza o estado do motor
+                ligarMotor_vertical = false;
+                btnLigarVertical.Text = "Ligar";
+                btnLigarVertical.BackColor = Color.Gainsboro;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("Acesso negado à porta serial. " +
+                                "Verifique se a porta já está em uso ou se você tem permissão para acessá-la.",
+                                "Erro de Acesso",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+            }
+            catch (InvalidOperationException)
+            {
+                MessageBox.Show("A operação não pôde ser completada. " +
+                                "Verifique se a porta serial está aberta e configurada corretamente.",
+                                "Erro de Operação",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show("Falha de comunicação ao tentar parar o motor. " +
+                                "Certifique-se de que o dispositivo está conectado corretamente.\n\n" +
+                                $"Detalhes do erro: {ex.Message}",
+                                "Erro de Comunicação",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Não foi possível parar o motor. " +
+                                "Uma falha inesperada ocorreu. Tente novamente.\n\n" +
+                                $"Detalhes do erro: {ex.Message}",
+                                "Erro Desconhecido",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+        }
+
+
         private void richTextBox4_TextChanged(object sender, EventArgs e)
         {
-            if (richTextBox4 != null)
+            if (!string.IsNullOrWhiteSpace(richTextBox4.Text))
             {
-                try
-                {
-                    string inputConstanteCalibracao1 = richTextBox4.Text.Replace('.', ',');
+                string inputConstanteCalibracao1 = richTextBox4.Text.Replace('.', ',');
 
-                    constanteCalibracao1 = double.Parse(inputConstanteCalibracao1, new CultureInfo("pt-BR"));
-                }
-                catch (Exception ex)
+                if (double.TryParse(inputConstanteCalibracao1, NumberStyles.Any, new CultureInfo("pt-BR"), out double valorConvertido))
                 {
-                    // Captura qualquer outra exceção que possa ocorrer
-                    MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    constanteCalibracao1 = valorConvertido; // Atualiza apenas se a conversão for bem-sucedida
                 }
+                else
+                {
+                    MessageBox.Show("Por favor, insira um valor numérico válido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                constanteCalibracao1 = 1; // Define um valor padrão quando o campo está vazio
             }
         }
 
         private void richTextBox3_TextChanged(object sender, EventArgs e)
         {
-            if (richTextBox3 != null)
+            if (!string.IsNullOrWhiteSpace(richTextBox3.Text))
             {
-                try
-                {
-                    string inputConstanteCalibracao2 = richTextBox3.Text.Replace('.', ',');
+                string inputConstanteCalibracao1 = richTextBox3.Text.Replace('.', ',');
 
-                    constanteCalibracao2 = double.Parse(inputConstanteCalibracao2, new CultureInfo("pt-BR"));
-                }
-                catch (Exception ex)
+                if (double.TryParse(inputConstanteCalibracao1, NumberStyles.Any, new CultureInfo("pt-BR"), out double valorConvertido))
                 {
-                    // Captura qualquer outra exceção que possa ocorrer
-                    MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    constanteCalibracao1 = valorConvertido; // Atualiza apenas se a conversão for bem-sucedida
                 }
+                else
+                {
+                    MessageBox.Show("Por favor, insira um valor numérico válido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                constanteCalibracao1 = 1; // Define um valor padrão quando o campo está vazio
             }
         }
 
         private void richTextBox2_TextChanged(object sender, EventArgs e)
         {
-            if (richTextBox4 != null && richTextBox3 != null)
+            if (!string.IsNullOrWhiteSpace(richTextBox2.Text))
             {
-                try
+                // Substitui pontos por vírgulas para o formato brasileiro
+                string inputVelocidade1 = richTextBox2.Text.Replace('.', ',');
+
+                // Tenta converter a string para float
+                if (float.TryParse(inputVelocidade1, NumberStyles.Any, new CultureInfo("pt-BR"), out float velocidade_mm1))
                 {
-                    // Substitui pontos por vírgulas
-                    string inputVelocidade1 = richTextBox2.Text.Replace('.', ',');
-
-                    // Tenta converter a string para float
-                    float velocidade_mm1 = float.Parse(inputVelocidade1, new CultureInfo("pt-BR"));
-
                     // Calcula os pulsos com base no valor convertido
-                    velocidade_pulsos1 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
+                    if (constanteCalibracao1 != 0)
+                        velocidade_pulsos1 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
 
-                    // Calcula os pulsos com base no valor convertido
-                    velocidade_pulsos2 = (float)Math.Round(velocidade_mm1 / constanteCalibracao2);
-
+                    if (constanteCalibracao2 != 0)
+                        velocidade_pulsos2 = (float)Math.Round(velocidade_mm1 / constanteCalibracao2);
                 }
-                catch (Exception ex)
+                else
                 {
-                    // Captura qualquer outra exceção que possa ocorrer
-                    MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Por favor, insira um valor numérico válido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+            }
+            else
+            {
+                // Define valores padrão caso o campo fique vazio
+                velocidade_pulsos1 = 0;
+                velocidade_pulsos2 = 0;
             }
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)
         {
-            if (richTextBox4 != null && richTextBox3 != null)
+            if (!string.IsNullOrWhiteSpace(richTextBox1.Text))
             {
-                try
+                // Substitui pontos por vírgulas para o formato brasileiro
+                string inputDistancia1 = richTextBox1.Text.Replace('.', ',');
+
+                // Tenta converter a string para float
+                if (float.TryParse(inputDistancia1, NumberStyles.Any, new CultureInfo("pt-BR"), out float distancia_mm1))
                 {
-                    // Substitui pontos por vírgulas
-                    string inputDistancia1 = richTextBox1.Text.Replace('.', ',');
-
-                    // Tenta converter a string para float
-                    float distancia_mm1 = float.Parse(inputDistancia1, new CultureInfo("pt-BR"));
-
                     // Calcula os pulsos com base no valor convertido
-                    distancia_pulsos1 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
+                    if (constanteCalibracao1 != 0)
+                        distancia_pulsos1 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
 
-                    distancia_pulsos2 = (float)Math.Round(distancia_mm1 / constanteCalibracao2);
+                    if (constanteCalibracao2 != 0)
+                        distancia_pulsos2 = (float)Math.Round(distancia_mm1 / constanteCalibracao2);
                 }
-
-                catch (Exception ex)
+                else
                 {
-                    // Captura qualquer outra exceção que possa ocorrer
-                    MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Por favor, insira um valor numérico válido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+            else
+            {
+                // Define valores padrão caso o campo fique vazio
+                distancia_pulsos1 = 0;
+                distancia_pulsos2 = 0;
+            }
         }
+
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
