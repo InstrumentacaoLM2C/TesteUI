@@ -26,12 +26,15 @@ namespace TesteUI
         // Variáveis para o motor
         string direcao1 = "0";  // direção
         string direcao2 = "0";  // direção
+        float distancia_mm1 = 0.0f;
+        float distancia_mm2 = 0.0f;
+        float velocidade_mm1 = 0.0f;
+        float velocidade_mm2 = 0.0f;
         float distancia_pulsos1 = 0.0f;  // Pulsos do motor vertical
         float distancia_pulsos2 = 0.0f;
         float velocidade_pulsos1 = 0.0f;
         float velocidade_pulsos2 = 0.0f;
         double constanteCalibracao1 = 1;  //A constante de calibração default dos motores que representa a velocidade de aceleração de 2500pulsos/s
-        double constanteCalibracao2 = 1;
         bool on_energizar_vertical = true;
         bool on_sensor_vertical = false;
         bool on_sensor_horizontal = false;
@@ -230,9 +233,7 @@ namespace TesteUI
                             _serialPort.Write(comando);
                         Console.WriteLine($"Comando Enviado: {comando}");
                     }
-                });
-
-                // Atualiza a UI na thread principal
+                });                // Atualiza a UI na thread principal
                 this.Invoke((Action)(() =>
                 {
                     if (ligarMotor_vertical) // Se estava ligado, agora será desligado
@@ -348,6 +349,9 @@ namespace TesteUI
                 if (double.TryParse(inputConstanteCalibracao1, NumberStyles.Any, new CultureInfo("pt-BR"), out double valorConvertido))
                 {
                     constanteCalibracao1 = valorConvertido; // Atualiza apenas se a conversão for bem-sucedida
+
+                    // Agora recalcula as variáveis de distância e velocidade com a nova constante de calibração
+                    RecalcularDistanciaEVelocidade();
                 }
                 else
                 {
@@ -357,30 +361,28 @@ namespace TesteUI
             else
             {
                 constanteCalibracao1 = 1; // Define um valor padrão quando o campo está vazio
+
+                // Recalcula as variáveis de distância e velocidade com o valor padrão
+                RecalcularDistanciaEVelocidade();
             }
         }
 
+        private void RecalcularDistanciaEVelocidade()
+        {
+            // Recalcula os pulsos de distância e velocidade com a nova constante de calibração
+            if (constanteCalibracao1 != 0)
+            {
+                distancia_pulsos1 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
+                distancia_pulsos2 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
+                velocidade_pulsos1 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
+                velocidade_pulsos2 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
+            }
+        }
+
+
         private void richTextBox3_TextChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(richTextBox3.Text))
-            {
-                // Substitui pontos por vírgulas para o formato brasileiro
-                string inputConstanteCalibracao2 = richTextBox3.Text.Replace('.', ',');
-
-                // Tenta converter a string para double
-                if (double.TryParse(inputConstanteCalibracao2, NumberStyles.Any, new CultureInfo("pt-BR"), out double valorConvertido))
-                {
-                    constanteCalibracao2 = valorConvertido; // Atualiza apenas se a conversão for bem-sucedida
-                }
-                else
-                {
-                    MessageBox.Show("Por favor, insira um valor numérico válido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            else
-            {
-                constanteCalibracao2 = 1; // Define um valor padrão quando o campo está vazio
-            }
+            
         }
 
         private void richTextBox2_TextChanged(object sender, EventArgs e)
@@ -397,8 +399,7 @@ namespace TesteUI
                     if (constanteCalibracao1 != 0)
                         velocidade_pulsos1 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
 
-                    if (constanteCalibracao2 != 0)
-                        velocidade_pulsos2 = (float)Math.Round(velocidade_mm1 / constanteCalibracao2);
+                        velocidade_pulsos2 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
                 }
                 else
                 {
@@ -427,8 +428,7 @@ namespace TesteUI
                     if (constanteCalibracao1 != 0)
                         distancia_pulsos1 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
 
-                    if (constanteCalibracao2 != 0)
-                        distancia_pulsos2 = (float)Math.Round(distancia_mm1 / constanteCalibracao2);
+                        distancia_pulsos2 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
                 }
                 else
                 {
