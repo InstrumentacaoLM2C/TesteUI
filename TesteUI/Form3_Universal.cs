@@ -227,7 +227,7 @@ namespace TesteUI
                                         $"{velocidade_pulsos2.ToString(CultureInfo.InvariantCulture)};" +
                                         $"{direcao1};H#";
 
-                        _serialPort.Write(comando);
+                            _serialPort.Write(comando);
                         Console.WriteLine($"Comando Enviado: {comando}");
                     }
                 });
@@ -341,8 +341,10 @@ namespace TesteUI
         {
             if (!string.IsNullOrWhiteSpace(richTextBox4.Text))
             {
+                // Substitui pontos por vírgulas para o formato brasileiro
                 string inputConstanteCalibracao1 = richTextBox4.Text.Replace('.', ',');
 
+                // Tenta converter a string para double
                 if (double.TryParse(inputConstanteCalibracao1, NumberStyles.Any, new CultureInfo("pt-BR"), out double valorConvertido))
                 {
                     constanteCalibracao1 = valorConvertido; // Atualiza apenas se a conversão for bem-sucedida
@@ -362,11 +364,13 @@ namespace TesteUI
         {
             if (!string.IsNullOrWhiteSpace(richTextBox3.Text))
             {
-                string inputConstanteCalibracao1 = richTextBox3.Text.Replace('.', ',');
+                // Substitui pontos por vírgulas para o formato brasileiro
+                string inputConstanteCalibracao2 = richTextBox3.Text.Replace('.', ',');
 
-                if (double.TryParse(inputConstanteCalibracao1, NumberStyles.Any, new CultureInfo("pt-BR"), out double valorConvertido))
+                // Tenta converter a string para double
+                if (double.TryParse(inputConstanteCalibracao2, NumberStyles.Any, new CultureInfo("pt-BR"), out double valorConvertido))
                 {
-                    constanteCalibracao1 = valorConvertido; // Atualiza apenas se a conversão for bem-sucedida
+                    constanteCalibracao2 = valorConvertido; // Atualiza apenas se a conversão for bem-sucedida
                 }
                 else
                 {
@@ -375,7 +379,7 @@ namespace TesteUI
             }
             else
             {
-                constanteCalibracao1 = 1; // Define um valor padrão quando o campo está vazio
+                constanteCalibracao2 = 1; // Define um valor padrão quando o campo está vazio
             }
         }
 
