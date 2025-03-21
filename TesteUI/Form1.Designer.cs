@@ -676,7 +676,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(500, 500);
             this.Name = "Form1";
-            this.Text = "+";
+            this.Text = "s";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel_Falhas.ResumeLayout(false);
             this.panelPortsSubmenu.ResumeLayout(false);

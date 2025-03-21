@@ -115,9 +115,9 @@
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(157, 25);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(173, 25);
+            this.label5.Size = new System.Drawing.Size(157, 25);
             this.label5.TabIndex = 28;
-            this.label5.Text = "Constante Motor 1";
+            this.label5.Text = "Constante Motor";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // richTextBox4
@@ -258,7 +258,7 @@
             this.Controls.Add(this.richTextBox_Arduino2);
             this.Controls.Add(this.panel1);
             this.Name = "Form3_Universal";
-            this.Text = "Form2";
+            this.Text = "Atuadores Simultâneos";
             this.Load += new System.EventHandler(this.Form3_Universal_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

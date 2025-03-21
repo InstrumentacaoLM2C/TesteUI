@@ -392,8 +392,9 @@ namespace TesteUI
                 // Substitui pontos por vírgulas para o formato brasileiro
                 string inputVelocidade1 = richTextBox2.Text.Replace('.', ',');
 
+
                 // Tenta converter a string para float
-                if (float.TryParse(inputVelocidade1, NumberStyles.Any, new CultureInfo("pt-BR"), out float x1))
+                if (float.TryParse(inputVelocidade1, NumberStyles.Any, new CultureInfo("pt-BR"), out float velocidade_mm1))
                 {
                     // Calcula os pulsos com base no valor convertido
                     if (constanteCalibracao1 != 0)

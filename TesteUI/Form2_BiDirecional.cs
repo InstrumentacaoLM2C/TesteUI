@@ -24,6 +24,7 @@ namespace TesteUI
         double distancia_pulsos2;
         double velocidade_pulsos1;
         double velocidade_pulsos2;
+        double velocidade_mm1, velocidade_mm2, distancia_mm1, distancia_mm2;
         double constanteCalibracao1 = 1;  //A constante de calibração default dos motores que representa a velocidade de aceleração de 2500pulsos/s
         double constanteCalibracao2 = 1;
         bool on_energizar_vertical = true;
@@ -202,90 +203,128 @@ namespace TesteUI
 
         private void richTextBox2_TextChanged(object sender, EventArgs e)//função pra receber os dados da constante de calibração
         {
-            if (richTextBox4 != null)
+            
+            if (!string.IsNullOrWhiteSpace(richTextBox2.Text))
             {
-                try
+                // Substitui pontos por vírgulas para o formato brasileiro
+                string inputVelocidade1 = richTextBox2.Text.Replace('.', ',');
+
+                // Tenta converter a string para float
+                if (float.TryParse(inputVelocidade1, NumberStyles.Any, new CultureInfo("pt-BR"), out float velocidade_mm1))
                 {
-                    // Substitui pontos por vírgulas
-                    string inputVelocidade1 = richTextBox2.Text.Replace('.', ',');
-
-                    // Tenta converter a string para float
-                    float velocidade_mm1 = float.Parse(inputVelocidade1, new CultureInfo("pt-BR"));
-
                     // Calcula os pulsos com base no valor convertido
-                    velocidade_pulsos1 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
-                    
+                    if (constanteCalibracao1 != 0)
+                        velocidade_pulsos1 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
                 }
-                catch (Exception ex)
+                else
                 {
-                    // Captura qualquer outra exceção que possa ocorrer
-                    MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Por favor, insira um valor numérico válido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+            }
+            else
+            {
+                // Define valores padrão caso o campo fique vazio
+                velocidade_pulsos1 = 0;
             }
         }
 
         private void richTextBox4_TextChanged(object sender, EventArgs e)//função pra receber os dados da constante de calibração
         {
-            if (richTextBox4 != null)
+    
+            if (!string.IsNullOrWhiteSpace(richTextBox4.Text))
             {
-                try
-                {
-                    string inputConstanteCalibracao = richTextBox4.Text.Replace('.', ',');
+                // Substitui pontos por vírgulas para o formato brasileiro
+                string inputConstanteCalibracao1 = richTextBox4.Text.Replace('.', ',');
 
-                    constanteCalibracao1 = double.Parse(inputConstanteCalibracao, new CultureInfo("pt-BR"));
-                }
-                catch (Exception ex)
+                // Tenta converter a string para double
+                if (double.TryParse(inputConstanteCalibracao1, NumberStyles.Any, new CultureInfo("pt-BR"), out double valorConvertido))
                 {
-                    // Captura qualquer outra exceção que possa ocorrer
-                    MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    constanteCalibracao1 = valorConvertido; // Atualiza apenas se a conversão for bem-sucedida
+
+                    // Agora recalcula as variáveis de distância e velocidade com a nova constante de calibração
+                    RecalcularDistanciaEVelocidade();
+                }
+                else
+                {
+                    MessageBox.Show("Por favor, insira um valor numérico válido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+            else
+            {
+                constanteCalibracao1 = 1; // Define um valor padrão quando o campo está vazio
+
+                // Recalcula as variáveis de distância e velocidade com o valor padrão
+                RecalcularDistanciaEVelocidade();
+            }
         }
+
+        private void RecalcularDistanciaEVelocidade()
+        {
+            // Recalcula os pulsos de distância e velocidade com a nova constante de calibração
+            if (constanteCalibracao1 != 0)
+            {
+                distancia_pulsos1 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
+                distancia_pulsos2 = (float)Math.Round(distancia_mm2 / constanteCalibracao1);
+                velocidade_pulsos1 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
+                velocidade_pulsos2 = (float)Math.Round(velocidade_mm2 / constanteCalibracao1);
+            }
+        }
+
         private void richTextBox1_TextChanged(object sender, EventArgs e) //função pra receber os dados da distancia
         {
-            if (richTextBox4 != null)
+            
+            if (!string.IsNullOrWhiteSpace(richTextBox1.Text))
             {
-                try
+                // Substitui pontos por vírgulas para o formato brasileiro
+                string inputDistancia1 = richTextBox1.Text.Replace('.', ',');
+
+                // Tenta converter a string para float
+                if (float.TryParse(inputDistancia1, NumberStyles.Any, new CultureInfo("pt-BR"), out float distancia_mm1))
                 {
-                    // Substitui pontos por vírgulas
-                    string inputDistancia1 = richTextBox1.Text.Replace('.', ',');
-
-                    // Tenta converter a string para float
-                    float distancia_mm1 = float.Parse(inputDistancia1, new CultureInfo("pt-BR"));
-
                     // Calcula os pulsos com base no valor convertido
-                    distancia_pulsos1 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
-                }
+                    if (constanteCalibracao1 != 0)
+                        distancia_pulsos1 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
 
-                catch (Exception ex)
-                {
-                    // Captura qualquer outra exceção que possa ocorrer
-                    MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                else
+                {
+                    MessageBox.Show("Por favor, insira um valor numérico válido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                // Define valores padrão caso o campo fique vazio
+                distancia_pulsos1 = 0;
+          
             }
         }
 
         private void richTextBox5_TextChanged(object sender, EventArgs e)//função pra receber os dados da constante de calibração
         {
-            if (richTextBox4 != null)
+            if (!string.IsNullOrWhiteSpace(richTextBox4.Text))
             {
-                try
+                // Substitui pontos por vírgulas para o formato brasileiro
+                string inputConstanteCalibracao2 = richTextBox4.Text.Replace('.', ',');
+
+                // Tenta converter a string para double
+                if (double.TryParse(inputConstanteCalibracao2, NumberStyles.Any, new CultureInfo("pt-BR"), out double valorConvertido))
                 {
-                    // Substitui pontos por vírgulas
-                    string inputVelocidade1 = richTextBox5.Text.Replace('.', ',');
+                    constanteCalibracao2 = valorConvertido; // Atualiza apenas se a conversão for bem-sucedida
 
-                    // Tenta converter a string para float
-                    float velocidade_mm1 = float.Parse(inputVelocidade1, new CultureInfo("pt-BR"));
-
-                    // Calcula os pulsos com base no valor convertido
-                    velocidade_pulsos1 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
-
+                    // Agora recalcula as variáveis de distância e velocidade com a nova constante de calibração
+                    RecalcularDistanciaEVelocidade();
                 }
-                catch (Exception ex)
+                else
                 {
-                    // Captura qualquer outra exceção que possa ocorrer
-                    MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Por favor, insira um valor numérico válido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+            }
+            else
+            {
+                constanteCalibracao2 = 1; // Define um valor padrão quando o campo está vazio
+
+                // Recalcula as variáveis de distância e velocidade com o valor padrão
+                RecalcularDistanciaEVelocidade();
             }
         }
 
@@ -308,25 +347,29 @@ namespace TesteUI
         }
         private void richTextBox6_TextChanged(object sender, EventArgs e) //função pra receber os dados da distancia
         {
-            if (richTextBox4 != null)
+            if (!string.IsNullOrWhiteSpace(richTextBox1.Text))
             {
-                try
+                // Substitui pontos por vírgulas para o formato brasileiro
+                string inputDistancia2 = richTextBox1.Text.Replace('.', ',');
+
+                // Tenta converter a string para float
+                if (float.TryParse(inputDistancia2, NumberStyles.Any, new CultureInfo("pt-BR"), out float distancia_mm2))
                 {
-                    // Substitui pontos por vírgulas
-                    string inputDistancia1 = richTextBox6.Text.Replace('.', ',');
-
-                    // Tenta converter a string para float
-                    float distancia_mm1 = float.Parse(inputDistancia1, new CultureInfo("pt-BR"));
-
                     // Calcula os pulsos com base no valor convertido
-                    distancia_pulsos1 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
-                }
+                    if (constanteCalibracao2 != 0)
+                        distancia_pulsos2 = (float)Math.Round(distancia_mm2 / constanteCalibracao2);
 
-                catch (Exception ex)
-                {
-                    // Captura qualquer outra exceção que possa ocorrer
-                    MessageBox.Show("Ocorreu um erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                else
+                {
+                    MessageBox.Show("Por favor, insira um valor numérico válido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                // Define valores padrão caso o campo fique vazio
+                distancia_pulsos2 = 0;
+
             }
         }
 
