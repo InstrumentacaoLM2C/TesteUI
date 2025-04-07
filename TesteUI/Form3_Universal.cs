@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
+using System.Net.NetworkInformation;
 
 namespace TesteUI
 {
@@ -224,6 +225,28 @@ namespace TesteUI
                     }
                     else // Se estiver desligado, liga o motor
                     {
+                        /*string inputVelocidade1 = richTextBox2.Text.Replace('.', ',');
+
+                        if (float.TryParse(inputVelocidade1, NumberStyles.Any, new CultureInfo("pt-BR"), out float velocidade_mm1))
+                        {
+                            // Calcula os pulsos com base no valor convertido
+                            if (constanteCalibracao1 != 0)
+                                velocidade_pulsos1 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
+
+                            velocidade_pulsos2 = (float)Math.Round(velocidade_mm1 / constanteCalibracao1);
+                        }
+
+                        string inputDistancia1 = richTextBox1.Text.Replace('.', ',');
+
+                        if (float.TryParse(inputDistancia1, NumberStyles.Any, new CultureInfo("pt-BR"), out float distancia_mm1))
+                        {
+                            // Calcula os pulsos com base no valor convertido
+                            if (constanteCalibracao1 != 0)
+                                distancia_pulsos1 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
+
+                            distancia_pulsos2 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
+                        }*/
+
                         string comando = $"W{distancia_pulsos1.ToString(CultureInfo.InvariantCulture)};" +
                                         $"{velocidade_pulsos1.ToString(CultureInfo.InvariantCulture)};" +
                                         $"{distancia_pulsos2.ToString(CultureInfo.InvariantCulture)};" +
@@ -451,6 +474,16 @@ namespace TesteUI
         }
 
         private void btnDireicaoVerticalCima_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

@@ -145,6 +145,7 @@
             this.label1.Size = new System.Drawing.Size(149, 25);
             this.label1.TabIndex = 17;
             this.label1.Text = "Distância (mm):";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // btnDireicaoVerticalCima
             // 
@@ -193,6 +194,7 @@
             this.label2.Size = new System.Drawing.Size(183, 25);
             this.label2.TabIndex = 18;
             this.label2.Text = "Velocidade (mm/s):";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // btnDirecaoVerticalBaixo
             // 
