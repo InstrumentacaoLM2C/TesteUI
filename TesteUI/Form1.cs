@@ -360,7 +360,7 @@ namespace TesteUI
                     Timer1.Start();
                     SerialPortManager.SerialPort = serialPort1;
                     button4.Text = "Desconectar";
-
+                    //
                 }
                 else
                 {
