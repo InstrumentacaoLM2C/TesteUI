@@ -423,6 +423,7 @@
             this.btnDirecaoHorizontalBaixo.TabIndex = 23;
             this.btnDirecaoHorizontalBaixo.Text = "Direita";
             this.btnDirecaoHorizontalBaixo.UseVisualStyleBackColor = true;
+            this.btnDirecaoHorizontalBaixo.CheckedChanged += new System.EventHandler(this.btnDirecaoHorizontalBaixo_CheckedChanged);
             // 
             // label9
             // 
