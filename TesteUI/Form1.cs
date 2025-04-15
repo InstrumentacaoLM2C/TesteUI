@@ -15,7 +15,7 @@ namespace TesteUI
 
         bool on_sensor = false;
         private delegate void d1(string indata);
-        bool on_energizar_vertical = true;
+        bool on_energizar_vertil = true;
         bool on_energizar_horizontal = true;
         bool on_sensor_vertical = false;
         bool on_sensor_horizontal = false;
@@ -677,7 +677,7 @@ namespace TesteUI
             }
 
             // Exibe Form2_BiDirecional
-            using (Form2_BiDirecional form2 = new Form2_BiDirecional(serialPort1))
+            using (Form2_BiDirecional form2 = new Form2_BiDirecional(this.serialPort1))
             {
                 form2.ShowDialog(); // Abre o Form2 como modal, garantindo que a execução aguarde
             }

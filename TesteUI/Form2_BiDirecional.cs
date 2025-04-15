@@ -40,14 +40,19 @@ namespace TesteUI
         bool on_sensor = false;
 
         private SerialPort _serialPort;
-        public Form2_BiDirecional(SerialPort SerialPort)
+        public Form2_BiDirecional(SerialPort serialPort)
         {
             InitializeComponent();
 
-            this._serialPort = SerialPort;
+            if (serialPort == null || !serialPort.IsOpen)
+            {
+                MessageBox.Show("A porta serial não está disponível.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                this.Close();
+                return;
+            }
 
-            // Attach the DataReceived event handler here!  IMPORTANT!
-            _serialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+            _serialPort = serialPort;
+            _serialPort.DataReceived += SerialPort_DataReceived;
         }
         private void Form2_BiDirecional_Load(object sender, System.EventArgs e)
         {
@@ -63,125 +68,46 @@ namespace TesteUI
         }
 
         // NEW:  Add this DataReceived event handler in Form2
-        private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+        
+
+        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             try
             {
-                SerialPort sp = (SerialPort)sender;
-                string data = sp.ReadExisting(); // Reads the received data
-                //MessageBox.Show(data);
-                // Update the graphical interface in the main thread
-                this.Invoke(new Action(() => AtualizarInterface(data))); // Use AtualizarInterface here
+                // Lê os dados da porta serial
+                string data = _serialPort.ReadExisting().Trim();
 
+                // Verifica se contém 'y' e chama a atualização da interface
+                if (data.Contains("y"))
+                {
+                    this.BeginInvoke(new Action(UpdateButton));
+                }
 
+                if (data.Contains("Y"))
+                {
+                    this.BeginInvoke(new Action (UpdateButton2));
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error processing received data: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine($"Erro na leitura da porta serial: {ex.Message}");
             }
         }
-        public void AtualizarInterface(string indata) // como se fosse a função "Write2Form"
+
+        private void UpdateButton()
         {
+            btnLigarVertical.Text = "Ligar";
+            btnLigarVertical.BackColor = System.Drawing.Color.Gainsboro;
+            MessageBox.Show("O motor vertical parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            ligarMotor_vertical = false;
+        }
 
-            if (IsDisposed || richTextBox_Arduino2.IsDisposed || btnLigarVertical.IsDisposed)
-            {
-                return; // Sai do método se o formulário ou controles não existirem mais
-            }
-
-            if (InvokeRequired) // Se estiver sendo chamado de uma thread diferente da thread da interface do usuário
-            {
-                Invoke(new Action<string>(AtualizarInterface), indata); // Chama a si mesmo na thread da interface do usuário
-                return;
-            }
-
-            // Atualize os controles do Form2 com os dados recebidos
-            // This function handles data sent from the arduino
-
-            char g = '/';   //indata[0];
-            String texto = "";// Convert.ToString(indata).Substring(1).Replace("#", "");
-
-            switch (g)
-            {
-
-                //Algumas mensagens com caracteres especiais
-                case 'j':
-                    richTextBox_Arduino2.AppendText("Calibração iniciada!\r\n\r\n");
-                    break;
-                case 'c':
-                    richTextBox_Arduino2.AppendText("Direcão motor 1: Para cima\r\n\r\n");
-                    break;
-                case 'C':
-                    richTextBox_Arduino2.AppendText("Direcão motor 2: Para cima\r\n\r\n");
-                    break;
-
-                case 'b':
-                    richTextBox_Arduino2.AppendText("Direcão motor 1: Para baixo\r\n\r\n");
-                    break;
-                case 'B':
-                    richTextBox_Arduino2.AppendText("Direcão motor 2: Para baixo\r\n\r\n");
-                    break;
-
-                case 'a':
-                    richTextBox_Arduino2.AppendText("O motor 1 está se movendo com aceleração!\r\n\r\n");
-                    break;
-                case 'A':
-                    richTextBox_Arduino2.AppendText("O motor 2 está se movendo com aceleração!" + "\r\n\r\n");
-                    break;
-
-                case 'Q':
-                    richTextBox_Arduino2.AppendText("Valor de velocidade inválido! Insira um valor entre 200 e 8000 pulsos/segundo" + "\r\n\r\n");
-                    break;
-
-                case 'U':
-                    richTextBox_Arduino2.AppendText("Primeiro motor sendo operado!" + "\r\n\r\n");
-                    break;
-                case 'u':
-                    richTextBox_Arduino2.AppendText("Segundo motor sendo operado!" + "\r\n\r\n");
-                    break;
-
-                case 'Y'://motor2
-
-                    ligarMotor_horizontal = false;
-                    on_energizar_horizontal = false;
-                    btnLigarHorizontal.Text = "Ligar";
-                    btnLigarHorizontal.BackColor = Color.Gainsboro;
-                    MessageBox.Show("O motor horizontal parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    break;
-
-                case 'y'://motor1
-
-                    ligarMotor_vertical = false;
-                    on_energizar_vertical = false;
-                    btnLigarVertical.Text = "Ligar";
-                    btnLigarVertical.BackColor = Color.Gainsboro;
-                    //MessageBox.Show("O motor vertical parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                    break;
-
-
-                case '/':
-                    richTextBox_Arduino2.AppendText(texto + "\r\n\r\n");
-                    break;
-
-                case 'w':
-                    if (motorVertical == true)
-                    {
-                        richTextBox_Arduino2.AppendText("A constante de calibração do motor 1 é:" + texto + "\r\n\r\n");
-                    }
-                    else
-                    {
-                        richTextBox_Arduino2.AppendText("A constante de calibração do motor 2 é:" + texto + "\r\n\r\n");
-                    }
-
-                    break;
-
-                default:
-                    richTextBox_Arduino2.AppendText(texto + "\r\n\r\n");
-                    break;
-
-
-            }
-            // Exemplo: Adiciona os dados a um RichTextBox
+        private void UpdateButton2()
+        {
+            btnLigarHorizontal.Text = "Ligar";
+            btnLigarHorizontal.BackColor = System.Drawing.Color.Gainsboro;
+            MessageBox.Show("O motor horizontal parou!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            ligarMotor_horizontal = false;
         }
 
         private bool VerificarTextoValido(RichTextBox richTextBox)
