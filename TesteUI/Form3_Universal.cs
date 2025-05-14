@@ -91,6 +91,7 @@ namespace TesteUI
     
 
 
+
     private void Form3_Universal_Load(object sender, EventArgs e)
         {
             if (_serialPort == null || !_serialPort.IsOpen)
@@ -433,7 +434,7 @@ namespace TesteUI
                         distancia_pulsos2 = (float)Math.Round(distancia_mm1 / constanteCalibracao1);
                 }
                 else
-                {
+             x,    {
                     MessageBox.Show("Por favor, insira um valor numérico válido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
